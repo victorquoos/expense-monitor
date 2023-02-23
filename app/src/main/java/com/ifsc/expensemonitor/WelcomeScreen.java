@@ -21,7 +21,7 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, MainScreen.class));
+                startActivity(new Intent(WelcomeScreen.this, MainActivity.class));
             }
         });
     }
