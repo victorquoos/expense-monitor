@@ -4,7 +4,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/expense_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundCC">
@@ -17,7 +17,7 @@
         android:background="?colorPrimary">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollEffect="none"
@@ -36,7 +36,7 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/topAppBar"
+            android:id="@+id/topBar"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,19 +44,19 @@
             android:padding="@dimen/margin3">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/currentMonth"
                 style="@style/top_app_bar_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Fevereiro 2023"
+                android:text="Janeiro 2000"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView7"
-                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintEnd_toStartOf="@+id/nextMonthBtn"
+                app:layout_constraintStart_toEndOf="@+id/prevMonthBtn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/filterBtn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +66,7 @@
                 app:tint="?attr/onPrimaryCC" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/optionsBtn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,23 +76,23 @@
                 app:tint="?attr/onPrimaryCC" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/nextMonthBtn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="@dimen/margin3"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                app:layout_constraintEnd_toStartOf="@+id/optionsBtn"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_forward"
                 app:tint="?attr/onPrimaryCC" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/prevMonthBtn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/margin3"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/filterBtn"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_back"
                 app:tint="?attr/onPrimaryCC" />
@@ -116,7 +116,7 @@
                     android:padding="@dimen/margin3">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/totalMonthText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin3"
@@ -127,17 +127,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/totalMonthValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="R$ -2354675.763742.35435423,523542345456370.000,00"
+                        android:text="R$ 0,00"
                         android:textAppearance="@style/top_box.value.large"
-                        app:layout_constraintEnd_toEndOf="@+id/textView3"
-                        app:layout_constraintStart_toStartOf="@+id/textView3"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                        app:layout_constraintEnd_toEndOf="@+id/totalMonthText"
+                        app:layout_constraintStart_toStartOf="@+id/totalMonthText"
+                        app:layout_constraintTop_toBottomOf="@+id/totalMonthText" />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/pendingMonthText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin3"
@@ -145,23 +145,23 @@
                         android:text="À pagar"
                         android:textAlignment="textEnd"
                         android:textAppearance="@style/top_box.text"
-                        app:layout_constraintBottom_toTopOf="@+id/textView5"
+                        app:layout_constraintBottom_toTopOf="@+id/pendingMonthValue"
                         app:layout_constraintEnd_toStartOf="@+id/imageView2"
                         app:layout_constraintStart_toStartOf="@+id/guideline4"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/pendingMonthValue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="R$ 273645792394596234958726349785629847356239847562943786529873465978263458726349587,00"
+                        android:text="R$ 0,00"
                         android:textAlignment="textEnd"
                         android:textAppearance="@style/top_box.value"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView6"
-                        app:layout_constraintStart_toStartOf="@+id/textView6"
-                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                        app:layout_constraintEnd_toEndOf="@+id/pendingMonthText"
+                        app:layout_constraintStart_toStartOf="@+id/pendingMonthText"
+                        app:layout_constraintTop_toBottomOf="@+id/pendingMonthText" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline4"
@@ -174,24 +174,10 @@
                         android:id="@+id/imageView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:alpha="0.5"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                        app:layout_constraintBottom_toBottomOf="@+id/pendingMonthValue"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView6"
-                        app:srcCompat="@drawable/ic_circle"
-                        app:tint="?attr/primaryCC" />
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                        app:layout_constraintStart_toStartOf="@+id/imageView2"
-                        app:layout_constraintTop_toTopOf="@+id/imageView2"
-                        app:srcCompat="@drawable/ic_clock"
-                        app:tint="?attr/onSecondaryCC" />
-
+                        app:layout_constraintTop_toTopOf="@+id/pendingMonthText"
+                        app:srcCompat="@drawable/ic_clock" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -202,11 +188,7 @@
                     android:orientation="vertical"
                     android:padding="@dimen/margin3">
 
-                    <include layout="@layout/card_green" />
-
-                    <include layout="@layout/card_red" />
-
-                    <include layout="@layout/card_yellow" />
+                    <include layout="@layout/expense_card" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
