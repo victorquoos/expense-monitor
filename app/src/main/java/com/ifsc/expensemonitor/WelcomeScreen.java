@@ -13,6 +13,7 @@ public class WelcomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
+        nextPageButtonConfiguration();
     }
 
     private void nextPageButtonConfiguration() {
@@ -20,9 +21,8 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, MainActivity.class));
+                startActivity(new Intent(WelcomeScreen.this, MainScreen.class));
             }
         });
     }
-
 }
