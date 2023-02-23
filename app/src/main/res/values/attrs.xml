@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="primaryCC" format="color" />
+    <attr name="onPrimaryCC" format="color" />
+    <attr name="secondaryCC" format="color" />
+    <attr name="onSecondaryCC" format="color" />
+
+    <attr name="cardCC" format="color" />
+    <attr name="onCardCC" format="color" />
+
+    <attr name="backgroundCC" format="color" />
+    <attr name="onBackgroundCC" format="color" />
+
+    <attr name="redCC" format="color" />
+    <attr name="greenCC" format="color" />
+    <attr name="yellowCC" format="color" />
+</resources>

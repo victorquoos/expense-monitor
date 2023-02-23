@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Expense Monitor</string>
+    <string name="app_name">Applicat</string>
+    <string name="welcome">Bem-vindo</string>
+    <string name="welcome_text">Escolha uma das opções abaixo para começar a usar o app.</string>
+    <string name="sign_up">Cadastre-se</string>
+    <string name="sign_in">Fazer login</string>
+    <string name="without_account">Entrar sem uma conta</string>
 </resources>
