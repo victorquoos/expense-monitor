@@ -9,18 +9,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainScreen extends AppCompatActivity {
 
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.expense_list);
-        databaseChange();
+        databaseTest();
     }
 
-    void databaseChange(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("caos");
-
-        myRef.setValue("Hello, World!");
+    private void databaseTest(){
+        databaseReference.child("teeste").setValue("123");
     }
-
 }

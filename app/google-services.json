@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "208057926770",
+    "firebase_url": "https://expense-monitor-23232-default-rtdb.firebaseio.com",
     "project_id": "expense-monitor-23232",
     "storage_bucket": "expense-monitor-23232.appspot.com"
   },
@@ -19,6 +20,14 @@
           "android_info": {
             "package_name": "com.ifsc.expensemonitor",
             "certificate_hash": "920dd66c6d6935daf031c1cc0e70ec3ee8aabe8f"
+          }
+        },
+        {
+          "client_id": "208057926770-hljri66fpe703o2o9ak1ms41e2cdkv01.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifsc.expensemonitor",
+            "certificate_hash": "6777d1474861b89a662121b63941d0a613e28a92"
           }
         },
         {
