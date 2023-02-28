@@ -38,6 +38,12 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="top_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/primaryCC</item>
+        <item name="android:padding">@dimen/margin3</item>
+    </style>
 
 
 </resources>

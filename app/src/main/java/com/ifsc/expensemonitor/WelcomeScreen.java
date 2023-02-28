@@ -7,25 +7,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class WelcomeScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_screen);
+        setContentView(R.layout.activity_welcome_screen);
 
-        nextPageButtonConfiguration();
+        expensesScreen();
+        registerScreen();
     }
 
-    private void nextPageButtonConfiguration() {
-        Button nextPageButton = (Button) findViewById(R.id.button6);
+    private void expensesScreen() {
+        Button nextPageButton = (Button) findViewById(R.id.withoutAccountBtn);
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, MainScreen.class));
+                startActivity(new Intent(WelcomeScreen.this, ExpensesList.class));
+            }
+        });
+    }
+
+    private void registerScreen() {
+        Button nextPageButton = (Button) findViewById(R.id.signupBtn);
+        nextPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(WelcomeScreen.this, SignupScreen.class));
             }
         });
     }

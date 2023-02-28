@@ -3,8 +3,6 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/expense_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundCC">
@@ -38,13 +36,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/topBar"
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/primaryCC"
-            android:padding="@dimen/margin3">
+            style="@style/top_bar">
 
             <TextView
-                android:id="@+id/currentMonth"
+                android:id="@+id/currentMonthTxt"
                 style="@style/top_app_bar_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,28 +111,28 @@
                     android:padding="@dimen/margin3">
 
                     <TextView
-                        android:id="@+id/totalMonthText"
+                        android:id="@+id/totalMonthLabelTxt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin3"
                         android:text="Total do mês"
                         android:textAppearance="@style/top_box.text"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                        app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/totalMonthValue"
+                        android:id="@+id/totalMonthValueTxt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="R$ 0,00"
                         android:textAppearance="@style/top_box.value.large"
-                        app:layout_constraintEnd_toEndOf="@+id/totalMonthText"
-                        app:layout_constraintStart_toStartOf="@+id/totalMonthText"
-                        app:layout_constraintTop_toBottomOf="@+id/totalMonthText" />
+                        app:layout_constraintEnd_toEndOf="@+id/totalMonthLabelTxt"
+                        app:layout_constraintStart_toStartOf="@+id/totalMonthLabelTxt"
+                        app:layout_constraintTop_toBottomOf="@+id/totalMonthLabelTxt" />
 
                     <TextView
-                        android:id="@+id/pendingMonthText"
+                        android:id="@+id/pendingMonthLabelTxt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin3"
@@ -145,38 +140,38 @@
                         android:text="À pagar"
                         android:textAlignment="textEnd"
                         android:textAppearance="@style/top_box.text"
-                        app:layout_constraintBottom_toTopOf="@+id/pendingMonthValue"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-                        app:layout_constraintStart_toStartOf="@+id/guideline4"
+                        app:layout_constraintBottom_toTopOf="@+id/pendingMonthValueTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/clockIcon"
+                        app:layout_constraintStart_toStartOf="@+id/centerGuideline"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
-                        android:id="@+id/pendingMonthValue"
+                        android:id="@+id/pendingMonthValueTxt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="R$ 0,00"
                         android:textAlignment="textEnd"
                         android:textAppearance="@style/top_box.value"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/pendingMonthText"
-                        app:layout_constraintStart_toStartOf="@+id/pendingMonthText"
-                        app:layout_constraintTop_toBottomOf="@+id/pendingMonthText" />
+                        app:layout_constraintEnd_toEndOf="@+id/pendingMonthLabelTxt"
+                        app:layout_constraintStart_toStartOf="@+id/pendingMonthLabelTxt"
+                        app:layout_constraintTop_toBottomOf="@+id/pendingMonthLabelTxt" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline4"
+                        android:id="@+id/centerGuideline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.5" />
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/clockIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/pendingMonthValue"
+                        app:layout_constraintBottom_toBottomOf="@+id/pendingMonthValueTxt"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/pendingMonthText"
+                        app:layout_constraintTop_toTopOf="@+id/pendingMonthLabelTxt"
                         app:srcCompat="@drawable/ic_clock" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

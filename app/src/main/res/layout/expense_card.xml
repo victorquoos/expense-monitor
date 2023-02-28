@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin3"
-    tools:showIn="@layout/expense_list">
+    tools:showIn="@layout/activity_expenses_list">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -28,7 +28,6 @@
         android:id="@+id/cardBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardTag"
