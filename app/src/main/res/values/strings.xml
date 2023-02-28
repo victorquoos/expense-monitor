@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Applicat</string>
+    <string name="app_name">Expense Monitor</string>
+
     <string name="welcome">Bem-vindo</string>
     <string name="welcome_message">Escolha uma das opções abaixo para começar a usar o app.</string>
     <string name="sign_up">Cadastre-se</string>
