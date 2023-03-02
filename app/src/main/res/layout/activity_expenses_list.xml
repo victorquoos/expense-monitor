@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundCC">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin4"
+        android:backgroundTint="?attr/primaryCC"
+        android:contentDescription=""
+        android:tint="?attr/onPrimaryCC"
+        app:rippleColor="#FF0101"
+        app:srcCompat="@drawable/ic_plus" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
