@@ -8,4 +8,11 @@
     <string name="without_account">Entrar sem uma conta</string>
     <string name="email">E-mail</string>
     <string name="password">Senha</string>
+    <string name="add_expense">Adicionar despesa</string>
+    <string name="filters">Filtros</string>
+    <string name="options">Opções</string>
+    <string name="next_month">Mês seguinte</string>
+    <string name="prev_month">Mês anterior</string>
+    <string name="total_month_label">Total do mês</string>
+    <string name="pending_mounth_label">À pagar</string>
 </resources>

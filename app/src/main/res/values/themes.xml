@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- TODO - mudar o tema para appcompat e ajustar o style de todos os itens -->
+    <!-- TODO - testar o buttonStyle no appcompat -->
     <style name="Theme.ExpenseMonitor" parent="Theme.Material3.Light.NoActionBar">
+
+        
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
