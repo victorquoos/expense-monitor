@@ -49,7 +49,5 @@
         <item name="greenCC">@color/theme_light_green</item>
         <item name="yellowCC">@color/theme_light_yellow</item>
 
-        <item name="android:buttonStyle">@style/button_style</item>
-        
     </style>
 </resources>

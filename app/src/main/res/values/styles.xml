@@ -45,9 +45,6 @@
         <item name="android:padding">@dimen/margin3</item>
     </style>
 
-    <style name="button_style" parent="Widget.Material3.Button">
-        <item name="backgroundTint">#00FF00</item>
-    </style>
 
 
 </resources>
