@@ -33,7 +33,7 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, TestActivity.class));
+                startActivity(new Intent(WelcomeScreen.this, SignupScreen   .class));
             }
         });
     }
@@ -77,5 +77,6 @@ public class WelcomeScreen extends AppCompatActivity {
 //                myRef.setValue(input.getEditableText().toString());
 //                input.setText("");
 //            }
-//        });//   }
+//        });
+//   }
 }
