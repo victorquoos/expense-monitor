@@ -8,16 +8,13 @@
     android:background="?attr/backgroundCC">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
+        android:id="@+id/addExpenseBtn"
+        style="@style/add_expense_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/margin4"
-        android:backgroundTint="?attr/primaryCC"
-        android:contentDescription=""
-        android:tint="?attr/onPrimaryCC"
-        app:rippleColor="#FF0101"
-        app:srcCompat="@drawable/ic_plus" />
+        android:layout_margin="@dimen/margin5"
+        android:contentDescription="" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -10,5 +10,5 @@
     <dimen name="margin6">48dp</dimen>
     <dimen name="margin7">64dp</dimen>
 
-    <dimen name="maximum_radius">999sp</dimen>
+    <dimen name="maximum_radius">64dp</dimen>
 </resources>
