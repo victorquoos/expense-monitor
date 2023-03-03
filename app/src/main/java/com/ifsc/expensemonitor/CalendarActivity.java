@@ -1,49 +1,59 @@
 package com.ifsc.expensemonitor;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.widget.Toast;
-
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
 public class CalendarActivity extends AppCompatActivity {
 
-
-    private MonthsAdapter monthsAdapter;
-    private List<Calendar> months = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private MonthsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        // Obtém a data atual
-        Calendar today = Calendar.getInstance();
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Define a data mínima (1º de janeiro de 1950)
-        Calendar minimumDate = Calendar.getInstance();
-        minimumDate.set(1950, Calendar.JANUARY, 1);
+        // Cria uma lista de years e monthes de 1950 a 100 years no futuro
+        List<Calendar> yearsMeses = new ArrayList<>();
+        Calendar calendarAtual = Calendar.getInstance();
+        int currentMonth = calendarAtual.get(Calendar.YEAR);
+        int currentYear = calendarAtual.get(Calendar.MONTH);
 
-        // Define a data máxima (31 de dezembro do year atual + 100 years)
-        Calendar maximumDate = Calendar.getInstance();
-        maximumDate.set(today.get(Calendar.YEAR) + 100, Calendar.DECEMBER, 31);
-
-        // Itera por todos os monthes entre a data mínima e a máxima
-        while (!minimumDate.after(maximumDate)) {
-            months.add((Calendar) minimumDate.clone());
-            minimumDate.add(Calendar.MONTH, 1);
+        for (int year = 1950; year <= currentMonth + 100; year++) {
+            for (int month = 0; month < 12; month++) {
+                Calendar yearMonth = Calendar.getInstance();
+                yearMonth.set(year, month, 1);
+                yearsMeses.add(yearMonth);
+            }
         }
 
-        monthsAdapter = new MonthsAdapter(months);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(monthsAdapter);
+        // Encontra o índice do mês atual na lista de years e monthes
+        int indexCurrentMonth = -1;
+        for (int i = 0; i < yearsMeses.size(); i++) {
+            Calendar yearMonth = yearsMeses.get(i);
+            if (yearMonth.get(Calendar.YEAR) == currentMonth && yearMonth.get(Calendar.MONTH) == currentYear) {
+                indexCurrentMonth = i;
+                break;
+            }
+        }
 
+        adapter = new MonthsAdapter(yearsMeses);
+        recyclerView.setAdapter(adapter);
+
+        // Define o RecyclerView para exibir o mês atual
+        if (indexCurrentMonth >= 0) {
+            recyclerView.scrollToPosition(indexCurrentMonth);
+        }
     }
-
 }
-
