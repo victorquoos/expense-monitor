@@ -1,9 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- TODO - mudar o tema para appcompat e ajustar o style de todos os itens -->
-    <!-- TODO - testar o buttonStyle no appcompat -->
-    <style name="Theme.ExpenseMonitor" parent="Theme.Material3.Light.NoActionBar">
 
-        
+<resources>
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
@@ -29,28 +26,21 @@
         <item name="colorOutline">@color/md_theme_light_outline</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
-        <item name="colorPrimaryDark">@color/md_theme_light_primary</item>
+        <item name="colorGreen">#1a6c31</item>
+        <item name="colorOnGreen">#ffffff</item>
+        <item name="colorGreenContainer">#a3f5aa</item>
+        <item name="colorOnGreenContainer">#002108</item>
+        <item name="harmonizeGreen">false</item>
+        <item name="colorYellow">#7f5600</item>
+        <item name="colorOnYellow">#ffffff</item>
+        <item name="colorYellowContainer">#ffddae</item>
+        <item name="colorOnYellowContainer">#281800</item>
+        <item name="harmonizeYellow">false</item>
+        <item name="colorRed">#b91831</item>
+        <item name="colorOnRed">#ffffff</item>
+        <item name="colorRedContainer">#ffdad9</item>
+        <item name="colorOnRedContainer">#410009</item>
+        <item name="harmonizeRed">false</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
-
-
-        <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
-        <!--<item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>-->
-
-        <item name="primaryCC">@color/theme_light_primary</item>
-        <item name="onPrimaryCC">@color/theme_light_onPrimary</item>
-        <item name="secondaryCC">@color/theme_light_secondary</item>
-        <item name="onSecondaryCC">@color/theme_light_onSecondary</item>
-
-        <item name="cardCC">@color/theme_light_card</item>
-        <item name="onCardCC">@color/theme_light_onCard</item>
-
-        <item name="backgroundCC">@color/theme_light_background</item>
-        <item name="onBackgroundCC">@color/theme_light_onBackground</item>
-
-        <item name="redCC">@color/theme_light_red</item>
-        <item name="greenCC">@color/theme_light_green</item>
-        <item name="yellowCC">@color/theme_light_yellow</item>
-
     </style>
 </resources>

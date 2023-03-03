@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <attr name="primaryCC" format="color" />
-    <attr name="onPrimaryCC" format="color" />
-    <attr name="secondaryCC" format="color" />
-    <attr name="onSecondaryCC" format="color" />
-
-    <attr name="cardCC" format="color" />
-    <attr name="onCardCC" format="color" />
-
-    <attr name="backgroundCC" format="color" />
-    <attr name="onBackgroundCC" format="color" />
-
-    <attr name="redCC" format="color" />
-    <attr name="greenCC" format="color" />
-    <attr name="yellowCC" format="color" />
+    <attr name="colorGreen" format="color" />
+    <attr name="colorOnGreen" format="color" />
+    <attr name="colorGreenContainer" format="color" />
+    <attr name="colorOnGreenContainer" format="color" />
+    <attr name="harmonizeGreen" format="boolean" />
+    <attr name="colorYellow" format="color" />
+    <attr name="colorOnYellow" format="color" />
+    <attr name="colorYellowContainer" format="color" />
+    <attr name="colorOnYellowContainer" format="color" />
+    <attr name="harmonizeYellow" format="boolean" />
+    <attr name="colorRed" format="color" />
+    <attr name="colorOnRed" format="color" />
+    <attr name="colorRedContainer" format="color" />
+    <attr name="colorOnRedContainer" format="color" />
+    <attr name="harmonizeRed" format="boolean" />
 </resources>

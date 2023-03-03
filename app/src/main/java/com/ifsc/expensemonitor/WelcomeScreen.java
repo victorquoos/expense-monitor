@@ -33,7 +33,7 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, SignupScreen   .class));
+                startActivity(new Intent(WelcomeScreen.this, CalendarActivity.class));
             }
         });
     }
@@ -43,7 +43,7 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, SignupScreen.class));
+                startActivity(new Intent(WelcomeScreen.this, CalendarActivity.class));
             }
         });
     }

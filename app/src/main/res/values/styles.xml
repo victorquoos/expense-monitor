@@ -2,7 +2,6 @@
 <resources>
 
     <style name="top_app_bar_text">
-        <item name="android:textColor">?attr/onPrimaryCC</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/inter_bold</item>
         <item name="android:layout_marginLeft">@dimen/margin3</item>
@@ -11,7 +10,7 @@
     </style>
 
     <style name="top_box">
-        <item name="android:textColor">?attr/onSecondaryCC</item>
+
     </style>
 
     <style name="top_box.text">
@@ -35,7 +34,6 @@
     </style>
 
     <style name="card_text">
-        <item name="android:textColor">?attr/onCardCC</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
@@ -47,7 +45,6 @@
     <style name="top_bar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">?attr/primaryCC</item>
         <item name="android:padding">@dimen/margin3</item>
     </style>
 
@@ -61,9 +58,7 @@
     </style>
 
     <style name="add_expense_button">
-        <item name="backgroundTint">?attr/primaryCC</item>
         <item name="srcCompat">@drawable/ic_plus_64</item>
-        <item name="tint">?attr/onPrimaryCC</item>
         <item name="shapeAppearance">@style/add_expense_button_overlay</item>
         <item name="fabSize">auto</item>
         <item name="android:scaleType">center</item>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin3"
-    tools:showIn="@layout/activity_expenses_list">
+    tools:showIn="@layout/old_expense_list">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/card_tag"
-        app:tint="?attr/greenCC" />
+ />
 
     <ImageView
         android:id="@+id/cardBackground"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardTag"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/card_background"
-        app:tint="?attr/cardCC" />
+ />
 
     <TextView
         android:id="@+id/expenseName"

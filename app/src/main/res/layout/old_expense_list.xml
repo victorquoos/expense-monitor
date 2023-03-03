@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/backgroundCC">
+    android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addExpenseBtn"
@@ -46,19 +45,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_filter_list"
-                app:tint="?attr/onPrimaryCC" />
+                app:srcCompat="@drawable/ic_filters" />
 
             <ImageView
                 android:id="@+id/optionsBtn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:contentDescription="@string/options"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_more"
-                app:tint="?attr/onPrimaryCC" />
+                app:srcCompat="@drawable/ic_options" />
 
             <ImageView
                 android:id="@+id/nextMonthBtn"
@@ -69,8 +65,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/optionsBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_forward"
-                app:tint="?attr/onPrimaryCC" />
+                app:srcCompat="@drawable/ic_arrow_forward" />
 
             <ImageView
                 android:id="@+id/prevMonthBtn"
@@ -81,8 +76,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/filterBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_back"
-                app:tint="?attr/onPrimaryCC" />
+                app:srcCompat="@drawable/ic_arrow_back" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,7 +93,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/secondaryCC"
                     android:padding="@dimen/margin3">
 
                     <TextView
