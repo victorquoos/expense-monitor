@@ -39,7 +39,7 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MonthsView
         String mes = DateFormatSymbols.getInstance().getMonths()[month.get(Calendar.MONTH)].toLowerCase();
         mes = mes.substring(0, 1).toUpperCase() + mes.substring(1);
 
-        holder.txtMonth.setText(mes + " " + month.get(Calendar.YEAR));
+        holder.txtMonth.setText(mes + "\n" + month.get(Calendar.YEAR));
     }
 
     @Override

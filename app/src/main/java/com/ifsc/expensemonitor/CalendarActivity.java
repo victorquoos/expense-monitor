@@ -1,8 +1,10 @@
 package com.ifsc.expensemonitor;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,9 +24,17 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Cria uma lista de years e monthes de 1950 a 100 years no futuro
+        // Define o número de colunas do GridLayoutManager dinamicamente com base no tamanho do item e do tamanho da tela
+        int columnWidth = (int) getResources().getDimension(R.dimen.calendar_column_width);
+        int screenWidth = getScreenWidth();
+        int spanCount = screenWidth / columnWidth;
+        if (spanCount < 1) {
+            spanCount = 1;
+        }
+        recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
+
+        // Cria uma lista de anos e meses de 1950 a 100 years no futuro
         List<Calendar> yearsMeses = new ArrayList<>();
         Calendar calendarAtual = Calendar.getInstance();
         int currentMonth = calendarAtual.get(Calendar.YEAR);
@@ -55,5 +65,11 @@ public class CalendarActivity extends AppCompatActivity {
         if (indexCurrentMonth >= 0) {
             recyclerView.scrollToPosition(indexCurrentMonth);
         }
+    }
+
+    private int getScreenWidth() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
     }
 }
