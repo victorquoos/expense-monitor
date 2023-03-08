@@ -28,6 +28,7 @@ public class CalendarActivity extends AppCompatActivity {
         calendar.set(Calendar.YEAR, 2000);
 
         Calendar endCalendar = Calendar.getInstance();
+        endCalendar.set(Calendar.MONTH, Calendar.DECEMBER);
         endCalendar.add(Calendar.YEAR, 50);
 
         while (calendar.before(endCalendar)) {
