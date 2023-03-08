@@ -15,61 +15,49 @@ import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private MonthsAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        List<MonthYear> months = new ArrayList<>();
 
-        // Define o número de colunas do GridLayoutManager dinamicamente com base no tamanho do item e do tamanho da tela
-        int columnWidth = (int) getResources().getDimension(R.dimen.calendar_column_width);
-        int screenWidth = getScreenWidth();
-        int spanCount = screenWidth / columnWidth;
-        if (spanCount < 1) {
-            spanCount = 1;
-        }
-        recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.YEAR, 2000);
 
-        // Cria uma lista de anos e meses de 1950 a 100 years no futuro
-        List<Calendar> yearsMeses = new ArrayList<>();
-        Calendar calendarAtual = Calendar.getInstance();
-        int currentMonth = calendarAtual.get(Calendar.YEAR);
-        int currentYear = calendarAtual.get(Calendar.MONTH);
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.add(Calendar.YEAR, 50);
 
-        for (int year = 1950; year <= currentMonth + 100; year++) {
-            for (int month = 0; month < 12; month++) {
-                Calendar yearMonth = Calendar.getInstance();
-                yearMonth.set(year, month, 1);
-                yearsMeses.add(yearMonth);
-            }
+        while (calendar.before(endCalendar)) {
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            months.add(new MonthYear(month, year));
+
+            calendar.add(Calendar.MONTH, 1);
         }
 
-        // Encontra o índice do mês atual na lista de years e monthes
-        int indexCurrentMonth = -1;
-        for (int i = 0; i < yearsMeses.size(); i++) {
-            Calendar yearMonth = yearsMeses.get(i);
-            if (yearMonth.get(Calendar.YEAR) == currentMonth && yearMonth.get(Calendar.MONTH) == currentYear) {
-                indexCurrentMonth = i;
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        int firstMonthOfYear = -1;
+        for (int i = 0; i < months.size(); i++) {
+            MonthYear monthYear = months.get(i);
+            if (monthYear.getMonth() == Calendar.JANUARY && monthYear.getYear() == currentYear) {
+                firstMonthOfYear = i + 1;
                 break;
             }
         }
 
-        adapter = new MonthsAdapter(yearsMeses);
+        if (firstMonthOfYear != -1) {
+            recyclerView.scrollToPosition(firstMonthOfYear);
+        }
+
+        MonthYearAdapter adapter = new MonthYearAdapter(months);
         recyclerView.setAdapter(adapter);
 
-        // Define o RecyclerView para exibir o mês atual
-        if (indexCurrentMonth >= 0) {
-            recyclerView.scrollToPosition(indexCurrentMonth);
-        }
-    }
-
-    private int getScreenWidth() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.widthPixels;
     }
 }
