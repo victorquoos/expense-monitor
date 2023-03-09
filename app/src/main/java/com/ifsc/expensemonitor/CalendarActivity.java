@@ -25,7 +25,7 @@ public class CalendarActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.MONTH, Calendar.JANUARY);
-        calendar.set(Calendar.YEAR, 2000);
+        calendar.set(Calendar.YEAR, 1900);
 
         Calendar endCalendar = Calendar.getInstance();
         endCalendar.set(Calendar.MONTH, Calendar.DECEMBER);
