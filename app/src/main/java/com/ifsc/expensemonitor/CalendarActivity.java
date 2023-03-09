@@ -48,17 +48,19 @@ public class CalendarActivity extends AppCompatActivity {
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-        int currentYearIndex = -1;
+        int indexCurrentMonth = -1;
         for (int i = 0; i < months.size(); i++) {
             MonthYear monthYear = months.get(i);
-            if (monthYear.getMonth() == -1 && monthYear.getYear() == currentYear) {
-                currentYearIndex = i;
+
+            if (monthYear.getMonth() == currentMonth && monthYear.getYear() == currentYear) {
+                monthYear.setCurrentMonth(true);
+                indexCurrentMonth = i;
                 break;
             }
         }
 
-        if (currentYearIndex != -1) {
-            recyclerView.scrollToPosition(currentYearIndex);
+        if (indexCurrentMonth != -1) {
+            recyclerView.scrollToPosition(indexCurrentMonth);
         }
 
         List<MonthYear> monthsYears = new ArrayList<>();

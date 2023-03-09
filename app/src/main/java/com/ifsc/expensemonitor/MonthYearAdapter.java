@@ -3,6 +3,7 @@ package com.ifsc.expensemonitor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,15 +74,28 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static class MonthViewHolder extends RecyclerView.ViewHolder {
         private TextView monthTextView;
+        private TextView yearTextView;
+        private ImageView todayIconImageView;
 
         public MonthViewHolder(@NonNull View itemView) {
             super(itemView);
             monthTextView = itemView.findViewById(R.id.month_text_view);
+            yearTextView = itemView.findViewById(R.id.year_text_view);
+            todayIconImageView = itemView.findViewById(R.id.today_icon_image_view);
         }
 
         public void bind(MonthYear monthYear) {
             String month = new DateFormatSymbols().getMonths()[monthYear.getMonth()];
+            String year = "" + monthYear.getYear();
             monthTextView.setText(month);
+            yearTextView.setText(year);
+
+            if (monthYear.isCurrentMonth()) {
+                System.out.println(month + " " + year);
+                todayIconImageView.setVisibility(View.VISIBLE);
+            } else {
+                todayIconImageView.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }
