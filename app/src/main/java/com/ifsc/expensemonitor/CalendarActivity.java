@@ -34,6 +34,10 @@ public class CalendarActivity extends AppCompatActivity {
         while (calendar.before(endCalendar)) {
             int month = calendar.get(Calendar.MONTH);
             int year = calendar.get(Calendar.YEAR);
+
+            if (calendar.get(Calendar.MONTH) == Calendar.JANUARY){
+                months.add(new MonthYear(-1, year));
+            }
             months.add(new MonthYear(month, year));
 
             calendar.add(Calendar.MONTH, 1);
@@ -44,18 +48,20 @@ public class CalendarActivity extends AppCompatActivity {
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-        int firstMonthOfYear = -1;
+        int currentYearIndex = -1;
         for (int i = 0; i < months.size(); i++) {
             MonthYear monthYear = months.get(i);
-            if (monthYear.getMonth() == Calendar.JANUARY && monthYear.getYear() == currentYear) {
-                firstMonthOfYear = i + 1;
+            if (monthYear.getMonth() == -1 && monthYear.getYear() == currentYear) {
+                currentYearIndex = i;
                 break;
             }
         }
 
-        if (firstMonthOfYear != -1) {
-            recyclerView.scrollToPosition(firstMonthOfYear);
+        if (currentYearIndex != -1) {
+            recyclerView.scrollToPosition(currentYearIndex);
         }
+
+        List<MonthYear> monthsYears = new ArrayList<>();
 
         MonthYearAdapter adapter = new MonthYearAdapter(months);
         recyclerView.setAdapter(adapter);

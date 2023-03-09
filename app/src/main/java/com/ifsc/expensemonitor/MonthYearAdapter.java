@@ -22,7 +22,7 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position) {
         MonthYear monthYear = months.get(position);
-        return monthYear.getMonth() == Calendar.JANUARY ? 0 : 1;
+        return monthYear.getMonth() == -1 ? 0 : 1;
     }
 
     @NonNull
