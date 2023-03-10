@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -80,30 +81,29 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void scrollToCurrentMonth() {
         if (indexCurrentMonth != -1) {
-            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-            int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-
-            int recyclerViewHeight = recyclerView.getHeight();
-
-            View firstVisibleItem = layoutManager.findViewByPosition(firstVisibleItemPosition);
-            int firstVisibleItemHeight = firstVisibleItem.getHeight();
-
-            View lastVisibleItem = layoutManager.findViewByPosition(lastVisibleItemPosition);
-            int lastVisibleItemHeight = lastVisibleItem.getHeight();
-
-            int totalVisibleItemsHeight = lastVisibleItem.getBottom() - firstVisibleItem.getTop();
-
-            int offset;
-            if (totalVisibleItemsHeight >= recyclerViewHeight) {
-                offset = (recyclerViewHeight - firstVisibleItemHeight) / 2;
-            } else {
-                offset = (recyclerViewHeight - totalVisibleItemsHeight) / 2 - firstVisibleItem.getTop();
-            }
-
-            layoutManager.scrollToPositionWithOffset(indexCurrentMonth, offset);
+            LinearSmoothScroller smoothScroller = new LinearSmoothScroller(recyclerView.getContext()) {
+                @Override
+                protected int getVerticalSnapPreference() {
+                    return LinearSmoothScroller.SNAP_TO_START;
+                }
+            };
+            smoothScroller.setTargetPosition(indexCurrentMonth-(getVisibleItemCount()/2)+1);
+            recyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
         }
     }
+
+    private int getVisibleItemCount() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+        int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+        return lastVisiblePosition - firstVisiblePosition + 1;
+    }
+
+
+
+
+
+
 
 
 
