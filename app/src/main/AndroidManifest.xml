@@ -15,6 +15,9 @@
             android:name=".CalendarActivity"
             android:exported="false" />
         <activity
+            android:name=".SigninScreen"
+            android:exported="false" />
+        <activity
             android:name=".WelcomeScreen"
             android:exported="true">
             <intent-filter>
