@@ -27,4 +27,13 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/currentMonthBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Go to current month"
+        app:srcCompat="@drawable/ic_calendar_today"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

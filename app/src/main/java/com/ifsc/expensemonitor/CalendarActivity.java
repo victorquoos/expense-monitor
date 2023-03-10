@@ -1,12 +1,17 @@
 package com.ifsc.expensemonitor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -22,6 +27,9 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
+        currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
 
         recyclerView = findViewById(R.id.recycler_view);
 
@@ -62,7 +70,9 @@ public class CalendarActivity extends AppCompatActivity {
             }
         }
 
-        scrollToCurrentMonth();
+        if (indexCurrentMonth != -1) {
+            recyclerView.scrollToPosition(indexCurrentMonth);
+        }
 
         MonthYearAdapter adapter = new MonthYearAdapter(months);
         recyclerView.setAdapter(adapter);
@@ -70,7 +80,31 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void scrollToCurrentMonth() {
         if (indexCurrentMonth != -1) {
-            recyclerView.scrollToPosition(indexCurrentMonth);
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+            int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+
+            int recyclerViewHeight = recyclerView.getHeight();
+
+            View firstVisibleItem = layoutManager.findViewByPosition(firstVisibleItemPosition);
+            int firstVisibleItemHeight = firstVisibleItem.getHeight();
+
+            View lastVisibleItem = layoutManager.findViewByPosition(lastVisibleItemPosition);
+            int lastVisibleItemHeight = lastVisibleItem.getHeight();
+
+            int totalVisibleItemsHeight = lastVisibleItem.getBottom() - firstVisibleItem.getTop();
+
+            int offset;
+            if (totalVisibleItemsHeight >= recyclerViewHeight) {
+                offset = (recyclerViewHeight - firstVisibleItemHeight) / 2;
+            } else {
+                offset = (recyclerViewHeight - totalVisibleItemsHeight) / 2 - firstVisibleItem.getTop();
+            }
+
+            layoutManager.scrollToPositionWithOffset(indexCurrentMonth, offset);
         }
     }
+
+
+
 }
