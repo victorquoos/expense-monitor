@@ -10,5 +10,7 @@
     <dimen name="margin6">48dp</dimen>
     <dimen name="margin7">64dp</dimen>
 
+    <dimen name="calendar_column_width">120sp</dimen>
+
     <dimen name="maximum_radius">64dp</dimen>
 </resources>

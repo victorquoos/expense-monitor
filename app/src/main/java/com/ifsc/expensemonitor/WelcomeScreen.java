@@ -26,6 +26,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
         expensesScreen();
         registerScreen();
+        signInScreen();
     }
 
     private void expensesScreen() {
@@ -33,7 +34,7 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, SignupScreen   .class));
+                startActivity(new Intent(WelcomeScreen.this, CalendarActivity.class));
             }
         });
     }
@@ -43,7 +44,17 @@ public class WelcomeScreen extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeScreen.this, SignupScreen.class));
+                startActivity(new Intent(WelcomeScreen.this, CalendarActivity.class));
+            }
+        });
+    }
+
+    private void signInScreen() {
+        Button nextPageButton = (Button) findViewById(R.id.signinBtn);
+        nextPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(WelcomeScreen.this, SigninScreen.class));
             }
         });
     }
