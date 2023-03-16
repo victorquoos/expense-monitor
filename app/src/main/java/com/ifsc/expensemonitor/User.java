@@ -17,7 +17,6 @@ enum expenseType{
 }
 
 public class User {
-    public String id;
     public String email;
     public String password;
     public List<Expense> expenses = new ArrayList<>();
@@ -26,8 +25,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
+                "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", expenses=" + expenses +
                 '}';
