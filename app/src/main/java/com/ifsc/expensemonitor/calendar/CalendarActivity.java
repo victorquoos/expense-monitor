@@ -1,20 +1,15 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.calendar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ifsc.expensemonitor.R;
 
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -32,7 +27,7 @@ public class CalendarActivity extends AppCompatActivity {
         FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
         currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
 
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recyclerView);
 
         List<MonthYear> months = new ArrayList<>();
 

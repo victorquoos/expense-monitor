@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.calendar;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.calendar.MonthYear;
+
 import java.text.DateFormatSymbols;
-import java.util.Calendar;
 import java.util.List;
 
 public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

@@ -15,7 +15,7 @@
             android:name=".ExpenseListActivity"
             android:exported="false" />
         <activity
-            android:name=".CalendarActivity"
+            android:name=".calendar.CalendarActivity"
             android:exported="false" />
         <activity
             android:name=".SigninScreen"

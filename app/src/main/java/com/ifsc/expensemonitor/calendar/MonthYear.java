@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.calendar;
 
 public class MonthYear {
     private int month;
