@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.database;
 
 import static android.content.ContentValues.TAG;
 
