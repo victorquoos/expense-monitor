@@ -7,9 +7,10 @@
     android:padding="@dimen/margin3">
 
     <TextView
-        android:id="@+id/year_text_view"
+        android:id="@+id/yearTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="2023"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
