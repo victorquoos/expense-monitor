@@ -1,7 +1,6 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.database;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 enum Status{
