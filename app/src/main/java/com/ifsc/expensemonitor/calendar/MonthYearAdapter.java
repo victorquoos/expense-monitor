@@ -57,6 +57,8 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View view) {
                     // TODO: verificar se é possível otimizar esse trecho de codigo para não ter
                     // que definir o string month e year novamente
+                    // ou definir essas strings diretamento no ExpenseListActivity
+                    // e passar apenas o os valores inteiros (para ajudar na busca no banco de dados)
 
                     String month = new DateFormatSymbols().getMonths()[monthYear.getMonth()];
                     month = month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase();
