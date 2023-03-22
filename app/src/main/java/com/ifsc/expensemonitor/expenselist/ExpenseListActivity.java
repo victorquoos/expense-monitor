@@ -21,12 +21,12 @@ public class ExpenseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_list);
 
-        // Intent to get the month and year from MonthYearAdapter.onBindViewHolder
+        // TODO: intent to get the month and year
         Intent intent = getIntent();
         String month = intent.getStringExtra("month");
         String year = intent.getStringExtra("year");
 
-        // Apply the month and year to the menu bar
+        // TODO: Apply the month and year to the menu bar
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         toolbar.setTitle(month);
         toolbar.setSubtitle(year);
