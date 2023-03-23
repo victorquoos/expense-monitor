@@ -8,13 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ifsc.expensemonitor.calendar.CalendarActivity;
-import com.ifsc.expensemonitor.database.DatabaseHandler;
 
 public class WelcomeScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DatabaseHandler.databaseTest();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
