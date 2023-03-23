@@ -6,12 +6,11 @@ import android.os.Bundle;
 
 import com.ifsc.expensemonitor.R;
 
-public class SignupScreen extends AppCompatActivity {
+public class SigninActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_screen);
-
+        setContentView(R.layout.activity_signin);
     }
 }

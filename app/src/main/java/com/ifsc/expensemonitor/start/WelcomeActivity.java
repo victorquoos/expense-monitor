@@ -8,38 +8,37 @@ import android.widget.Button;
 
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.calendar.CalendarActivity;
-import com.ifsc.expensemonitor.start.SignupScreen;
 
-public class WelcomeScreen extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     Button withoutAccountBtn, signupBtn, signinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome_screen);
+        setContentView(R.layout.activity_welcome);
 
         withoutAccountBtn = (Button) findViewById(R.id.withoutAccountBtn);
         signupBtn = (Button) findViewById(R.id.signupBtn);
         signinBtn = (Button) findViewById(R.id.signinBtn);
 
-        withoutAccountBtn.setOnClickListener(view -> expensesScreen());
-        signupBtn.setOnClickListener(view -> signupScreen());
-        signinBtn.setOnClickListener(view -> signinScreen());
+        withoutAccountBtn.setOnClickListener(view -> expensesActivity());
+        signupBtn.setOnClickListener(view -> signupActivity());
+        signinBtn.setOnClickListener(view -> signinActivity());
     }
 
-    public void expensesScreen() {
+    public void expensesActivity() { //TODO implementar login anonimo
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }
 
-    public void signupScreen() {
-        Intent intent = new Intent(this, SignupScreen.class);
+    public void signupActivity() {
+        Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
 
-    public void signinScreen() {
-        //Intent intent = new Intent(this, SigninScreen.class); // TODO: create SigninScreen
-        //startActivity(intent);
+    public void signinActivity() {
+        Intent intent = new Intent(this, SigninActivity.class);
+        startActivity(intent);
     }
 }
