@@ -1,5 +1,7 @@
 package com.ifsc.expensemonitor.database;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +21,10 @@ public class User {
     public String email;
     public String password;
     public List<Expense> expenses = new ArrayList<>();
-    public User() {}
+    public User(){}
 
-    @Override
+
+    @NonNull
     public String toString() {
         return "User{" +
                 "email='" + email + '\'' +
@@ -55,7 +58,7 @@ class Expense{
         this.attachments = new ArrayList<>();
     }
 
-    @Override
+    @NonNull
     public String toString() {
         return "Expense{" +
                 "id=" + id +
@@ -79,7 +82,7 @@ class Expense{
     static class Notif{
         public int daysBefore;
 
-        @Override
+        @NonNull
         public String toString() {
             return "Notif{" +
                     ", daysBefore=" + daysBefore +
@@ -92,7 +95,7 @@ class Expense{
         public String city;
         public String address;
 
-        @Override
+        @NonNull
         public String toString() {
             return "Local{" +
                     ", hood='" + hood + '\'' +

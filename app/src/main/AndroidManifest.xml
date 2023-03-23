@@ -18,7 +18,7 @@
             android:name=".calendar.CalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".SigninScreen"
+            android:name=".SignupScreen"
             android:exported="false" />
         <activity
             android:name=".WelcomeScreen"

@@ -10,23 +10,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class DatabaseHandler {
+import java.util.ArrayList;
+import java.util.List;
 
+public class DatabaseHandler {
+    public static List<User> childList;
     public static void databaseTest() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Users");
-        //do a foreach to get all the users
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                childList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    User user = postSnapshot.getValue(User.class);
-                    Log.d(TAG, "User email: " + user.email + ", password: " + user.password);
-                    Log.d(TAG, "User id: " + postSnapshot.getKey());
+                    Log.d(TAG, "Value is: " + postSnapshot.getValue());
+                    childList.add(postSnapshot.getValue(User.class));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
