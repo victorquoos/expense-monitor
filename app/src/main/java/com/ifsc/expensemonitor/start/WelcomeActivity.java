@@ -11,7 +11,7 @@ import com.ifsc.expensemonitor.calendar.CalendarActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    Button withoutAccountBtn, signupBtn, signinBtn;
+    private Button withoutAccountBtn, signupBtn, signinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

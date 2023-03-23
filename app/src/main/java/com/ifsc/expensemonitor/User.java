@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.database;
+package com.ifsc.expensemonitor;
 
 import java.util.ArrayList;
 import java.util.List;
