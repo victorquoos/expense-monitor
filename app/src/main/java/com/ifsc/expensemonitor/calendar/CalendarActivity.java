@@ -16,6 +16,9 @@ import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
 
+    int firstYear = 2000;
+    int yearsAhead = 10;
+
     int indexCurrentMonth = -1;
     RecyclerView recyclerView;
 
@@ -34,11 +37,11 @@ public class CalendarActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.MONTH, Calendar.JANUARY);
-        calendar.set(Calendar.YEAR, 1900);
+        calendar.set(Calendar.YEAR, firstYear);
 
         Calendar endCalendar = Calendar.getInstance();
         endCalendar.set(Calendar.MONTH, Calendar.DECEMBER);
-        endCalendar.add(Calendar.YEAR, 50);
+        endCalendar.add(Calendar.YEAR, yearsAhead);
 
         while (calendar.before(endCalendar)) {
             int month = calendar.get(Calendar.MONTH);
@@ -74,6 +77,7 @@ public class CalendarActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    // TODO: 2020-05-31 change to instant scroll
     private void scrollToCurrentMonth() {
         if (indexCurrentMonth != -1) {
             LinearSmoothScroller smoothScroller = new LinearSmoothScroller(recyclerView.getContext()) {

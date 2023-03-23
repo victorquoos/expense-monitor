@@ -8,6 +8,7 @@
     android:padding="@dimen/margin2">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/monthCardView"
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,16 +24,16 @@
             android:padding="@dimen/margin3">
 
             <TextView
-                android:id="@+id/year_text_view"
+                android:id="@+id/yearTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="2023"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/month_text_view" />
+                app:layout_constraintTop_toBottomOf="@+id/monthTextView" />
 
             <TextView
-                android:id="@+id/month_text_view"
+                android:id="@+id/monthTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -41,9 +42,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/today_icon_image_view"
+                android:id="@+id/todayIconImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="Current month"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_calendar_today" />

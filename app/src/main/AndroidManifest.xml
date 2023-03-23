@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ExpenseListActivity"
+            android:name=".expenselist.ExpenseListActivity"
             android:exported="false" />
         <activity
             android:name=".calendar.CalendarActivity"
