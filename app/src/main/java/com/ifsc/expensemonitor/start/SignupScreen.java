@@ -1,17 +1,17 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.start;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.ifsc.expensemonitor.database.DatabaseHandler;
+import com.ifsc.expensemonitor.R;
 
-public class SigninScreen extends AppCompatActivity {
+public class SignupScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_screen);
-        DatabaseHandler.databaseTest();
+
     }
 }

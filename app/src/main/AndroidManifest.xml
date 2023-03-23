@@ -18,10 +18,10 @@
             android:name=".calendar.CalendarActivity"
             android:exported="false" />
         <activity
-            android:name=".SigninScreen"
+            android:name=".start.SignupScreen"
             android:exported="false" />
         <activity
-            android:name=".WelcomeScreen"
+            android:name=".start.WelcomeScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
