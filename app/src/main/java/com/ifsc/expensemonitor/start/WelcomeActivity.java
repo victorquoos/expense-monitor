@@ -15,6 +15,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // TODO: send user to calendar if already logged in
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
@@ -27,7 +30,8 @@ public class WelcomeActivity extends AppCompatActivity {
         signinBtn.setOnClickListener(view -> signinActivity());
     }
 
-    public void expensesActivity() { //TODO implementar login anonimo
+    public void expensesActivity() {
+        // TODO: implement anonymous user
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }

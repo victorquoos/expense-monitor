@@ -42,27 +42,4 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="top_bar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/margin3</item>
-    </style>
-
-
-    <style name="add_expense_button_overlay">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">@dimen/maximum_radius</item>
-        <item name="cornerSizeTopRight">@dimen/maximum_radius</item>
-        <item name="cornerSizeBottomRight">@dimen/maximum_radius</item>
-        <item name="cornerSizeBottomLeft">@dimen/maximum_radius</item>
-    </style>
-
-    <style name="add_expense_button">
-        <item name="srcCompat">@drawable/ic_plus_64</item>
-        <item name="shapeAppearance">@style/add_expense_button_overlay</item>
-        <item name="fabSize">auto</item>
-        <item name="android:scaleType">center</item>
-    </style>
-
-
 </resources>
