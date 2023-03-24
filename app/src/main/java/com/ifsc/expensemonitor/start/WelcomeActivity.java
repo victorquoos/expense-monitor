@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.calendar.CalendarActivity;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 public class WelcomeActivity extends AppCompatActivity {
 
     private Button withoutAccountBtn, signupBtn, signinBtn;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +24,34 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        withoutAccountBtn = (Button) findViewById(R.id.withoutAccountBtn);
         signupBtn = (Button) findViewById(R.id.signupBtn);
         signinBtn = (Button) findViewById(R.id.signinBtn);
+        withoutAccountBtn = (Button) findViewById(R.id.withoutAccountBtn);
 
-        withoutAccountBtn.setOnClickListener(view -> expensesActivity());
         signupBtn.setOnClickListener(view -> signupActivity());
         signinBtn.setOnClickListener(view -> signinActivity());
+        withoutAccountBtn.setOnClickListener(view -> withoutAccount());
     }
 
-    public void expensesActivity() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verifyIfUserIsLoggedIn();
+    }
+
+    private void verifyIfUserIsLoggedIn() {
+        auth = FirebaseSettings.getFirebaseAuth();
+        if (auth.getCurrentUser() != null) {
+            calendarActivity();
+            finish();
+        }
+    }
+
+    public void withoutAccount() {
         // TODO: implement anonymous user
+    }
+
+    public void calendarActivity() {
         Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }

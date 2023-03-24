@@ -2,6 +2,7 @@ package com.ifsc.expensemonitor.start;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.calendar.CalendarActivity;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 public class SignupActivity extends AppCompatActivity {
@@ -49,6 +51,7 @@ public class SignupActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Usuário criado com sucesso", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
+                finish();
             } else {
                 String exception;
                 try {
