@@ -12,9 +12,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.calendar.CalendarActivity;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.User;
+
+import java.util.Date;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -50,6 +55,13 @@ public class SignupActivity extends AppCompatActivity {
         auth = FirebaseSettings.getFirebaseAuth();
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+
+                User user = new User();
+                user.setUid(auth.getUid());
+                user.setEmail(email);
+                user.setPassword(password);
+                user.save();
+
                 Toast.makeText(this, "Usuário criado com sucesso", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
                 finish();
             } else {
@@ -68,5 +80,6 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(this, exception, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }

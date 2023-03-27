@@ -18,9 +18,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // TODO: send user to calendar if already logged in
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
@@ -41,6 +38,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void verifyIfUserIsLoggedIn() {
         auth = FirebaseSettings.getFirebaseAuth();
+
+        //auth.signOut();
+
         if (auth.getCurrentUser() != null) {
             calendarActivity();
             finish();

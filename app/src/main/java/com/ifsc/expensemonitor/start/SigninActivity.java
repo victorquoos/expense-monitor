@@ -57,7 +57,7 @@ public class SigninActivity extends AppCompatActivity {
                 } catch (FirebaseAuthInvalidUserException e) {
                     exception = "Usuário não cadastrado"; // TODO: Make a string resource
                 } catch (FirebaseAuthInvalidCredentialsException e) {
-                    exception = "Senha incorreta"; // TODO: Make a string resource
+                    exception = "Email ou senha incorretos"; // TODO: Make a string resource
                 } catch (Exception e) {
                     exception = "Erro ao logar usuário: " + e.getMessage(); // TODO: Make a string resource
                 }

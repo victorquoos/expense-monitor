@@ -77,7 +77,7 @@ public class CalendarActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    // TODO: 2020-05-31 change to instant scroll
+    // TODO: Change to instant scroll?
     private void scrollToCurrentMonth() {
         if (indexCurrentMonth != -1) {
             LinearSmoothScroller smoothScroller = new LinearSmoothScroller(recyclerView.getContext()) {
@@ -97,13 +97,4 @@ public class CalendarActivity extends AppCompatActivity {
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
         return lastVisiblePosition - firstVisiblePosition + 1;
     }
-
-
-
-
-
-
-
-
-
 }
