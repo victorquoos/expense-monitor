@@ -18,7 +18,6 @@ public class CalendarActivity extends AppCompatActivity {
 
     int firstYear = 2000;
     int yearsAhead = 10;
-
     int indexCurrentMonth = -1;
     RecyclerView recyclerView;
 

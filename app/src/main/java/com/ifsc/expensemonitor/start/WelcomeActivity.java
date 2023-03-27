@@ -2,6 +2,7 @@ package com.ifsc.expensemonitor.start;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,6 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.calendar.CalendarActivity;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.expenselist.ExpenseListActivity;
+
+import java.util.Calendar;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -42,13 +46,24 @@ public class WelcomeActivity extends AppCompatActivity {
         //auth.signOut();
 
         if (auth.getCurrentUser() != null) {
-            calendarActivity();
+            currentMonthExpenseListActivity();
+            //calendarActivity();
             finish();
         }
     }
 
     public void withoutAccount() {
         // TODO: implement anonymous user
+    }
+
+    public void currentMonthExpenseListActivity() {
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        Intent intent = new Intent(this, ExpenseListActivity.class);
+        intent.putExtra("month", currentMonth);
+        intent.putExtra("year", currentYear);
+        startActivity(intent);
     }
 
     public void calendarActivity() {
