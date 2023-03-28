@@ -16,6 +16,9 @@ import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
 
+    // TODO: Make the initial year 1 year before the current year or the first year with expenses
+    // TODO: Make the last year 1 year after the current year or the last year with expenses
+
     int firstYear = 2000;
     int yearsAhead = 10;
     int indexCurrentMonth = -1;

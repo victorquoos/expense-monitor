@@ -21,13 +21,13 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/cardStatusImageView"
+                android:id="@+id/expenseStatusImageView"
                 android:layout_width="@dimen/margin4"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/shape_square" />
+                app:srcCompat="@drawable/shape_white" />
 
             <TextView
                 android:id="@+id/expenseNameTextView"
@@ -41,7 +41,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/expenseStatusTextView"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/cardStatusImageView"
+                app:layout_constraintStart_toEndOf="@+id/expenseStatusImageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -84,7 +84,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/cardStatusImageView"
+                app:layout_constraintStart_toEndOf="@+id/expenseStatusImageView"
                 app:layout_constraintTop_toBottomOf="@+id/expenseNameTextView" />
 
 

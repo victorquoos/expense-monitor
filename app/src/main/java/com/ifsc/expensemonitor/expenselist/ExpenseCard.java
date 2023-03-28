@@ -8,26 +8,38 @@ public class ExpenseCard {
     private Date date;
     private boolean isPaid;
 
-    public ExpenseCard(String name, double value, Date date, boolean isPaid) {
-        this.name = name;
-        this.value = value;
-        this.date = date;
-        this.isPaid = isPaid;
+    public ExpenseCard() {
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public double getValue() {
         return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public Date getDate() {
         return date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public boolean isPaid() {
         return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
     }
 }
