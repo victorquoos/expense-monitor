@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,38 +20,39 @@ import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 import java.text.DateFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseListActivity extends AppCompatActivity {
 
     DatabaseReference monthRef;
-    RecyclerView recyclerView;
     FloatingActionButton addExpenseButton;
-
     MaterialToolbar toolbar;
+    RecyclerView exepensesReciclerView;
+    TextView paidValueTextView, pendingValueTextView, totalValueTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        int month = intent.getIntExtra("month", 0);
+        int year = intent.getIntExtra("year", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_list);
 
         addExpenseButton = findViewById(R.id.addExpenseButton);
-        recyclerView = findViewById(R.id.recyclerView);
+        exepensesReciclerView = findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.topAppBar);
+        paidValueTextView = findViewById(R.id.paidValueTextView);
+        pendingValueTextView = findViewById(R.id.pendingValueTextView);
+        totalValueTextView = findViewById(R.id.totalValueTextView);
 
-        Intent intent = getIntent();
-        int month = intent.getIntExtra("month", 0);
-        int year = intent.getIntExtra("year", 0);
-
+        toolbar.setNavigationOnClickListener(view -> finish());
         setToolBarText(month, year);
 
         addExpenseButton.setOnClickListener(v -> newExpenseActivity(month, year));
 
-        monthRef = FirebaseSettings.getUserReference()
-                .child("expenses")
-                .child("year" + year)
-                .child("month" + month);
+        monthRef = FirebaseSettings.getMonthReference(year, month);
     }
 
     private void newExpenseActivity(int month, int year) {
@@ -68,22 +70,27 @@ public class ExpenseListActivity extends AppCompatActivity {
         toolbar.setSubtitle(yearText);
     }
 
-    private ValueEventListener expenseValueEventListener() {
+    private ValueEventListener expenseValueEventListener() { //TODO: move to FirebaseSettings
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<ExpenseCard> expenseCards = new ArrayList<>();
+                List<Expense> expenseCards = new ArrayList<>();
+                double totalPaid = 0.0;
+                double totalPending = 0.0;
                 for (DataSnapshot expenseData : snapshot.getChildren()) {
                     Expense expense = expenseData.getValue(Expense.class);
-                    ExpenseCard expenseCard = new ExpenseCard();
-                    expenseCard.setName(expense.getName());
-                    expenseCard.setValue(expense.getValue());
-                    expenseCard.setDate(expense.getCalendar().getTime());
-                    expenseCard.setPaid(expense.isPaid());
-                    expenseCards.add(expenseCard);
+                    assert expense != null;
+                    expense.setKey(expenseData.getKey());
+                    expenseCards.add(expense);
+                    if (expense.isPaid()) {
+                        totalPaid += expense.getValue();
+                    } else {
+                        totalPending += expense.getValue();
+                    }
                 }
                 ExpenseCardAdapter adapter = new ExpenseCardAdapter(expenseCards);
-                recyclerView.setAdapter(adapter);
+                exepensesReciclerView.setAdapter(adapter);
+                setTotals(totalPaid, totalPending);
             }
 
             @Override
@@ -92,6 +99,21 @@ public class ExpenseListActivity extends AppCompatActivity {
             }
         };
     }
+
+    private void setTotals(double totalPaid, double totalPending) {
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+
+        String paidValue = currencyFormat.format(totalPaid);
+        paidValueTextView.setText(paidValue);
+
+        String pendingValue = currencyFormat.format(totalPending);
+        pendingValueTextView.setText(pendingValue);
+
+        double totalValue = totalPaid + totalPending;
+        String totalValueString = currencyFormat.format(totalValue);
+        totalValueTextView.setText(totalValueString);
+    }
+
 
     @Override
     protected void onStart() {

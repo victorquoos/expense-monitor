@@ -7,22 +7,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ExpenseCard> expenses;
+    private List<Expense> expenseCards;
 
-    public ExpenseCardAdapter(List<ExpenseCard> expenses) {
-        this.expenses = expenses;
+    public ExpenseCardAdapter(List<Expense> expenses) {
+        this.expenseCards = expenses;
     }
 
     @NonNull
@@ -35,14 +39,14 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ExpenseCard expenseCard = expenses.get(position);
+        Expense expenseCard = expenseCards.get(position);
         ExpenseCardViewHolder expenseCardViewHolder = (ExpenseCardViewHolder) holder;
         expenseCardViewHolder.bind(expenseCard);
     }
 
     @Override
     public int getItemCount() {
-        return expenses.size();
+        return expenseCards.size();
     }
 
     private static class ExpenseCardViewHolder extends RecyclerView.ViewHolder {
@@ -51,6 +55,7 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView expenseDateTextView;
         private TextView expenseStatusTextView;
         private ImageView expenseStatusImageView;
+        private CardView expenseCardView;
 
         public ExpenseCardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,19 +64,24 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             expenseDateTextView = itemView.findViewById(R.id.expenseDateTextView);
             expenseStatusTextView = itemView.findViewById(R.id.expenseStatusTextView);
             expenseStatusImageView = itemView.findViewById(R.id.expenseStatusImageView);
+            expenseCardView = itemView.findViewById(R.id.expenseCardView);
         }
 
-        public void bind(ExpenseCard expenseCard) {
+        public void bind(Expense expenseCard) {
             String name = expenseCard.getName();
             Double value = expenseCard.getValue();
-            Date date = expenseCard.getDate();
+            int day = expenseCard.getDay();
+            int month = expenseCard.getMonth();
+            int year = expenseCard.getYear();
             boolean isPaid = expenseCard.isPaid();
 
             expenseNameTextView.setText(name);
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
             expenseValueTextView.setText(currencyFormat.format(value));
 
-
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+            Date date = calendar.getTime();
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
             String formattedDate = dateFormat.format(date);
             expenseDateTextView.setText(formattedDate);
@@ -86,6 +96,13 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 expenseStatusTextView.setText(R.string.pending);
                 expenseStatusImageView.setImageResource(R.drawable.shape_yellow);
             }
+
+            expenseCardView.setOnClickListener(new View.OnClickListener() { //TODO: implement popup menu
+                @Override
+                public void onClick(View v) {
+                    FirebaseSettings.deleteExpense(expenseCard);
+                }
+            });
         }
     }
 }

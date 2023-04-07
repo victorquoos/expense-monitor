@@ -16,7 +16,6 @@ import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 public class SigninActivity extends AppCompatActivity {
-
     private TextInputEditText emailEditText, passwordEditText;
     private Button signinButton;
     private FirebaseAuth auth;

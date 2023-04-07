@@ -4,25 +4,26 @@ import com.google.firebase.database.Exclude;
 
 import java.util.Calendar;
 
-public class Expense {
+public class Expense { //TODO: check if can use Calendar or Date instead of year, month and day
+    private String key;
     private String name;
     private double value;
     private int year;
     private int month;
     private int day;
-    private boolean paid;
+    private boolean paid = false;
     private String description;
 
     public Expense() {
     }
 
-    public void save() {
-        FirebaseSettings.getUserReference()
-                .child("expenses")
-                .child("year" + year)
-                .child("month" + month)
-                .push()
-                .setValue(this);
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {

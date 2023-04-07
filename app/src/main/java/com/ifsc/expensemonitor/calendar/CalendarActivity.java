@@ -1,5 +1,6 @@
 package com.ifsc.expensemonitor.calendar;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.expenselist.ExpenseListActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,16 +26,26 @@ public class CalendarActivity extends AppCompatActivity {
     int yearsAhead = 10;
     int indexCurrentMonth = -1;
     RecyclerView recyclerView;
+    int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
-        currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
+        Intent thisIntent = getIntent();
+        if (thisIntent.getBooleanExtra("isFromWelcome", false)) {
+            Intent listIntent = new Intent(this, ExpenseListActivity.class);
+            listIntent.putExtra("month", currentMonth);
+            listIntent.putExtra("year", currentYear);
+            startActivity(listIntent);
+        }
 
         recyclerView = findViewById(R.id.recyclerView);
+
+        FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
+        currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
 
         List<MonthYear> months = new ArrayList<>();
 
@@ -56,9 +69,6 @@ public class CalendarActivity extends AppCompatActivity {
 
             calendar.add(Calendar.MONTH, 1);
         }
-
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         indexCurrentMonth = -1;
         for (int i = 0; i < months.size(); i++) {
@@ -88,7 +98,7 @@ public class CalendarActivity extends AppCompatActivity {
                     return LinearSmoothScroller.SNAP_TO_START;
                 }
             };
-            smoothScroller.setTargetPosition(indexCurrentMonth-(getVisibleItemCount()/2)+1);
+            smoothScroller.setTargetPosition(indexCurrentMonth - (getVisibleItemCount() / 2) + 1);
             recyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
         }
     }

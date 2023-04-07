@@ -4,18 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -37,7 +33,6 @@ public class NewExpenseActivity extends AppCompatActivity {
         expenseDate = findViewById(R.id.expenseDate);
         expenseDescription = findViewById(R.id.expenseDescription);
         saveButton = findViewById(R.id.saveButton);
-
 
         Intent intent = getIntent();
         int month = intent.getIntExtra("month", 0);
@@ -70,16 +65,13 @@ public class NewExpenseActivity extends AppCompatActivity {
             datePicker.show(getSupportFragmentManager(), datePicker.toString());
         });
 
-        saveButton.setOnClickListener(v -> {
+        saveButton.setOnClickListener(v -> { //TODO: check every field before return
             if (expenseValue.getText().toString().isEmpty()) {
                 expenseValue.setError("O valor da despesa não pode estar vazio"); //TODO: make a string resource
-                return;
             } else if (expenseDate.getText().toString().isEmpty()) {
                 expenseDate.setError("A data da despesa não pode estar vazia"); //TODO: make a string resource
-                return;
             } else if (expenseName.getText().toString().isEmpty()) { // TODO: maybe this field should be empty
                 expenseName.setError("O nome da despesa não pode estar vazio"); //TODO: make a string resource
-                return;
             } else {
                 Expense expense = new Expense();
                 expense.setName(expenseName.getText().toString());
@@ -88,7 +80,7 @@ public class NewExpenseActivity extends AppCompatActivity {
                 expense.setMonth(selectedDate.get(Calendar.MONTH));
                 expense.setDay(selectedDate.get(Calendar.DAY_OF_MONTH));
                 expense.setDescription(expenseDescription.getText().toString());
-                expense.save();
+                FirebaseSettings.saveExpense(expense);
             }
         });
     }

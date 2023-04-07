@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- TODO - apply the ?attr/colorControlNormal or other color to the text styles -->
+
     <style name="top_app_bar_text">
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/inter_bold</item>

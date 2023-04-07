@@ -14,18 +14,17 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/top_app_bar"
+            app:menu="@menu/menu_calendar"
             app:title="Calendário" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Note: A RecyclerView can also be used -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
