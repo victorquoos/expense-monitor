@@ -1,8 +1,16 @@
 package com.ifsc.expensemonitor.database;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseSettings {
     private static FirebaseAuth auth;
@@ -62,5 +70,21 @@ public class FirebaseSettings {
     public static void updateExpense(Expense oldExpense, Expense newExpense) {
         deleteExpense(oldExpense);
         saveExpense(newExpense);
+    }
+
+    public static void saveUserLocally() { //todo: rever
+        getUserReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    Object childData = childSnapshot.getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

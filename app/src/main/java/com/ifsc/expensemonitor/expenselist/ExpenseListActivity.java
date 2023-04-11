@@ -1,12 +1,12 @@
 package com.ifsc.expensemonitor.expenselist;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -113,7 +113,6 @@ public class ExpenseListActivity extends AppCompatActivity {
         String totalValueString = currencyFormat.format(totalValue);
         totalValueTextView.setText(totalValueString);
     }
-
 
     @Override
     protected void onStart() {
