@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class Expense { //TODO: check if can use Calendar or Date instead of year, month and day
     private String key;
     private String name;
-    private double value;
+    private double value; //TODO: convert to int or long with cents
     private int year;
     private int month;
     private int day;

@@ -35,12 +35,12 @@ public class NewExpenseActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
 
         Intent intent = getIntent();
-        int month = intent.getIntExtra("month", 0);
-        int year = intent.getIntExtra("year", 0);
+        int month = intent.getIntExtra("month", Calendar.getInstance().get(Calendar.MONTH));
+        int year = intent.getIntExtra("year", Calendar.getInstance().get(Calendar.YEAR));
 
-        if (month == Calendar.getInstance().get(Calendar.MONTH) && year == Calendar.getInstance().get(Calendar.YEAR)) {
-            selectedDate = Calendar.getInstance();
-        } else {
+        selectedDate = Calendar.getInstance();
+
+        if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
             selectedDate.set(Calendar.YEAR, year);
             selectedDate.set(Calendar.MONTH, month);
             selectedDate.set(Calendar.DAY_OF_MONTH, 1);
