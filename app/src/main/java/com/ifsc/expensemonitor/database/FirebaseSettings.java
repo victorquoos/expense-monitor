@@ -52,8 +52,8 @@ public class FirebaseSettings {
     public static void saveExpense(Expense expense) {
         getUserReference()
                 .child("expenses")
-                .child("year" + expense.getYear())
-                .child("month" + expense.getMonth())
+                .child("year" + expense.getDate().getYear())
+                .child("month" + expense.getDate().getMonth())
                 .push()
                 .setValue(expense);
     }
@@ -61,8 +61,8 @@ public class FirebaseSettings {
     public static void deleteExpense(Expense expense) {
         getUserReference()
                 .child("expenses")
-                .child("year" + expense.getYear())
-                .child("month" + expense.getMonth())
+                .child("year" + expense.getDate().getYear())
+                .child("month" + expense.getDate().getMonth())
                 .child(expense.getKey())
                 .removeValue();
     }

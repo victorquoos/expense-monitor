@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.text.DateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -20,8 +25,7 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     EditText expenseName, expenseValue, expenseDate, expenseDescription;
     ExtendedFloatingActionButton saveButton;
-    Calendar selectedDate;
-    String formattedDate;
+    SimpleDate selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,28 +42,23 @@ public class NewExpenseActivity extends AppCompatActivity {
         int month = intent.getIntExtra("month", Calendar.getInstance().get(Calendar.MONTH));
         int year = intent.getIntExtra("year", Calendar.getInstance().get(Calendar.YEAR));
 
-        selectedDate = Calendar.getInstance();
-
+        selectedDate = SimpleDate.getCurrentDate();
         if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
-            selectedDate.set(Calendar.YEAR, year);
-            selectedDate.set(Calendar.MONTH, month);
-            selectedDate.set(Calendar.DAY_OF_MONTH, 1);
+            selectedDate.setMonth(month);
+            selectedDate.setYear(year);
+            selectedDate.setDay(1);
         }
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        formattedDate = dateFormat.format(selectedDate.getTime());
-        expenseDate.setText(formattedDate);
+        expenseDate.setText(selectedDate.getFormattedDate());
 
         expenseDate.setOnClickListener(v -> {
-
             MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
             builder.setTitleText("Selecione uma data"); //TODO: make a string resource
             builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
             MaterialDatePicker<Long> datePicker = builder.build();
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
-                selectedDate.setTime(new Date(selection));
-                formattedDate = dateFormat.format(selectedDate.getTime());
-                expenseDate.setText(formattedDate);
+                selectedDate.setDate(selection);
+                expenseDate.setText(selectedDate.getFormattedDate());
             });
 
             datePicker.show(getSupportFragmentManager(), datePicker.toString());
@@ -76,9 +75,7 @@ public class NewExpenseActivity extends AppCompatActivity {
                 Expense expense = new Expense();
                 expense.setName(expenseName.getText().toString());
                 expense.setValue(Double.parseDouble(expenseValue.getText().toString()));
-                expense.setYear(selectedDate.get(Calendar.YEAR));
-                expense.setMonth(selectedDate.get(Calendar.MONTH));
-                expense.setDay(selectedDate.get(Calendar.DAY_OF_MONTH));
+                expense.setDate(selectedDate);
                 expense.setDescription(expenseDescription.getText().toString());
                 FirebaseSettings.saveExpense(expense);
             }
