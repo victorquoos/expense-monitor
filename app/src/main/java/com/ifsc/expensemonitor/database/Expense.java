@@ -2,15 +2,14 @@ package com.ifsc.expensemonitor.database;
 
 import com.google.firebase.database.Exclude;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class Expense { //TODO: check if can use Calendar or Date instead of year, month and day
     private String key;
     private String name;
-    private double value;
-    private int year;
-    private int month;
-    private int day;
+    private double value; //TODO: convert to int or long with cents
+    private SimpleDate date;
     private boolean paid = false;
     private String description;
 
@@ -42,41 +41,12 @@ public class Expense { //TODO: check if can use Calendar or Date instead of year
         this.value = value;
     }
 
-    public int getYear() {
-        return year;
+    public SimpleDate getDate() {
+        return date;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.year = calendar.get(Calendar.YEAR);
-        this.month = calendar.get(Calendar.MONTH);
-        this.day = calendar.get(Calendar.DAY_OF_MONTH);
-    }
-
-    @Exclude
-    public Calendar getCalendar() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar;
+    public void setDate(SimpleDate date) {
+        this.date = date;
     }
 
     public boolean isPaid() {
@@ -94,4 +64,5 @@ public class Expense { //TODO: check if can use Calendar or Date instead of year
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

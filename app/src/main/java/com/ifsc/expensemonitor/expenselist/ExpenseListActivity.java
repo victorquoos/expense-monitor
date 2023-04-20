@@ -1,14 +1,14 @@
 package com.ifsc.expensemonitor.expenselist;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,36 +26,75 @@ import java.util.List;
 
 public class ExpenseListActivity extends AppCompatActivity {
 
+    int month, year;
     DatabaseReference monthRef;
     FloatingActionButton addExpenseButton;
-    MaterialToolbar toolbar;
     RecyclerView exepensesReciclerView;
-    TextView paidValueTextView, pendingValueTextView, totalValueTextView;
+    TextView paidValueTextView, pendingValueTextView, totalValueTextView, monthTextView, yearTextView;
+    Button filtersButton, optionsButton, previousMonthButton, nextMonthButton, monthYearButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        int month = intent.getIntExtra("month", 0);
-        int year = intent.getIntExtra("year", 0);
+        month = intent.getIntExtra("month", 0);
+        year = intent.getIntExtra("year", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_list);
 
         addExpenseButton = findViewById(R.id.addExpenseButton);
         exepensesReciclerView = findViewById(R.id.recyclerView);
-        toolbar = findViewById(R.id.topAppBar);
         paidValueTextView = findViewById(R.id.paidValueTextView);
         pendingValueTextView = findViewById(R.id.pendingValueTextView);
         totalValueTextView = findViewById(R.id.totalValueTextView);
+        monthTextView = findViewById(R.id.monthTextView);
+        yearTextView = findViewById(R.id.yearTextView);
+        filtersButton = findViewById(R.id.filtersButton);
+        optionsButton = findViewById(R.id.optionsButton);
+        previousMonthButton = findViewById(R.id.previousMonthButton);
+        nextMonthButton = findViewById(R.id.nextMonthButton);
+        monthYearButton = findViewById(R.id.monthYearButton);
 
-        toolbar.setNavigationOnClickListener(view -> finish());
-        setToolBarText(month, year);
+        monthYearButton.setOnClickListener(v -> finish());
+        nextMonthButton.setOnClickListener(v -> goToNextMonth());
+        previousMonthButton.setOnClickListener(v -> goToPreviousMonth());
+        addExpenseButton.setOnClickListener(v -> newExpenseActivity());
 
-        addExpenseButton.setOnClickListener(v -> newExpenseActivity(month, year));
-
-        monthRef = FirebaseSettings.getMonthReference(year, month);
+        setMonth(month, year);
     }
 
-    private void newExpenseActivity(int month, int year) {
+    private void goToNextMonth() {
+        if (month == 11) {
+            month = 0;
+            year++;
+        } else {
+            month++;
+        }
+        setMonth(month, year);
+        restartListener();
+    }
+
+    private void goToPreviousMonth() {
+        if (month == 0) {
+            month = 11;
+            year--;
+        } else {
+            month--;
+        }
+        setMonth(month, year);
+        restartListener();
+    }
+
+    private void setMonth(int month, int year) {
+        monthRef = FirebaseSettings.getMonthReference(year, month);
+        setToolBarText(month, year);
+    }
+
+    private void restartListener() {
+        monthRef.removeEventListener(expenseValueEventListener());
+        monthRef.addValueEventListener(expenseValueEventListener());
+    }
+
+    private void newExpenseActivity() {
         Intent newExpenseIntent = new Intent(this, NewExpenseActivity.class);
         newExpenseIntent.putExtra("month", month);
         newExpenseIntent.putExtra("year", year);
@@ -66,8 +105,8 @@ public class ExpenseListActivity extends AppCompatActivity {
         String monthText = new DateFormatSymbols().getMonths()[month];
         monthText = monthText.substring(0, 1).toUpperCase() + monthText.substring(1).toLowerCase();
         String yearText = String.valueOf(year);
-        toolbar.setTitle(monthText);
-        toolbar.setSubtitle(yearText);
+        monthTextView.setText(monthText);
+        yearTextView.setText(yearText);
     }
 
     private ValueEventListener expenseValueEventListener() { //TODO: move to FirebaseSettings
@@ -113,7 +152,6 @@ public class ExpenseListActivity extends AppCompatActivity {
         String totalValueString = currencyFormat.format(totalValue);
         totalValueTextView.setText(totalValueString);
     }
-
 
     @Override
     protected void onStart() {

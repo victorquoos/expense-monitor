@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -70,26 +71,18 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void bind(Expense expenseCard) {
             String name = expenseCard.getName();
             Double value = expenseCard.getValue();
-            int day = expenseCard.getDay();
-            int month = expenseCard.getMonth();
-            int year = expenseCard.getYear();
+            SimpleDate simpleDate = expenseCard.getDate();
             boolean isPaid = expenseCard.isPaid();
 
             expenseNameTextView.setText(name);
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
             expenseValueTextView.setText(currencyFormat.format(value));
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(year, month, day);
-            Date date = calendar.getTime();
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-            String formattedDate = dateFormat.format(date);
-            expenseDateTextView.setText(formattedDate);
+            expenseDateTextView.setText(simpleDate.getFormattedDate());
 
             if (isPaid) {
                 expenseStatusTextView.setText(R.string.paid);
                 expenseStatusImageView.setImageResource(R.drawable.shape_green);
-            } else if (date.before(new Date())) {
+            } else if (simpleDate.isBeforeToday()) {
                 expenseStatusTextView.setText(R.string.late);
                 expenseStatusImageView.setImageResource(R.drawable.shape_red);
             } else {
