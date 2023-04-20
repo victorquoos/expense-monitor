@@ -1,5 +1,6 @@
 package com.ifsc.expensemonitor.calendar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -19,9 +20,11 @@ import java.util.List;
 
 public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<MonthYear> months;
+    private Activity mActivity;
 
-    public MonthYearAdapter(List<MonthYear> months) {
+    public MonthYearAdapter(List<MonthYear> months, Activity activity) {
         this.months = months;
+        this.mActivity = activity;
     }
 
     @Override
@@ -62,6 +65,7 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     Intent intent = new Intent(context, ExpenseListActivity.class);
                     intent.putExtra("month", month);
                     intent.putExtra("year", year);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                 }
             });

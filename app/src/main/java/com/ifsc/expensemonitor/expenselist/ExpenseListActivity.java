@@ -1,7 +1,10 @@
 package com.ifsc.expensemonitor.expenselist;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.NewExpenseActivity;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.calendar.CalendarActivity;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 
@@ -36,9 +40,6 @@ public class ExpenseListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        month = intent.getIntExtra("month", 0);
-        year = intent.getIntExtra("year", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_list);
 
@@ -55,12 +56,27 @@ public class ExpenseListActivity extends AppCompatActivity {
         nextMonthButton = findViewById(R.id.nextMonthButton);
         monthYearButton = findViewById(R.id.monthYearButton);
 
-        monthYearButton.setOnClickListener(v -> finish());
+        monthYearButton.setOnClickListener(v -> goToCalendarActivity());
         nextMonthButton.setOnClickListener(v -> goToNextMonth());
         previousMonthButton.setOnClickListener(v -> goToPreviousMonth());
         addExpenseButton.setOnClickListener(v -> newExpenseActivity());
 
-        setMonth(month, year);
+        if (savedInstanceState != null) {
+            month = savedInstanceState.getInt("month");
+            year = savedInstanceState.getInt("year");
+            setMonth(month, year);
+        } else {
+            Intent intent = getIntent();
+            month = intent.getIntExtra("month", 0);
+            year = intent.getIntExtra("year", 0);
+            setMonth(month, year);
+        }
+    }
+
+
+    private void goToCalendarActivity() {
+        Intent calendarIntent = new Intent(this, CalendarActivity.class);
+        startActivity(calendarIntent);
     }
 
     private void goToNextMonth() {
@@ -154,6 +170,13 @@ public class ExpenseListActivity extends AppCompatActivity {
         double totalValue = totalPaid + totalPending;
         String totalValueString = currencyFormat.format(totalValue);
         totalValueTextView.setText(totalValueString);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("month", month);
+        outState.putInt("year", year);
     }
 
     @Override

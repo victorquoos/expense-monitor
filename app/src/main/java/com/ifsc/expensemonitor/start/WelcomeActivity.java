@@ -46,7 +46,7 @@ public class WelcomeActivity extends AppCompatActivity {
         //auth.signOut();
 
         if (auth.getCurrentUser() != null) {
-            goToExpenses();
+            currentMonthExpenseListActivity();
             finish();
         }
     }
@@ -65,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToExpenses() {
+    public void goToExpenses() { //todo: remove
         Intent intent = new Intent(this, CalendarActivity.class);
         intent.putExtra("isFromWelcome", true);
         startActivity(intent);

@@ -1,7 +1,10 @@
 package com.ifsc.expensemonitor.calendar;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,7 +88,7 @@ public class CalendarActivity extends AppCompatActivity {
             recyclerView.scrollToPosition(indexCurrentMonth);
         }
 
-        MonthYearAdapter adapter = new MonthYearAdapter(months);
+        MonthYearAdapter adapter = new MonthYearAdapter(months, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -108,5 +111,11 @@ public class CalendarActivity extends AppCompatActivity {
         int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
         return lastVisiblePosition - firstVisiblePosition + 1;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
