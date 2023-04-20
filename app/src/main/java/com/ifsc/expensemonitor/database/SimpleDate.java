@@ -79,7 +79,8 @@ public class SimpleDate {
         return today;
     }
 
-    @Exclude Calendar getCalendar() {
+    @Exclude
+     Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         return calendar;
@@ -109,5 +110,23 @@ public class SimpleDate {
             }
         }
         return false;
+    }
+
+    @Exclude
+    public int compareTo(SimpleDate date) {
+        if (year < date.getYear()) {
+            return -1;
+        } else if (year == date.getYear()) {
+            if (month < date.getMonth()) {
+                return -1;
+            } else if (month == date.getMonth()) {
+                if (day < date.getDay()) {
+                    return -1;
+                } else if (day == date.getDay()) {
+                    return 0;
+                }
+            }
+        }
+        return 1;
     }
 }

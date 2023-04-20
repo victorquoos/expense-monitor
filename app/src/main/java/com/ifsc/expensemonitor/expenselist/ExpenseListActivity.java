@@ -22,6 +22,7 @@ import com.ifsc.expensemonitor.database.FirebaseSettings;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ExpenseListActivity extends AppCompatActivity {
@@ -118,7 +119,6 @@ public class ExpenseListActivity extends AppCompatActivity {
                 double totalPending = 0.0;
                 for (DataSnapshot expenseData : snapshot.getChildren()) {
                     Expense expense = expenseData.getValue(Expense.class);
-                    assert expense != null;
                     expense.setKey(expenseData.getKey());
                     expenseCards.add(expense);
                     if (expense.isPaid()) {
@@ -127,6 +127,9 @@ public class ExpenseListActivity extends AppCompatActivity {
                         totalPending += expense.getValue();
                     }
                 }
+
+                Collections.sort(expenseCards, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+
                 ExpenseCardAdapter adapter = new ExpenseCardAdapter(expenseCards);
                 exepensesReciclerView.setAdapter(adapter);
                 setTotals(totalPaid, totalPending);
