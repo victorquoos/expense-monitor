@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor;
+package com.ifsc.expensemonitor.addeditexpense;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.SimpleDate;
