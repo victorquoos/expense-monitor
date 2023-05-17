@@ -24,7 +24,7 @@ public class NewExpenseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_expense);
+        //setContentView(R.layout.activity_new_expense);
 
         expenseName = findViewById(R.id.expenseName); //TODO: Rename ids
         expenseValue = findViewById(R.id.expenseValue); //TODO: Mask for currency

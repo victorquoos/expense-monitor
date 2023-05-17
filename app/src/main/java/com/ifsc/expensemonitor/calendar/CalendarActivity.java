@@ -37,7 +37,7 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+        //setContentView(R.layout.activity_calendar);
 
         Intent thisIntent = getIntent();
         if (thisIntent.getBooleanExtra("isFromWelcome", false)) {
@@ -56,8 +56,8 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 
-        FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
-        currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
+        //FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
+        //currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
 
         List<MonthYear> months = new ArrayList<>();
 

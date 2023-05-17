@@ -22,11 +22,11 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        //setContentView(R.layout.activity_welcome);
 
-        signupBtn = (Button) findViewById(R.id.signupBtn);
-        signinBtn = (Button) findViewById(R.id.signinBtn);
-        withoutAccountBtn = (Button) findViewById(R.id.withoutAccountBtn);
+        //signupBtn = (Button) findViewById(R.id.signupBtn);
+        //signinBtn = (Button) findViewById(R.id.signinBtn);
+        //withoutAccountBtn = (Button) findViewById(R.id.withoutAccountBtn);
 
         signupBtn.setOnClickListener(view -> signupActivity());
         signinBtn.setOnClickListener(view -> signinActivity());

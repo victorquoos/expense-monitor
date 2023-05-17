@@ -38,7 +38,7 @@ public class ExpenseListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expense_list);
+        //setContentView(R.layout.activity_expense_list);
 
         addExpenseButton = findViewById(R.id.addExpenseButton);
         exepensesReciclerView = findViewById(R.id.recyclerView);
