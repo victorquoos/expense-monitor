@@ -1,6 +1,7 @@
 package com.ifsc.expensemonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.os.Bundle;
@@ -29,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         //auth.signOut();
 
-        if (auth.getCurrentUser() == null) {
-            Navigation.findNavController(this, R.id.fragmentContainerView).navigate(R.id.welcomeFragment);
+        if (auth.getCurrentUser() != null) {
+            NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+            navController.popBackStack();
+            navController.navigate(R.id.expenseListFragment);
         }
     }
 }
