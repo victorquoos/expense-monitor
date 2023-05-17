@@ -29,10 +29,12 @@ public class WelcomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_welcome, container, false);
 
+        // Declaração dos componentes da tela
         Button signupButton = view.findViewById(R.id.signupButton);
         Button signinButton = view.findViewById(R.id.signinButton);
         Button guestButton = view.findViewById(R.id.guestButton); // TODO: remover ou implementar
 
+        // Ações dos botões
         signupButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_signUpFragment));
         signinButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_signInFragment));
 
