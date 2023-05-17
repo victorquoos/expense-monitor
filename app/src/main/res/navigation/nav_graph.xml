@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.ifsc.expensemonitor.ui.start.WelcomeFragment"
+        android:label="welcome_fragment"
+        tools:layout="@layout/fragment_welcome">
+
+        <action
+            android:id="@+id/action_welcomeFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+
+        <action
+            android:id="@+id/action_welcomeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.ifsc.expensemonitor.ui.start.SigninFragment"
+        android:label="sign_in_fragment"
+        tools:layout="@layout/fragment_signin">
+
+        <action
+            android:id="@+id/action_signInFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.ifsc.expensemonitor.ui.start.SignupFragment"
+        android:label="sign_up_fragment"
+        tools:layout="@layout/fragment_signup">
+
+        <action
+            android:id="@+id/action_signUpFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/expenseListFragment"
+        android:name="com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment"
+        android:label="expense_list_fragment"
+        tools:layout="@layout/fragment_expense_list">
+
+        <action
+            android:id="@+id/action_expenseListFragment_to_monthListFragment"
+            app:destination="@id/monthListFragment" />
+
+        <action
+            android:id="@+id/action_expenseListFragment_to_addEditFragment"
+            app:destination="@id/addEditFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/monthListFragment"
+        android:name="com.ifsc.expensemonitor.ui.monthlist.MonthListFragment"
+        android:label="month_list_fragment"
+        tools:layout="@layout/fragment_month_list">
+
+        <action
+            android:id="@+id/action_monthListFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditFragment"
+        android:name="com.ifsc.expensemonitor.ui.addedit.AddEditFragment"
+        android:label="add_edit_fragment"
+        tools:layout="@layout/fragment_add_edit">
+
+        <action
+            android:id="@+id/action_addEditFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
+
+    </fragment>
 
 </navigation>

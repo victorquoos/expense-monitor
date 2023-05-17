@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.ifsc.expensemonitor.R;
 
-public class SingupFragment extends Fragment {
+public class SignupFragment extends Fragment {
 
-    private SingupViewModel mViewModel;
+    private SignupViewModel mViewModel;
 
-    public static SingupFragment newInstance() {
-        return new SingupFragment();
+    public static SignupFragment newInstance() {
+        return new SignupFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_singup, container, false);
+        return inflater.inflate(R.layout.fragment_signup, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SingupViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
         // TODO: Use the ViewModel
     }
 
