@@ -49,6 +49,12 @@ public class SignupFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
+    }
+
     private void signup(String email, String password) {
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(getContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
@@ -56,13 +62,11 @@ public class SignupFragment extends Fragment {
             auth = FirebaseSettings.getFirebaseAuth();
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-
                     User user = new User();
                     user.setUid(auth.getUid());
                     user.setEmail(email);
                     user.setPassword(password);
                     user.save();
-
                     Toast.makeText(getContext(), "Usuário criado com sucesso", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
                     Navigation.findNavController(getView()).navigate(R.id.action_signUpFragment_to_expenseListFragment);
                 } else {
@@ -83,13 +87,4 @@ public class SignupFragment extends Fragment {
             });
         }
     }
-
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
-    }
-
 }
