@@ -4,9 +4,11 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +48,13 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
+        CustomSpanSizeLookup spanSizeLookup = new CustomSpanSizeLookup(getSapnCount());
+        ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanSizeLookup(spanSizeLookup);
+
+
+
+
 
         FloatingActionButton currentMonthBtn = findViewById(R.id.currentMonthBtn);
         currentMonthBtn.setOnClickListener(view -> scrollToCurrentMonth());
@@ -91,6 +100,42 @@ public class CalendarActivity extends AppCompatActivity {
         MonthYearAdapter adapter = new MonthYearAdapter(months, this);
         recyclerView.setAdapter(adapter);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    private int getSapnCount() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int columnWidth = (int) getResources().getDimension(R.dimen.calendar_column_width);
+        int screenWidth = displayMetrics.widthPixels;
+        int spanCount = screenWidth / columnWidth;
+        if (spanCount < 1) {
+            spanCount = 1;
+        }
+        return spanCount;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // TODO: Change to instant scroll?
     private void scrollToCurrentMonth() {

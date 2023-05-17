@@ -15,12 +15,8 @@ import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

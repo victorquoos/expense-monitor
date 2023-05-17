@@ -2,9 +2,6 @@ package com.ifsc.expensemonitor.database;
 
 import com.google.firebase.database.Exclude;
 
-import java.time.LocalDate;
-import java.util.Calendar;
-
 public class Expense { //TODO: check if can use Calendar or Date instead of year, month and day
     private String key;
     private String name;

@@ -1,10 +1,5 @@
 package com.ifsc.expensemonitor.database;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import androidx.annotation.NonNull;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

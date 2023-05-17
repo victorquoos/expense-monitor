@@ -216,8 +216,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="16dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:padding="@dimen/margin3"
+            android:paddingBottom="@dimen/margin6"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     </LinearLayout>
@@ -229,6 +230,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin3"
         android:contentDescription="Add expense"
+        app:spanCount="3"
         app:srcCompat="@drawable/ic_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,8 +3,6 @@ package com.ifsc.expensemonitor.database;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
-import java.util.Date;
-
 public class User {
     // TODO: Add name?
     private String uid;
