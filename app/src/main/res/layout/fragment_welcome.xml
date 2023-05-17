@@ -5,9 +5,52 @@
     android:layout_height="match_parent"
     tools:context=".ui.start.WelcomeFragment">
 
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin6"
+        android:paddingRight="@dimen/margin6">
+
+        <TextView
+            android:id="@+id/welcomeTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin3"
+            android:gravity="center_horizontal"
+            android:text="@string/welcome"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+        <TextView
+            android:id="@+id/welcomeMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin6"
+            android:gravity="center_horizontal"
+            android:text="@string/welcome_message" />
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin2"
+            android:text="@string/sign_up" />
+
+        <Button
+            android:id="@+id/signinButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin2"
+            android:text="@string/sign_in" />
+
+        <Button
+            android:id="@+id/enterWithoutAccountButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/without_account" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </FrameLayout>
