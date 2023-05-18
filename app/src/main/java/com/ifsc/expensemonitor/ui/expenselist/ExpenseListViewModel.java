@@ -2,6 +2,7 @@ package com.ifsc.expensemonitor.ui.expenselist;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,7 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.SimpleDate;
-import com.ifsc.expensemonitor.expenselist.ExpenseCardAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +34,10 @@ public class ExpenseListViewModel extends ViewModel {
         unpaidValue = new MutableLiveData<>();
         totalValue = new MutableLiveData<>();
         currentMonthExpenses = new MutableLiveData<>(new ArrayList<>()); //TODO: Por que esse arraylist no final?
+
+        int month = SimpleDate.getCurrentDate().getMonth();
+        int year = SimpleDate.getCurrentDate().getYear();
+        loadExpensesForMonth(month, year);
     }
 
     public MutableLiveData<Integer> getMonth() {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -63,6 +64,7 @@ public class ExpenseListFragment extends Fragment {
         // Ações dos botões
         nextMonthButton.setOnClickListener(v -> mViewModel.goToNextMonth());
         previousMonthButton.setOnClickListener(v -> mViewModel.goToPreviousMonth());
+        selectMonthButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_expenseListFragment_to_monthListFragment));
 
 
         return view;
@@ -74,16 +76,10 @@ public class ExpenseListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
 
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
-
-        // Inicialização do ViewModel
-        int currentMonth = SimpleDate.getCurrentDate().getMonth();
-        int currentYear = SimpleDate.getCurrentDate().getYear();
-
-
-        mViewModel.loadExpensesForMonth(currentMonth, currentYear);
+        // Atualiza a lista de despesas quando alterado no viewmodel
         mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
-            // Atualiza a lista de despesas quando alterado no viewmodel
             expensesReciclerView.setAdapter(new ExpenseCardAdapter(expenses));
 
         });
@@ -100,9 +96,6 @@ public class ExpenseListFragment extends Fragment {
             String yearText = String.valueOf(year);
             yearTextView.setText(yearText);
         });
-
-        // Formatação de moeda
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
         // Atualiza o valor pago quando alterado no viewmodel
         mViewModel.getPaidValue().observe(getViewLifecycleOwner(), paidValue -> {
