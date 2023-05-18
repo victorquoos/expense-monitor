@@ -19,6 +19,7 @@ import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.calendar.CalendarActivity;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.ui.expenselist.ExpenseCardAdapter;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;

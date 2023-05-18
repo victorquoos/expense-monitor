@@ -18,13 +18,9 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
-import com.ifsc.expensemonitor.database.SimpleDate;
-import com.ifsc.expensemonitor.expenselist.ExpenseCardAdapter;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
-import java.util.Calendar;
 
 public class ExpenseListFragment extends Fragment {
 
@@ -86,7 +82,6 @@ public class ExpenseListFragment extends Fragment {
         // Atualiza a lista de despesas quando alterado no viewmodel
         mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
             expensesReciclerView.setAdapter(new ExpenseCardAdapter(expenses));
-
         });
 
         // Atualiza o mes quando alterado no viewmodel

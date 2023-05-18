@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.expenselist;
+package com.ifsc.expensemonitor.ui.expenselist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
@@ -86,11 +87,13 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 expenseStatusImageView.setImageResource(R.drawable.shape_yellow);
             }
 
-            expenseCardView.setOnClickListener(new View.OnClickListener() { //TODO: implement popup menu
-                @Override
-                public void onClick(View v) {
-                    FirebaseSettings.deleteExpense(expenseCard);
-                }
+            expenseCardView.setOnClickListener(v -> { //TODO: implement popup menu
+                int month = expenseCard.getDate().getMonth();
+                int year = expenseCard.getDate().getYear();
+                String key = expenseCard.getKey();
+                ExpenseListFragmentDirections.ActionExpenseListFragmentToAddEditFragment action =
+                        ExpenseListFragmentDirections.actionExpenseListFragmentToAddEditFragment(month, year, key);
+                Navigation.findNavController(v).navigate(action);
             });
         }
     }

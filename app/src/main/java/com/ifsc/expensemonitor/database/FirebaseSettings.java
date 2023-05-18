@@ -57,16 +57,12 @@ public class FirebaseSettings {
                 .setValue(expense);
     }
 
-    public static Expense getExpense(int year, int month, String expenseId) {
+    public static Expense getExpense(int year, int month, String key) {
         // Crie uma variável para armazenar a despesa recuperada
         final Expense[] retrievedExpense = new Expense[1];
 
         // Crie uma referência para a localização da despesa
-        DatabaseReference ref = getUserReference()
-                .child("expenses")
-                .child("year" + year)
-                .child("month" + month)
-                .child(expenseId);
+        DatabaseReference ref = getMonthReference(year, month).child(key);
 
         // Adicione um ouvinte para obter o valor da despesa
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
