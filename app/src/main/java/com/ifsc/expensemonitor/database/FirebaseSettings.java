@@ -1,5 +1,9 @@
 package com.ifsc.expensemonitor.database;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +55,36 @@ public class FirebaseSettings {
                 .child("month" + expense.getDate().getMonth())
                 .push()
                 .setValue(expense);
+    }
+
+    public static Expense getExpense(int year, int month, String expenseId) {
+        // Crie uma variável para armazenar a despesa recuperada
+        final Expense[] retrievedExpense = new Expense[1];
+
+        // Crie uma referência para a localização da despesa
+        DatabaseReference ref = getUserReference()
+                .child("expenses")
+                .child("year" + year)
+                .child("month" + month)
+                .child(expenseId);
+
+        // Adicione um ouvinte para obter o valor da despesa
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Converta o snapshot em uma despesa e armazene-a na variável
+                retrievedExpense[0] = snapshot.getValue(Expense.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Trate qualquer erro que possa ocorrer
+                Log.e("Firebase", error.getMessage());
+            }
+        });
+
+        // Retorne a despesa recuperada
+        return retrievedExpense[0];
     }
 
     public static void deleteExpense(Expense expense) {

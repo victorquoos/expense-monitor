@@ -65,11 +65,16 @@ public class ExpenseListFragment extends Fragment {
         nextMonthButton.setOnClickListener(v -> mViewModel.goToNextMonth());
         previousMonthButton.setOnClickListener(v -> mViewModel.goToPreviousMonth());
         selectMonthButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_expenseListFragment_to_monthListFragment));
-
+        addExpenseButton.setOnClickListener(v -> {
+            int month = mViewModel.getMonth().getValue();
+            int year = mViewModel.getYear().getValue();
+            ExpenseListFragmentDirections.ActionExpenseListFragmentToAddEditFragment action =
+                    ExpenseListFragmentDirections.actionExpenseListFragmentToAddEditFragment(month, year, "");
+            Navigation.findNavController(v).navigate(action);
+        });
 
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

@@ -26,11 +26,11 @@ public class NewExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_new_expense);
 
-        expenseName = findViewById(R.id.expenseName); //TODO: Rename ids
-        expenseValue = findViewById(R.id.expenseValue); //TODO: Mask for currency
-        expenseDate = findViewById(R.id.expenseDate);
-        expenseDescription = findViewById(R.id.expenseDescription);
-        saveButton = findViewById(R.id.saveButton);
+        expenseName = findViewById(R.id.expenseNameEditText); //TODO: Rename ids
+        expenseValue = findViewById(R.id.expenseValueEditText); //TODO: Mask for currency
+        expenseDate = findViewById(R.id.expenseDateEditText);
+        expenseDescription = findViewById(R.id.expenseDescriptionEditText);
+        saveButton = findViewById(R.id.saveExpenseButton);
 
         Intent intent = getIntent();
         int month = intent.getIntExtra("month", Calendar.getInstance().get(Calendar.MONTH));

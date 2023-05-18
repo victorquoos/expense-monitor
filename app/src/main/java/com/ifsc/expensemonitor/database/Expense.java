@@ -2,7 +2,7 @@ package com.ifsc.expensemonitor.database;
 
 import com.google.firebase.database.Exclude;
 
-public class Expense { //TODO: check if can use Calendar or Date instead of year, month and day
+public class Expense {
     private String key;
     private String name;
     private double value; //TODO: convert to int or long with cents

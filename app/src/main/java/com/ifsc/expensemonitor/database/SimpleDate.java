@@ -64,15 +64,12 @@ public class SimpleDate {
 
     @Exclude
     private static DateFormat getDateFormat() {
-        if (dateFormat == null) {
-            dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        }
-        return dateFormat;
+        return dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
     }
 
     @Exclude
-    private static SimpleDate getToday(){
-        if(today == null){
+    private static SimpleDate getToday() {
+        if (today == null) {
             today = new SimpleDate();
             today.setDate(Calendar.getInstance().getTimeInMillis());
         }
@@ -80,7 +77,7 @@ public class SimpleDate {
     }
 
     @Exclude
-     Calendar getCalendar() {
+    Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         return calendar;
@@ -99,7 +96,7 @@ public class SimpleDate {
     }
 
     @Exclude
-    public boolean isBeforeToday(){
+    public boolean isBeforeToday() {
         if (year < getToday().getYear()) {
             return true;
         } else if (year == getToday().getYear()) {
