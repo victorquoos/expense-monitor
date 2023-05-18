@@ -11,8 +11,6 @@ import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verifyIfUserIsLoggedIn() {
-        auth = FirebaseSettings.getFirebaseAuth();
+        FirebaseAuth auth = FirebaseSettings.getFirebaseAuth();
 
         //auth.signOut();
 

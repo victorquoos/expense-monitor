@@ -41,9 +41,9 @@ public class ExpenseListActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_expense_list);
 
         addExpenseButton = findViewById(R.id.addExpenseButton);
-        exepensesReciclerView = findViewById(R.id.recyclerView);
+        //exepensesReciclerView = findViewById(R.id.recyclerView);
         paidValueTextView = findViewById(R.id.paidValueTextView);
-        pendingValueTextView = findViewById(R.id.pendingValueTextView);
+        pendingValueTextView = findViewById(R.id.unpaidValueTextView);
         totalValueTextView = findViewById(R.id.totalValueTextView);
         monthTextView = findViewById(R.id.monthTextView);
         yearTextView = findViewById(R.id.yearTextView);
@@ -51,7 +51,7 @@ public class ExpenseListActivity extends AppCompatActivity {
         optionsButton = findViewById(R.id.optionsButton);
         previousMonthButton = findViewById(R.id.previousMonthButton);
         nextMonthButton = findViewById(R.id.nextMonthButton);
-        monthYearButton = findViewById(R.id.monthYearButton);
+        //monthYearButton = findViewById(R.id.monthYearButton);
 
         monthYearButton.setOnClickListener(v -> goToCalendarActivity());
         nextMonthButton.setOnClickListener(v -> goToNextMonth());

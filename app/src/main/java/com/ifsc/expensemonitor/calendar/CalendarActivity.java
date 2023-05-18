@@ -47,7 +47,7 @@ public class CalendarActivity extends AppCompatActivity {
             startActivity(listIntent);
         }
 
-        recyclerView = findViewById(R.id.recyclerView);
+        //recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false));
         CustomSpanSizeLookup spanSizeLookup = new CustomSpanSizeLookup(getSapnCount());
         ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanSizeLookup(spanSizeLookup);
