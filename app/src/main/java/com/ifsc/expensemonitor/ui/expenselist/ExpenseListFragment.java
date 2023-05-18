@@ -60,7 +60,13 @@ public class ExpenseListFragment extends Fragment {
         // Ações dos botões
         nextMonthButton.setOnClickListener(v -> mViewModel.goToNextMonth());
         previousMonthButton.setOnClickListener(v -> mViewModel.goToPreviousMonth());
-        selectMonthButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_expenseListFragment_to_monthListFragment));
+        selectMonthButton.setOnClickListener(v -> {
+            int month = mViewModel.getMonth().getValue();
+            int year = mViewModel.getYear().getValue();
+            ExpenseListFragmentDirections.ActionExpenseListFragmentToMonthListFragment action =
+                    ExpenseListFragmentDirections.actionExpenseListFragmentToMonthListFragment(month, year);
+            Navigation.findNavController(v).navigate(action);
+        });
         addExpenseButton.setOnClickListener(v -> {
             int month = mViewModel.getMonth().getValue();
             int year = mViewModel.getYear().getValue();

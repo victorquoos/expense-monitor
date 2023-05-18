@@ -53,7 +53,7 @@ public class AddEditFragment extends Fragment {
         expenseDateEditText = view.findViewById(R.id.expenseDateEditText);
         saveExpenseButton = view.findViewById(R.id.saveExpenseButton);
 
-        // Recebendo os dados da tela anterior
+        // Recuperando os dados da tela anterior
         month = AddEditFragmentArgs.fromBundle(getArguments()).getMonth();
         year = AddEditFragmentArgs.fromBundle(getArguments()).getYear();
         key = AddEditFragmentArgs.fromBundle(getArguments()).getKey();
@@ -70,7 +70,8 @@ public class AddEditFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AddEditViewModel.class);
 
         // Configuração dos valores padrão
-        if (key.isEmpty() || key == null) {
+        if (key.isEmpty()) {
+            materialToolbar.setTitle("Adicionar despesa"); //TODO: Make this string a resource
             selectedDate = SimpleDate.getCurrentDate();
             if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
                 selectedDate.setMonth(month);
@@ -79,6 +80,7 @@ public class AddEditFragment extends Fragment {
             }
             expenseDateEditText.setText(selectedDate.getFormattedDate());
         } else {
+            materialToolbar.setTitle("Editar despesa"); //TODO: Make this string a resource
             mViewModel.loadExpenseData(month, year, key);
             mViewModel.getExpense().observe(getViewLifecycleOwner(), expense -> {
                 expenseValueEditText.setText(String.valueOf(expense.getValue()));

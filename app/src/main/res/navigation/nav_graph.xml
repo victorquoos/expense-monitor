@@ -58,7 +58,14 @@
 
         <action
             android:id="@+id/action_expenseListFragment_to_monthListFragment"
-            app:destination="@id/monthListFragment" />
+            app:destination="@id/monthListFragment">
+            <argument
+                android:name="month"
+                app:argType="integer" />
+            <argument
+                android:name="year"
+                app:argType="integer" />
+        </action>
 
         <action
             android:id="@+id/action_expenseListFragment_to_addEditFragment"
@@ -82,6 +89,15 @@
         android:label="month_list_fragment"
         tools:layout="@layout/fragment_month_list">
 
+        <argument
+            android:name="month"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="year"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
         <action
             android:id="@+id/action_monthListFragment_to_expenseListFragment"
             app:destination="@id/expenseListFragment" />
@@ -98,16 +114,18 @@
             android:name="month"
             android:defaultValue="-1"
             app:argType="integer" />
-
         <argument
             android:name="year"
             android:defaultValue="-1"
             app:argType="integer" />
-
         <argument
             android:name="key"
             android:defaultValue=""
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_addEditFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
 
     </fragment>
 

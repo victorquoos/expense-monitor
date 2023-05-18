@@ -20,11 +20,9 @@ import java.util.List;
 
 public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<MonthYear> months;
-    private Activity mActivity;
 
-    public MonthYearAdapter(List<MonthYear> months, Activity activity) {
+    public MonthYearAdapter(List<MonthYear> months) {
         this.months = months;
-        this.mActivity = activity;
     }
 
     @Override

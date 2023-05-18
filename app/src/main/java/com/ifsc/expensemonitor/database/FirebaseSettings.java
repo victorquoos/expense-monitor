@@ -57,32 +57,6 @@ public class FirebaseSettings {
                 .setValue(expense);
     }
 
-    public static Expense getExpense(int year, int month, String key) {
-        // Crie uma variável para armazenar a despesa recuperada
-        final Expense[] retrievedExpense = new Expense[1];
-
-        // Crie uma referência para a localização da despesa
-        DatabaseReference ref = getMonthReference(year, month).child(key);
-
-        // Adicione um ouvinte para obter o valor da despesa
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Converta o snapshot em uma despesa e armazene-a na variável
-                retrievedExpense[0] = snapshot.getValue(Expense.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Trate qualquer erro que possa ocorrer
-                Log.e("Firebase", error.getMessage());
-            }
-        });
-
-        // Retorne a despesa recuperada
-        return retrievedExpense[0];
-    }
-
     public static void deleteExpense(Expense expense) {
         getUserReference()
                 .child("expenses")

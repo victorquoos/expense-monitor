@@ -29,19 +29,15 @@ public class AddEditViewModel extends ViewModel {
 
     public void loadExpenseData(int month, int year, String key) {
         DatabaseReference expenseReference = FirebaseSettings.getMonthReference(year, month).child(key);
-
-        // Adicione um ouvinte para obter o valor da despesa
         expenseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Converta o snapshot em uma despesa e armazene-a na variável
                 expense.setValue(snapshot.getValue(Expense.class));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Trate qualquer erro que possa ocorrer
-                Log.e("Firebase", error.getMessage());
+                Log.e("AddEditViewModel", "Erro ao obter despesa", error.toException());
             }
         });
     }
