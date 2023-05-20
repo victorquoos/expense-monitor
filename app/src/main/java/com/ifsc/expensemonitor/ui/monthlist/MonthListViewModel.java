@@ -85,11 +85,11 @@ public class MonthListViewModel extends ViewModel {
                             MonthYear monthYear = new MonthYear(i, firstYearValue);
                             monthYear.setCurrentMonth(false);
 
+                            monthList.add(monthYear);
                             if (firstYearValue == currentYear && i == currentMonth) {
                                 indexOfCurrentMonth = monthList.size() - 1;
                                 monthYear.setCurrentMonth(true);
                             }
-                            monthList.add(monthYear);
                         }
                         firstYearValue++;
                     }

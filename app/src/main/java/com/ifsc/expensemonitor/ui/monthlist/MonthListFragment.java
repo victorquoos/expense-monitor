@@ -16,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -64,6 +65,16 @@ public class MonthListFragment extends Fragment {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
         };
+
+        monthsRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (monthsRecyclerView.computeVerticalScrollRange() > monthsRecyclerView.getHeight()) {
+                    scrollToCurrentMonth();  // Chamando scrollToCurrentMonth
+                    monthsRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            }
+        });
 
         return view;
     }
