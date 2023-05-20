@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,8 @@ public class MonthListFragment extends Fragment {
     RecyclerView monthsRecyclerView;
     FloatingActionButton goToCurrentMonthButton;
     int month, year;
-    RecyclerView.SmoothScroller smoothScroller;  // Adicionado aqui
+    RecyclerView.SmoothScroller smoothScroller;
+    int scrollToPosition = -1;
 
     public static MonthListFragment newInstance() {
         return new MonthListFragment();
@@ -91,22 +91,31 @@ public class MonthListFragment extends Fragment {
         return spanCount;
     }
 
-    private void scrollToCurrentMonth(){
-        int indexCurrentMonth = mViewModel.getIndexOfCurrentMonth();
-        if (indexCurrentMonth != -1) {
-            if (getVisibleItemCount() > 15) {
-                smoothScroller.setTargetPosition(indexCurrentMonth - (indexCurrentMonth % 13));
-            } else {
-                smoothScroller.setTargetPosition(indexCurrentMonth - (getVisibleItemCount() / 2 - getSapnCount() * 2));
-            }
-            monthsRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
-        }
+    private void scrollToCurrentMonth() {
+        smoothScroller.setTargetPosition(getScrollPosition());
+        monthsRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
     }
 
-    private int getVisibleItemCount() {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) monthsRecyclerView.getLayoutManager();
-        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
-        int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
-        return lastVisiblePosition - firstVisiblePosition + 1;
+    private int getScrollPosition() {
+        int indexCurrentMonth = mViewModel.getIndexOfCurrentMonth();
+        if (indexCurrentMonth < 0) {
+            return 0;
+        }
+        if (scrollToPosition < 0) {
+            LinearLayoutManager layoutManager = (LinearLayoutManager) monthsRecyclerView.getLayoutManager();
+            int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+            int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+            int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
+
+            if (visibleItems > 15) {
+                scrollToPosition = (indexCurrentMonth - (indexCurrentMonth % 13));
+            } else {
+                scrollToPosition = (indexCurrentMonth - (visibleItems / 2 - getSapnCount() * 2));
+            }
+            if (scrollToPosition < 0) {
+                scrollToPosition = 0;
+            }
+        }
+        return scrollToPosition;
     }
 }
