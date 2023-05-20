@@ -1,11 +1,8 @@
 package com.ifsc.expensemonitor.calendar;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,10 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.expenselist.ExpenseListActivity;
+import com.ifsc.expensemonitor.ui.monthlist.CustomSpanSizeLookup;
+import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
+import com.ifsc.expensemonitor.ui.monthlist.MonthYearAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;

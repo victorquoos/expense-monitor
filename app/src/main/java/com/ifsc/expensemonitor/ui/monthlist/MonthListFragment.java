@@ -15,19 +15,11 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.calendar.CustomSpanSizeLookup;
-import com.ifsc.expensemonitor.calendar.MonthYear;
-import com.ifsc.expensemonitor.calendar.MonthYearAdapter;
 import com.ifsc.expensemonitor.ui.addedit.AddEditFragmentArgs;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseCardAdapter;
-import com.ifsc.expensemonitor.ui.start.WelcomeViewModel;
-
-import java.util.List;
 
 public class MonthListFragment extends Fragment {
 

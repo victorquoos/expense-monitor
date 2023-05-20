@@ -1,7 +1,6 @@
 package com.ifsc.expensemonitor.ui.monthlist;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -11,7 +10,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.ifsc.expensemonitor.calendar.MonthYear;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 import java.util.ArrayList;

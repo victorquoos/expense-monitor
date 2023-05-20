@@ -18,6 +18,12 @@
         <action
             android:id="@+id/action_welcomeFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+
 
     </fragment>
 
