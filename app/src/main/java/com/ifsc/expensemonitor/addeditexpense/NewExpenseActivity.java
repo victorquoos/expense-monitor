@@ -68,7 +68,7 @@ public class NewExpenseActivity extends AppCompatActivity {
             } else {
                 Expense expense = new Expense();
                 expense.setName(expenseName.getText().toString());
-                expense.setValue(Double.parseDouble(expenseValue.getText().toString()));
+                expense.setValue(Long.parseLong(expenseValue.getText().toString()));
                 expense.setDate(selectedDate);
                 expense.setDescription(expenseDescription.getText().toString());
                 FirebaseSettings.saveExpense(expense);

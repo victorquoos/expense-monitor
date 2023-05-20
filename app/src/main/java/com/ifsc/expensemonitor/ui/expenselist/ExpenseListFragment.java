@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.database.MoneyValue;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -83,8 +84,6 @@ public class ExpenseListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
 
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-
         // Atualiza a lista de despesas quando alterado no viewmodel
         mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
             expensesReciclerView.setAdapter(new ExpenseCardAdapter(expenses));
@@ -105,19 +104,19 @@ public class ExpenseListFragment extends Fragment {
 
         // Atualiza o valor pago quando alterado no viewmodel
         mViewModel.getPaidValue().observe(getViewLifecycleOwner(), paidValue -> {
-            String paidValueText = currencyFormat.format(paidValue);
+            String paidValueText = MoneyValue.format(paidValue);
             paidValueTextView.setText(paidValueText);
         });
 
         // Atualiza o valor não pago quando alterado no viewmodel
         mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> {
-            String unpaidValueText = currencyFormat.format(unpaidValue);
+            String unpaidValueText = MoneyValue.format(unpaidValue);
             unpaidValueTextView.setText(unpaidValueText);
         });
 
         // Atualiza o valor total quando alterado no viewmodel
         mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> {
-            String totalValueText = currencyFormat.format(totalValue);
+            String totalValueText = MoneyValue.format(totalValue);
             totalValueTextView.setText(totalValueText);
         });
     }

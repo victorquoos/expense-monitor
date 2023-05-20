@@ -22,9 +22,9 @@ public class ExpenseListViewModel extends ViewModel {
     private DatabaseReference currentRef = null;
     private MutableLiveData<Integer> month;
     private MutableLiveData<Integer> year;
-    private MutableLiveData<Double> paidValue;
-    private MutableLiveData<Double> unpaidValue;
-    private MutableLiveData<Double> totalValue;
+    private MutableLiveData<Long> paidValue;
+    private MutableLiveData<Long> unpaidValue;
+    private MutableLiveData<Long> totalValue;
     private MutableLiveData<List<Expense>> currentMonthExpenses;
 
     public ExpenseListViewModel() {
@@ -48,15 +48,15 @@ public class ExpenseListViewModel extends ViewModel {
         return year;
     }
 
-    public MutableLiveData<Double> getPaidValue() {
+    public MutableLiveData<Long> getPaidValue() {
         return paidValue;
     }
 
-    public MutableLiveData<Double> getUnpaidValue() {
+    public MutableLiveData<Long> getUnpaidValue() {
         return unpaidValue;
     }
 
-    public MutableLiveData<Double> getTotalValue() {
+    public MutableLiveData<Long> getTotalValue() {
         return totalValue;
     }
 
@@ -102,8 +102,8 @@ public class ExpenseListViewModel extends ViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Expense> expenses = new ArrayList<>();
-                double totalPaid = 0.0;
-                double totalPending = 0.0;
+                Long totalPaid = 0L;
+                Long totalPending = 0L;
                 for (DataSnapshot expenseData : snapshot.getChildren()) {
                     Expense expense = expenseData.getValue(Expense.class);
                     expense.setKey(expenseData.getKey());

@@ -30,12 +30,13 @@ public class SimpleDate {
         this.day = day;
     }
 
-    public void setDate(Long millis) {
+    public SimpleDate setDate(Long millis) {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(millis);
         this.year = calendar.get(Calendar.YEAR);
         this.month = calendar.get(Calendar.MONTH);
         this.day = calendar.get(Calendar.DAY_OF_MONTH);
+        return null;
     }
 
     public int getYear() {
@@ -60,6 +61,12 @@ public class SimpleDate {
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    @Exclude
+    public Long getDateInMillis() {
+        Calendar calendar = getCalendar();
+        return calendar.getTimeInMillis();
     }
 
     @Exclude

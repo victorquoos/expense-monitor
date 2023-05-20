@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/menu_expenselist"
-            app:title="Nova despesa" /> <!-- TODO: mudar titulo para "Editar despesa" quando for editar -->
+            app:title="Nova despesa" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -23,33 +23,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/margin3">
 
         <TextView
             android:id="@+id/valueLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin3"
             android:text="Valor"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/expenseValueEditText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:ems="10"
-            android:inputType="numberDecimal" />
+            android:layout_marginTop="@dimen/margin2">
+
+            <EditText
+                android:id="@+id/expenseValueEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:cursorVisible="false"
+                android:digits="0123456789"
+                android:ems="10"
+                android:hint="Insira um valor"
+                android:inputType="numberDecimal"
+                android:maxLength="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/expenseValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="fill_horizontal"
+                android:text="0"
+                app:layout_constraintBottom_toBottomOf="@+id/expenseValueEditText"
+                app:layout_constraintEnd_toEndOf="@+id/expenseValueEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/expenseValueEditText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/nameLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin3"
             android:text="Nome"
             android:textSize="18sp" />
 
@@ -57,9 +79,7 @@
             android:id="@+id/expenseNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin2"
             android:ems="10"
             android:inputType="textPersonName" />
 
@@ -67,8 +87,7 @@
             android:id="@+id/dateLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin3"
             android:text="Data"
             android:textSize="18sp" />
 
@@ -76,9 +95,7 @@
             android:id="@+id/expenseDateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin2"
             android:clickable="true"
             android:ems="10"
             android:focusable="false"
@@ -88,8 +105,7 @@
             android:id="@+id/descriptionLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin3"
             android:text="Descrição"
             android:textSize="18sp" />
 
@@ -97,9 +113,7 @@
             android:id="@+id/expenseDescriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin2"
             android:ems="10"
             android:inputType="textMultiLine" />
 
@@ -110,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/margin3"
         android:contentDescription="Salvar despesa"
         android:text="Salvar"
         app:icon="@drawable/ic_check" />

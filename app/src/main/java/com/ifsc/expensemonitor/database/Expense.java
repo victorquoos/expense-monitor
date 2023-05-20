@@ -2,10 +2,13 @@ package com.ifsc.expensemonitor.database;
 
 import com.google.firebase.database.Exclude;
 
+import java.text.NumberFormat;
+
 public class Expense {
+    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
     private String key;
     private String name;
-    private double value; //TODO: convert to int or long with cents
+    private Long value;
     private SimpleDate date;
     private boolean paid = false;
     private String description;
@@ -30,11 +33,11 @@ public class Expense {
         this.name = name;
     }
 
-    public double getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 

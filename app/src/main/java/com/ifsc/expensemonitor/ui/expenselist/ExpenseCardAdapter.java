@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.text.NumberFormat;
@@ -67,13 +68,12 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public void bind(Expense expenseCard) {
             String name = expenseCard.getName();
-            Double value = expenseCard.getValue();
+            Long value = expenseCard.getValue();
             SimpleDate simpleDate = expenseCard.getDate();
             boolean isPaid = expenseCard.isPaid();
 
             expenseNameTextView.setText(name);
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-            expenseValueTextView.setText(currencyFormat.format(value));
+            expenseValueTextView.setText(MoneyValue.format(value));
             expenseDateTextView.setText(simpleDate.getFormattedDate());
 
             if (isPaid) {
