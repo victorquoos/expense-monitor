@@ -22,7 +22,7 @@ public class MonthListViewModel extends ViewModel {
     private MutableLiveData<Integer> lastYear;
     private MutableLiveData<List<MonthYear>> months;
     private int currentYear, currentMonth;
-    private int indexOfCurrentMonth;
+    private int indexOfCurrentMonth = -1;
 
     public MonthListViewModel() {
         firstYear = new MutableLiveData<>();
@@ -44,6 +44,10 @@ public class MonthListViewModel extends ViewModel {
 
     public MutableLiveData<Integer> getLastYear() {
         return lastYear;
+    }
+
+    public int getIndexOfCurrentMonth() {
+        return indexOfCurrentMonth;
     }
 
     public MutableLiveData<List<MonthYear>> getMonthList() {
