@@ -12,21 +12,18 @@
         android:orientation="vertical">
 
         <LinearLayout
+            style="@style/ToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_white"
-            android:elevation="8dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:padding="@dimen/margin2">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/filtersButton"
-                    style="?attr/materialIconButtonStyle"
+                    style="@style/ToolbarIconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/filters"
@@ -38,7 +35,7 @@
 
                 <Button
                     android:id="@+id/previousMonthButton"
-                    style="?attr/materialIconButtonStyle"
+                    style="@style/ToolbarIconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin4"
@@ -51,7 +48,7 @@
 
                 <Button
                     android:id="@+id/selectMonthButton"
-                    style="@style/Widget.Material3.Button.TextButton"
+                    style="@style/ToolbarIconButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -64,6 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="@dimen/margin3"
+                    android:background="@android:color/transparent"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +93,7 @@
 
                 <Button
                     android:id="@+id/nextMonthButton"
-                    style="?attr/materialIconButtonStyle"
+                    style="@style/ToolbarIconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin4"
@@ -108,7 +106,7 @@
 
                 <Button
                     android:id="@+id/optionsButton"
-                    style="?attr/materialIconButtonStyle"
+                    style="@style/ToolbarIconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/next_month"
@@ -124,8 +122,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/margin3"
-                android:paddingVertical="@dimen/margin2">
+                android:layout_marginTop="@dimen/margin3"
+                android:paddingHorizontal="@dimen/margin2">
 
                 <TextView
                     android:id="@+id/paidTextView"
@@ -215,7 +213,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="@dimen/margin3"
+            android:padding="@dimen/margin2"
             android:paddingBottom="@dimen/margin6"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
@@ -224,12 +222,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addExpenseButton"
+        style="@style/FloatingActionButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin3"
         android:contentDescription="Add expense"
-        app:spanCount="3"
         app:srcCompat="@drawable/ic_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
