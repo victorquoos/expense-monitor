@@ -53,31 +53,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2">
 
-                    <EditText
-                        android:id="@+id/expenseValueEditText"
+                    <TextView
+                        android:id="@+id/expenseValueTextView"
+                        style="@style/InputValueAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="fill"
-                        android:cursorVisible="false"
-                        android:digits="0123456789"
-                        android:ems="10"
-                        android:hint="Insira um valor"
-                        android:inputType="numberDecimal"
-                        android:maxLength="14"
+                        android:layout_gravity="fill_horizontal"
+                        android:text="0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/expenseValueTextView"
+                    <EditText
+                        android:id="@+id/expenseValueEditText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_gravity="fill_horizontal"
-                        android:text="0"
-                        app:layout_constraintBottom_toBottomOf="@+id/expenseValueEditText"
-                        app:layout_constraintEnd_toEndOf="@+id/expenseValueEditText"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/expenseValueEditText" />
+                        android:layout_gravity="fill"
+                        android:cursorVisible="false"
+                        android:digits="0123456789"
+                        android:hint="Insira um valor"
+                        android:inputType="numberDecimal"
+                        android:maxLength="14"
+                        app:layout_constraintBottom_toBottomOf="@+id/expenseValueTextView"
+                        app:layout_constraintEnd_toEndOf="@+id/expenseValueTextView"
+                        app:layout_constraintStart_toStartOf="@+id/expenseValueTextView"
+                        app:layout_constraintTop_toTopOf="@+id/expenseValueTextView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
