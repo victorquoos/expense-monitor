@@ -77,7 +77,11 @@ public class AddEditFragment extends Fragment {
             builder.setSelection(selectedDate.getDateInMillis());
             MaterialDatePicker<Long> datePicker = builder.build();
 
-            datePicker.addOnPositiveButtonClickListener(selection -> selectedDate.setDate(selection));
+            datePicker.addOnPositiveButtonClickListener(selection -> {
+                selectedDate.setDate(selection);
+                expenseDateEditText.setText(selectedDate.getFormattedDate());
+            });
+
             datePicker.show(getParentFragmentManager(), datePicker.toString());
         });
 
@@ -105,14 +109,15 @@ public class AddEditFragment extends Fragment {
                 expenseNameEditText.setText(expense.getName());
                 expenseDescriptionEditText.setText(expense.getDescription());
                 expenseDateEditText.setText(expense.getDate().getFormattedDate());
+                selectedDate = expense.getDate();
             }
         });
     }
 
     public void setInitialValues(int month, int year, String key, AddEditViewModel mViewModel) {
+        selectedDate = SimpleDate.getCurrentDate();
         if (key.isEmpty()) {
             materialToolbar.setTitle("Adicionar despesa");
-            selectedDate = SimpleDate.getCurrentDate();
             if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
                 selectedDate.setMonth(month);
                 selectedDate.setYear(year);
