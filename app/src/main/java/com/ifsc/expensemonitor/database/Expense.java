@@ -16,6 +16,14 @@ public class Expense {
     public Expense() {
     }
 
+    public Expense(String name, Long value, SimpleDate date, String description) {
+        this.name = name;
+        this.value = value;
+        this.date = date;
+        this.paid = paid;
+        this.description = description;
+    }
+
     @Exclude
     public String getKey() {
         return key;

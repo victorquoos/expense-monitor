@@ -21,6 +21,8 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
@@ -89,6 +91,33 @@ public class AddEditFragment extends Fragment {
 
 
         //TODO: Implementar a lógica de salvar a despesa
+        saveExpenseButton.setOnClickListener(v -> {
+            Long value = Long.parseLong(expenseValueEditText.getText().toString());
+            String name = expenseNameEditText.getText().toString();
+            String description = expenseDescriptionEditText.getText().toString();
+            SimpleDate date = selectedDate;
+
+            if (value == 0) {
+                expenseValueEditText.setError("Insira um valor válido");
+                expenseValueEditText.requestFocus();
+            } else if (name.isEmpty()) {
+                expenseNameEditText.setError("Insira um nome válido");
+                expenseNameEditText.requestFocus();
+            } else if (date == null) {
+                expenseDateEditText.setError("Insira uma data válida");
+                expenseDateEditText.requestFocus();
+            } else {
+                if (mViewModel.getExpense().getValue() == null) {
+                    Expense expense = new Expense(name, value, date, description);
+                    FirebaseSettings.saveExpense(expense);
+                } else {
+                    Expense expense = new Expense(name, value, date, description);
+                    FirebaseSettings.updateExpense(mViewModel.getExpense().getValue(), expense);
+                }
+            }
+
+            Navigation.findNavController(view).navigateUp();
+        });
 
 
         return view;

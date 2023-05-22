@@ -33,6 +33,7 @@ public class AddEditViewModel extends ViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 expense.setValue(snapshot.getValue(Expense.class));
+                expense.getValue().setKey(key);
             }
 
             @Override
