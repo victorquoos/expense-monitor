@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,21 +104,16 @@ public class MonthListFragment extends Fragment {
     }
 
     private void scrollToCurrentMonth() {
-        smoothScroller.setTargetPosition(getScrollPosition());
-        monthsRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
-    }
-
-    private int getScrollPosition() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) monthsRecyclerView.getLayoutManager();
+        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+        int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+        int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
         int indexCurrentMonth = mViewModel.getIndexOfCurrentMonth();
-        if (indexCurrentMonth < 0) {
-            return 0;
-        }
-        if (scrollToPosition < 0) {
-            LinearLayoutManager layoutManager = (LinearLayoutManager) monthsRecyclerView.getLayoutManager();
-            int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
-            int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
-            int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
 
+        if (indexCurrentMonth < 0) {
+            scrollToPosition = 0;
+        }
+        else if (scrollToPosition < 0) {
             if (visibleItems > 15) {
                 scrollToPosition = (indexCurrentMonth - (indexCurrentMonth % 13));
             } else {
@@ -127,6 +123,25 @@ public class MonthListFragment extends Fragment {
                 scrollToPosition = 0;
             }
         }
-        return scrollToPosition;
+
+        if (scrollToPosition < firstVisiblePosition - visibleItems || scrollToPosition > lastVisiblePosition + visibleItems) {
+            int intermediatePosition;
+            if (scrollToPosition > lastVisiblePosition) {
+                intermediatePosition = scrollToPosition - visibleItems;
+            } else {
+                intermediatePosition = scrollToPosition + visibleItems;
+            }
+            intermediatePosition = Math.max(0, Math.min(intermediatePosition, mViewModel.getMonthList().getValue().size() - 1));
+
+            monthsRecyclerView.getLayoutManager().scrollToPosition(intermediatePosition);
+
+            monthsRecyclerView.post(() -> {
+                smoothScroller.setTargetPosition(scrollToPosition);
+                monthsRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+            });
+        } else {
+            smoothScroller.setTargetPosition(scrollToPosition);
+            monthsRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+        }
     }
 }

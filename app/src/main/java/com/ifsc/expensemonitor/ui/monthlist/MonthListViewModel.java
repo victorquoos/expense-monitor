@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MonthListViewModel extends ViewModel {
     private MutableLiveData<Integer> firstYear;
@@ -63,9 +65,14 @@ public class MonthListViewModel extends ViewModel {
                 List<Integer> years = new ArrayList<>();
                 for (DataSnapshot year : snapshot.getChildren()) {
                     String yearText = year.getKey();
-                    yearText = yearText.replaceAll("\\D+","");
-                    int yearNumber = Integer.parseInt(yearText);
-                    years.add(yearNumber);
+                    Pattern pattern = Pattern.compile("year(\\d{4})");
+                    Matcher matcher = pattern.matcher(yearText);
+
+                    if (matcher.find()) {
+                        String anoString = matcher.group(1);
+                        int yearNumber = Integer.parseInt(anoString);
+                        years.add(yearNumber);
+                    }
                 }
 
                 Collections.sort(years);
