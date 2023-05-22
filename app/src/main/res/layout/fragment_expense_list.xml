@@ -125,16 +125,24 @@
                 android:layout_marginTop="@dimen/margin3"
                 android:paddingHorizontal="@dimen/margin2">
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/paidTextView"
+                    app:srcCompat="@drawable/ic_check" />
+
                 <TextView
                     android:id="@+id/paidTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin2"
+                    android:layout_marginHorizontal="@dimen/margin2"
                     android:text="Pago"
                     android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                     app:layout_constraintEnd_toStartOf="@+id/guideline1"
-                    app:layout_constraintStart_toStartOf="parent"
-
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -145,67 +153,74 @@
                     android:text="R$ 999.999.999,00"
                     android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                     app:layout_constraintEnd_toStartOf="@+id/guideline1"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/paidTextView"
                     app:layout_constraintTop_toBottomOf="@+id/paidTextView" />
-
-                <TextView
-                    android:id="@+id/pendingTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin1"
-                    android:text="Pendente"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                    app:layout_constraintEnd_toEndOf="@+id/paidTextView"
-                    app:layout_constraintStart_toStartOf="@+id/paidValueTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/paidValueTextView" />
-
-                <TextView
-                    android:id="@+id/unpaidValueTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="R$ 999.999.999,00"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    app:layout_constraintEnd_toEndOf="@+id/pendingTextView"
-                    app:layout_constraintStart_toStartOf="@+id/pendingTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/pendingTextView" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.45" />
+                    app:layout_constraintGuide_percent="0.5013193" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/pendingTextView"
+                    app:srcCompat="@drawable/ic_clock" />
 
                 <TextView
-                    android:id="@+id/totalTextView"
+                    android:id="@+id/pendingTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Total"
-                    android:textAlignment="center"
+                    android:layout_marginHorizontal="@dimen/margin2"
+                    android:text="Pendente"
+                    android:textAlignment="textEnd"
                     android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                    app:layout_constraintBottom_toTopOf="@+id/totalValueTextView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/guideline1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                    app:layout_constraintStart_toEndOf="@+id/guideline1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/totalValueTextView"
+                    android:id="@+id/unpaidValueTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="R$ 999.999.999,00"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/guideline1"
-                    app:layout_constraintTop_toBottomOf="@+id/totalTextView" />
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    app:layout_constraintEnd_toEndOf="@+id/pendingTextView"
+                    app:layout_constraintStart_toStartOf="@+id/pendingTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/pendingTextView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/totalTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Total"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/paidValueTextView" />
+
+            <TextView
+                android:id="@+id/totalValueTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="R$ 999.999.999,00"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/totalTextView" />
 
         </LinearLayout>
 
@@ -214,9 +229,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/margin2"
-            android:paddingTop="@dimen/margin2"
-            android:paddingBottom="80dp"
+            android:padding="@dimen/margin2"
+            android:paddingBottom="@dimen/margin6"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
