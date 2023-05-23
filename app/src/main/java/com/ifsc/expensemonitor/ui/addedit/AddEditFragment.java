@@ -64,10 +64,7 @@ public class AddEditFragment extends Fragment {
         key = AddEditFragmentArgs.fromBundle(getArguments()).getKey();
 
         // Configuração da toolbar
-        materialToolbar.setNavigationOnClickListener(v -> {
-            Navigation.findNavController(view).navigateUp();
-            // Navigation.findNavController(view).popBackStack(); //todo: qual é a diferença?
-        });
+        materialToolbar.setNavigationOnClickListener(v -> Navigation.findNavController(view).navigateUp());
 
         // Configuração do textwatcher do valor da despesa
         expenseValueEditText.addTextChangedListener(expenseValueEditTextWatcher);
@@ -87,10 +84,7 @@ public class AddEditFragment extends Fragment {
             datePicker.show(getParentFragmentManager(), datePicker.toString());
         });
 
-
-
-
-        //TODO: Implementar a lógica de salvar a despesa
+        // Lógica de salvar a despesa
         saveExpenseButton.setOnClickListener(v -> {
             Long value = Long.parseLong(expenseValueEditText.getText().toString());
             String name = expenseNameEditText.getText().toString();
@@ -115,10 +109,8 @@ public class AddEditFragment extends Fragment {
                     FirebaseSettings.updateExpense(mViewModel.getExpense().getValue(), expense);
                 }
             }
-
             Navigation.findNavController(view).navigateUp();
         });
-
 
         return view;
     }
@@ -170,12 +162,10 @@ public class AddEditFragment extends Fragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String string = s.toString();
 
-            // Remove os zeros à esquerda
             if (string.startsWith("0")) {
                 string = string.replaceAll("^0+", "");
                 expenseValueEditText.setText(string);
             }
-
             try {
                 expenseValueTextView.setText(MoneyValue.format(string));
             } catch (NumberFormatException e) {

@@ -8,24 +8,25 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Expense> expenseCards;
+    private FragmentManager fragmentManager;
 
-    public ExpenseCardAdapter(List<Expense> expenses) {
+    public ExpenseCardAdapter(List<Expense> expenses, FragmentManager fragmentManager) {
         this.expenseCards = expenses;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -40,7 +41,7 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Expense expenseCard = expenseCards.get(position);
         ExpenseCardViewHolder expenseCardViewHolder = (ExpenseCardViewHolder) holder;
-        expenseCardViewHolder.bind(expenseCard);
+        expenseCardViewHolder.bind(expenseCard, fragmentManager);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             expenseCardView = itemView.findViewById(R.id.expenseCardView);
         }
 
-        public void bind(Expense expenseCard) {
+        public void bind(Expense expenseCard, FragmentManager fragmentManager) {
             String name = expenseCard.getName();
             Long value = expenseCard.getValue();
             SimpleDate simpleDate = expenseCard.getDate();
@@ -91,9 +92,9 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 int month = expenseCard.getDate().getMonth();
                 int year = expenseCard.getDate().getYear();
                 String key = expenseCard.getKey();
-                ExpenseListFragmentDirections.ActionExpenseListFragmentToAddEditFragment action =
-                        ExpenseListFragmentDirections.actionExpenseListFragmentToAddEditFragment(month, year, key);
-                Navigation.findNavController(v).navigate(action);
+
+                BottomSheetDialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(expenseCard);
+                expenseBottomSheetFragment.show(fragmentManager, "expenseBottomSheet");
             });
         }
     }

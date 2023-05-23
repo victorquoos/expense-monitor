@@ -86,7 +86,7 @@ public class ExpenseListFragment extends Fragment {
 
         // Atualiza a lista de despesas quando alterado no viewmodel
         mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
-            expensesReciclerView.setAdapter(new ExpenseCardAdapter(expenses));
+            expensesReciclerView.setAdapter(new ExpenseCardAdapter(expenses, getChildFragmentManager()));
         });
 
         // Atualiza o mes quando alterado no viewmodel
