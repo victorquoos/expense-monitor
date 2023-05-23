@@ -145,6 +145,7 @@ public class AddEditFragment extends Fragment {
 
     public void setInitialValues(int month, int year, String key, AddEditViewModel mViewModel) {
         selectedDate = SimpleDate.getCurrentDate();
+        expenseValueEditText.setText("0");
         if (key.isEmpty()) {
             materialToolbar.setTitle("Adicionar despesa");
             if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
