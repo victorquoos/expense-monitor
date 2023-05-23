@@ -2,7 +2,6 @@ package com.ifsc.expensemonitor.ui.expenselist;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
@@ -85,6 +84,10 @@ public class ExpenseListViewModel extends ViewModel {
         } else {
             month--;
         }
+        loadExpensesForMonth(month, year);
+    }
+
+    public void goToMonth(int month, int year) {
         loadExpensesForMonth(month, year);
     }
 

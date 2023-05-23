@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.addedit.AddEditFragmentArgs;
+import com.ifsc.expensemonitor.ui.expenselist.ExpenseListViewModel;
 
 public class MonthListFragment extends Fragment {
 
@@ -87,7 +87,8 @@ public class MonthListFragment extends Fragment {
 
         // Atualiza a lista de meses quando alterado no viewmodel
         mViewModel.getMonthList().observe(getViewLifecycleOwner(), monthList -> {
-            monthsRecyclerView.setAdapter(new MonthYearAdapter(monthList));
+            ExpenseListViewModel expenseListViewModel = new ViewModelProvider(requireActivity()).get(ExpenseListViewModel.class);
+            monthsRecyclerView.setAdapter(new MonthYearAdapter(monthList, expenseListViewModel));
         });
     }
 

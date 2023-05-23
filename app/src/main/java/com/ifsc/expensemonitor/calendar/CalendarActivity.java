@@ -95,8 +95,8 @@ public class CalendarActivity extends AppCompatActivity {
             recyclerView.scrollToPosition(indexCurrentMonth);
         }
 
-        MonthYearAdapter adapter = new MonthYearAdapter(months);
-        recyclerView.setAdapter(adapter);
+        //MonthYearAdapter adapter = new MonthYearAdapter(months);
+        //recyclerView.setAdapter(adapter);
     }
 
 

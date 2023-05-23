@@ -82,7 +82,7 @@ public class ExpenseListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(ExpenseListViewModel.class);
 
         // Atualiza a lista de despesas quando alterado no viewmodel
         mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {

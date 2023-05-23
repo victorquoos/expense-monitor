@@ -24,7 +24,6 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
 
-
     </fragment>
 
     <fragment
@@ -104,10 +103,6 @@
             android:defaultValue="-1"
             app:argType="integer" />
 
-        <action
-            android:id="@+id/action_monthListFragment_to_expenseListFragment"
-            app:destination="@id/expenseListFragment" />
-
     </fragment>
 
     <fragment
@@ -128,10 +123,6 @@
             android:name="key"
             android:defaultValue=""
             app:argType="string" />
-
-        <action
-            android:id="@+id/action_addEditFragment_to_expenseListFragment"
-            app:destination="@id/expenseListFragment" />
 
     </fragment>
 
