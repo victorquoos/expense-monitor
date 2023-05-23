@@ -1,8 +1,5 @@
-package com.ifsc.expensemonitor.calendar;
+package com.ifsc.expensemonitor.ui.monthlist;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +7,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.expenselist.ExpenseListActivity;
+import com.ifsc.expensemonitor.ui.expenselist.ExpenseListViewModel;
 
 import java.text.DateFormatSymbols;
 import java.util.List;
 
 public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<MonthYear> months;
-    private Activity mActivity;
+    private ExpenseListViewModel expenseListViewModel;
 
-    public MonthYearAdapter(List<MonthYear> months, Activity activity) {
+    public MonthYearAdapter(List<MonthYear> months, ExpenseListViewModel expenseListViewModel) {
         this.months = months;
-        this.mActivity = activity;
+        this.expenseListViewModel = expenseListViewModel;
     }
 
     @Override
@@ -61,12 +60,9 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     int month = monthYear.getMonth();
                     int year = monthYear.getYear();
 
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, ExpenseListActivity.class);
-                    intent.putExtra("month", month);
-                    intent.putExtra("year", year);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent);
+                    expenseListViewModel.goToMonth(month, year);
+
+                    Navigation.findNavController(view).popBackStack();
                 }
             });
             MonthViewHolder monthViewHolder = (MonthViewHolder) holder;

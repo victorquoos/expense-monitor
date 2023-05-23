@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.expenselist;
+package com.ifsc.expensemonitor.ui.expenselist;
 
 import java.util.Date;
 

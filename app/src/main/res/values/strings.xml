@@ -20,4 +20,5 @@
     <string name="late">Atrasado</string>
     <string name="pending">Pendente</string>
     <string name="paid">Pago</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

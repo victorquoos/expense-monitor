@@ -30,12 +30,13 @@ public class SimpleDate {
         this.day = day;
     }
 
-    public void setDate(Long millis) {
+    public SimpleDate setDate(Long millis) {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(millis);
         this.year = calendar.get(Calendar.YEAR);
         this.month = calendar.get(Calendar.MONTH);
         this.day = calendar.get(Calendar.DAY_OF_MONTH);
+        return null;
     }
 
     public int getYear() {
@@ -63,16 +64,19 @@ public class SimpleDate {
     }
 
     @Exclude
-    private static DateFormat getDateFormat() {
-        if (dateFormat == null) {
-            dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        }
-        return dateFormat;
+    public Long getDateInMillis() {
+        Calendar calendar = getCalendar();
+        return calendar.getTimeInMillis();
     }
 
     @Exclude
-    private static SimpleDate getToday(){
-        if(today == null){
+    private static DateFormat getDateFormat() {
+        return dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+    }
+
+    @Exclude
+    private static SimpleDate getToday() {
+        if (today == null) {
             today = new SimpleDate();
             today.setDate(Calendar.getInstance().getTimeInMillis());
         }
@@ -80,7 +84,7 @@ public class SimpleDate {
     }
 
     @Exclude
-     Calendar getCalendar() {
+    Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         return calendar;
@@ -99,7 +103,7 @@ public class SimpleDate {
     }
 
     @Exclude
-    public boolean isBeforeToday(){
+    public boolean isBeforeToday() {
         if (year < getToday().getYear()) {
             return true;
         } else if (year == getToday().getYear()) {

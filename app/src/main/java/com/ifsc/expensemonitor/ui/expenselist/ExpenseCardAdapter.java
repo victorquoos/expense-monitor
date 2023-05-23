@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.expenselist;
+package com.ifsc.expensemonitor.ui.expenselist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.text.NumberFormat;
@@ -66,13 +68,12 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public void bind(Expense expenseCard) {
             String name = expenseCard.getName();
-            Double value = expenseCard.getValue();
+            Long value = expenseCard.getValue();
             SimpleDate simpleDate = expenseCard.getDate();
             boolean isPaid = expenseCard.isPaid();
 
             expenseNameTextView.setText(name);
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-            expenseValueTextView.setText(currencyFormat.format(value));
+            expenseValueTextView.setText(MoneyValue.format(value));
             expenseDateTextView.setText(simpleDate.getFormattedDate());
 
             if (isPaid) {
@@ -86,11 +87,13 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 expenseStatusImageView.setImageResource(R.drawable.shape_yellow);
             }
 
-            expenseCardView.setOnClickListener(new View.OnClickListener() { //TODO: implement popup menu
-                @Override
-                public void onClick(View v) {
-                    FirebaseSettings.deleteExpense(expenseCard);
-                }
+            expenseCardView.setOnClickListener(v -> { //TODO: implement popup menu
+                int month = expenseCard.getDate().getMonth();
+                int year = expenseCard.getDate().getYear();
+                String key = expenseCard.getKey();
+                ExpenseListFragmentDirections.ActionExpenseListFragmentToAddEditFragment action =
+                        ExpenseListFragmentDirections.actionExpenseListFragmentToAddEditFragment(month, year, key);
+                Navigation.findNavController(v).navigate(action);
             });
         }
     }

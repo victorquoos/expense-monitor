@@ -1,5 +1,9 @@
 package com.ifsc.expensemonitor.database;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -8,23 +12,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseSettings {
-    private static FirebaseAuth auth;
-    private static FirebaseDatabase database;
     private static DatabaseReference userReference;
 
-    public static FirebaseAuth getFirebaseAuth() {
-        if (auth == null) {
-            auth = FirebaseAuth.getInstance();
-        }
-        return auth;
+    public static FirebaseAuth getFirebaseAuth() { //TODO: substituir por FirebaseAuth.getInstance()
+        return FirebaseAuth.getInstance();
     }
 
-    public static FirebaseDatabase getFirebaseDatabase() {
-        if (database == null) {
-            database = FirebaseDatabase.getInstance();
-            database.setPersistenceEnabled(true);
-        }
-        return database;
+    public static FirebaseDatabase getFirebaseDatabase() { //TODO: substituir por FirebaseDatabase.getInstance()
+        return FirebaseDatabase.getInstance();
     }
 
     public static DatabaseReference getUserReference() {
@@ -37,7 +32,7 @@ public class FirebaseSettings {
         return userReference;
     }
 
-    public static DatabaseReference getMonthReference(int year, int month) { //todo: rever
+    public static DatabaseReference getMonthReference(int year, int month) {
         return getUserReference()
                 .child("expenses")
                 .child("year" + year)
@@ -67,7 +62,7 @@ public class FirebaseSettings {
         saveExpense(newExpense);
     }
 
-    public static void saveUserLocally() { //todo: rever
+    public static void saveUserLocally() {
         getUserReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

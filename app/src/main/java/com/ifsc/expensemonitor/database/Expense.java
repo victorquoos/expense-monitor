@@ -2,15 +2,26 @@ package com.ifsc.expensemonitor.database;
 
 import com.google.firebase.database.Exclude;
 
-public class Expense { //TODO: check if can use Calendar or Date instead of year, month and day
+import java.text.NumberFormat;
+
+public class Expense {
+    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
     private String key;
     private String name;
-    private double value; //TODO: convert to int or long with cents
+    private Long value;
     private SimpleDate date;
     private boolean paid = false;
     private String description;
 
     public Expense() {
+    }
+
+    public Expense(String name, Long value, SimpleDate date, String description) {
+        this.name = name;
+        this.value = value;
+        this.date = date;
+        this.paid = paid;
+        this.description = description;
     }
 
     @Exclude
@@ -30,11 +41,11 @@ public class Expense { //TODO: check if can use Calendar or Date instead of year
         this.name = name;
     }
 
-    public double getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
-    android:paddingBottom="@dimen/margin2">
+    android:padding="@dimen/margin2">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/expenseCardView"
@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
+        app:cardPreventCornerOverlap="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -38,7 +39,7 @@
                 android:layout_marginTop="@dimen/margin2"
                 android:layout_marginEnd="@dimen/margin2"
                 android:text="Nome da despesa"
-                android:textAppearance="@style/card_text"
+                android:textAppearance="@style/CardText"
                 app:layout_constraintBottom_toTopOf="@+id/expenseStatusTextView"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -53,7 +54,7 @@
                 android:layout_marginBottom="@dimen/margin2"
                 android:gravity="right"
                 android:text="01/01/2000"
-                android:textAppearance="@style/card_text.small"
+                android:textAppearance="@style/CardText.Small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -67,7 +68,7 @@
                 android:layout_marginEnd="@dimen/margin2"
                 android:gravity="right"
                 android:text="R$ 0,00"
-                android:textAppearance="@style/card_text"
+                android:textAppearance="@style/CardText"
                 app:layout_constraintBottom_toTopOf="@+id/expenseDateTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -78,12 +79,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin2"
-                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="@dimen/margin2"
                 android:text="Pago"
-                android:textAppearance="@style/card_text.small"
+                android:textAppearance="@style/CardText.Small"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="@+id/expenseNameTextView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/expenseStatusImageView"
                 app:layout_constraintTop_toBottomOf="@+id/expenseNameTextView" />

@@ -12,26 +12,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".NewExpenseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".expenselist.ExpenseListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".calendar.CalendarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".start.SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".start.SigninActivity"
-            android:exported="false" />
-        <activity
-            android:name=".start.WelcomeActivity"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

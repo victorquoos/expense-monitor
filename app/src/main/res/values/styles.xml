@@ -3,45 +3,59 @@
 
     <!-- TODO - apply the ?attr/colorControlNormal or other color to the text styles -->
 
-    <style name="top_app_bar_text">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/inter_bold</item>
-        <item name="android:layout_marginLeft">@dimen/margin3</item>
-        <item name="android:layout_marginRight">@dimen/margin3</item>
-        <item name="android:letterSpacing">.03</item>
-    </style>
 
-    <style name="top_box">
-
-    </style>
-
-    <style name="top_box.text">
-        <item name="android:textSize">12sp</item>
-        <item name="fontFamily">@font/inter_regular</item>
-        <item name="android:letterSpacing">.0</item>
-    </style>
-
-    <style name="top_box.text.large">
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="top_box.value">
-        <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/inter_semibold</item>
-        <item name="android:letterSpacing">.02</item>
-    </style>
-
-    <style name="top_box.value.large">
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="card_text">
+    <style name="CardText">
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 
-    <style name="card_text.small">
+    <style name="CardText.Small">
         <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="ToolbarTheme">
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
+        <item name="android:colorControlHighlight">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <style name="ToolbarIconButton" parent="Widget.Material3.Button.IconButton">
+        <item name="rippleColor">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <style name="ToolbarStyle">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ToolbarTheme</item>
+        <item name="android:padding">@dimen/margin3</item>
+        <item name="android:elevation">@dimen/margin2</item>
+        <item name="android:background">@drawable/shape_white</item>
+    </style>
+
+
+    <style name="FloatingActionButtonStyle" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="rippleColor">?attr/colorSecondaryContainer</item>
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+        <item name="tint">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="ExtendedFloatingActionButtonStyle" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="rippleColor">?attr/colorSecondaryContainer</item>
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+        <item name="iconTint">?attr/colorOnSecondary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+
+
+    <style name="InputValueAppearance">
+        <item name="android:padding">@dimen/margin1</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:elevation">@dimen/margin1</item>
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/shape_rounded</item>
     </style>
 
 </resources>
