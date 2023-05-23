@@ -23,6 +23,9 @@
             app:destination="@id/expenseListFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_pagerFragment"
+            app:destination="@id/pagerFragment" />
 
     </fragment>
 
@@ -125,5 +128,9 @@
             app:argType="string" />
 
     </fragment>
+    <fragment
+        android:id="@+id/pagerFragment"
+        android:name="com.ifsc.expensemonitor.ui.pager.PagerFragment"
+        android:label="PagerFragment" />
 
 </navigation>

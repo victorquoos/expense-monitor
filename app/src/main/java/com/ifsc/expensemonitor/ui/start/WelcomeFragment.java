@@ -52,7 +52,7 @@ public class WelcomeFragment extends Fragment {
 
         // Se o usuário já estiver logado, vai direto para a lista de despesas
         if (FirebaseSettings.getFirebaseAuth().getCurrentUser() != null) {
-            Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_expenseListFragment);
+            Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_pagerFragment);
         }
     }
 }
