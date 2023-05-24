@@ -25,7 +25,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_welcomeFragment_to_pagerFragment"
-            app:destination="@id/pagerFragment" />
+            app:destination="@id/pagerFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

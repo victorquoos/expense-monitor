@@ -22,8 +22,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.addedit.AddEditFragmentArgs;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseListViewModel;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 public class MonthListFragment extends Fragment {
@@ -105,7 +103,7 @@ public class MonthListFragment extends Fragment {
         int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
         int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
-        int indexCurrentMonth = pagerViewModel.getCurrentMonthIndex().getValue();
+        int indexCurrentMonth = pagerViewModel.getInitialPageIndex().getValue();
 
         if (indexCurrentMonth < 0) {
             scrollToPosition = 0;

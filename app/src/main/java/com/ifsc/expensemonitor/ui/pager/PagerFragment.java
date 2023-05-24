@@ -1,9 +1,11 @@
 package com.ifsc.expensemonitor.ui.pager;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +18,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragmentDirections;
 import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
 
 import java.text.DateFormatSymbols;
@@ -28,10 +29,12 @@ public class PagerFragment extends Fragment {
     private Button filtersButton, optionsButton, previousMonthButton, nextMonthButton, selectMonthButton;
     private FloatingActionButton addExpenseButton;
     private ViewPager2 viewPager;
+    private boolean isFirstLoad = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager, container, false);
+        pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
 
         // Declaração dos componentes da tela
         monthTextView = view.findViewById(R.id.monthTextView);
@@ -44,9 +47,32 @@ public class PagerFragment extends Fragment {
         addExpenseButton = view.findViewById(R.id.addExpenseButton);
         viewPager = view.findViewById(R.id.viewPager);
 
-        // Inicialização do ViewModel
-        pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
-        pagerViewModel.startListenerToGetYears();
+        // Atualiza o viewpager quando a lista de meses é atualizada
+        pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), monthYears -> {
+            if (monthYears != null) {
+                initPager();
+            }
+        });
+
+        // Realiza um smoothScroll para um mês alvo se não for o primeiro carregamento
+        pagerViewModel.getTargetPageIndex().observe(getViewLifecycleOwner(), index -> {
+            if (index != null && !isFirstLoad) {
+                viewPager.setCurrentItem(index, true);
+                pagerViewModel.getTargetPageIndex().setValue(null);
+            }
+        });
+
+        // Atualiza o mês visível quando o viewpager é atualizado
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                Integer currentPage = pagerViewModel.getLastVisiblePage().getValue();
+                if (currentPage == null || currentPage != position) {
+                    pagerViewModel.getLastVisiblePage().setValue(position);
+                }
+            }
+        });
 
         // Navega para a tela de criação de despesa
         addExpenseButton.setOnClickListener(v -> {
@@ -57,34 +83,10 @@ public class PagerFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        // Atualiza o viewpager quando a lista de meses é atualizada
-        pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), monthYears -> {
-            if (monthYears != null) {
-                initPager();
-            }
-        });
 
-        // Atualiza o viewpager quando o mês visível é atualizado
-        pagerViewModel.getVisiblePageIndex().observe(getViewLifecycleOwner(), index -> {
-            if (index != null) {
-                viewPager.setCurrentItem(index, true);
-            }
-        });
-
-        // Atualiza o mês visível quando o viewpager é atualizado
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                Integer currentPage = pagerViewModel.getVisiblePageIndex().getValue();
-                if (currentPage == null || currentPage != position) {
-                    pagerViewModel.getVisiblePageIndex().setValue(position);
-                }
-            }
-        });
 
         // Atualiza o texto do mês e ano quando o mês visível é atualizado
-        pagerViewModel.getVisiblePageIndex().observe(getViewLifecycleOwner(), index -> {
+        pagerViewModel.getLastVisiblePage().observe(getViewLifecycleOwner(), index -> {
             if (index != null) {
                 MonthYear monthYear = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(index);
                 String monthText = new DateFormatSymbols().getMonths()[monthYear.getMonth()];
@@ -97,17 +99,17 @@ public class PagerFragment extends Fragment {
 
         // Atualiza o mês visível quando o botão de mês anterior é clicado
         previousMonthButton.setOnClickListener(v -> {
-            int index = Objects.requireNonNull(pagerViewModel.getVisiblePageIndex().getValue());
+            int index = Objects.requireNonNull(pagerViewModel.getLastVisiblePage().getValue());
             if (index > 0) {
-                pagerViewModel.getVisiblePageIndex().setValue(index - 1);
+                pagerViewModel.getTargetPageIndex().setValue(index - 1);
             }
         });
 
         // Atualiza o mês visível quando o botão de próximo mês é clicado
         nextMonthButton.setOnClickListener(v -> {
-            int index = Objects.requireNonNull(pagerViewModel.getVisiblePageIndex().getValue());
+            int index = Objects.requireNonNull(pagerViewModel.getLastVisiblePage().getValue());
             if (index < Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).size() - 1) {
-                pagerViewModel.getVisiblePageIndex().setValue(index + 1);
+                pagerViewModel.getTargetPageIndex().setValue(index + 1);
             }
         });
 
@@ -138,7 +140,39 @@ public class PagerFragment extends Fragment {
             }
         });
 
-        viewPager.setCurrentItem(pagerViewModel.getCurrentMonthIndex().getValue(), false);
+        final ViewTreeObserver.OnGlobalLayoutListener layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (viewPager.getChildCount() > 0) {
+                    if (isFirstLoad) {
+                        isFirstLoad = false;
+                        if (pagerViewModel.isFirstTime()) {
+                            pagerViewModel.setFirstTime(false);
+                            if (pagerViewModel.getInitialPageIndex().getValue() != null) {
+                                viewPager.setCurrentItem(pagerViewModel.getInitialPageIndex().getValue(), false);
+                            } else {
+                                viewPager.setCurrentItem(0, false);
+                            }
+                        } else {
+                            Integer targetIndex = pagerViewModel.getTargetPageIndex().getValue();
+                            if (targetIndex != null) {
+                                viewPager.setCurrentItem(targetIndex, false);
+                            } else {
+                                Integer currentPage = pagerViewModel.getLastVisiblePage().getValue();
+                                if (currentPage != null) {
+                                    viewPager.setCurrentItem(currentPage, false);
+                                } else {
+                                    viewPager.setCurrentItem(0, false);
+                                }
+                            }
+                        }
+                    }
+                    viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            }
+        };
+        viewPager.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
     }
 }
+
 
