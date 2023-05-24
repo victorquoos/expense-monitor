@@ -65,23 +65,26 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             YearSeparatorViewHolder yearSeparatorViewHolder = (YearSeparatorViewHolder) holder;
             yearSeparatorViewHolder.bind(monthYear);
         } else if (holder instanceof MonthViewHolder) {
-            holder.itemView.findViewById(R.id.monthCardView).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int month = monthYear.getMonth();
-                    int year = monthYear.getYear();
-
-                    int position = holder.getBindingAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        pagerViewModel.getVisiblePageIndex().setValue(position);
-                        Navigation.findNavController(view).popBackStack();
-                    }
+            int monthPosition = position - countYearSeparatorsUpToPosition(position);
+            holder.itemView.findViewById(R.id.monthCardView).setOnClickListener(view -> {
+                if (monthPosition != RecyclerView.NO_POSITION) {
+                    pagerViewModel.getVisiblePageIndex().setValue(monthPosition);
+                    Navigation.findNavController(view).navigateUp();
                 }
             });
             MonthViewHolder monthViewHolder = (MonthViewHolder) holder;
-
             monthViewHolder.bind(monthYear);
         }
+    }
+
+    private int countYearSeparatorsUpToPosition(int position) {
+        int count = 0;
+        for (int i = 0; i <= position; i++) {
+            if (months.get(i).getMonth() == -1) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
