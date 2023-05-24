@@ -128,9 +128,37 @@
             app:argType="string" />
 
     </fragment>
+
     <fragment
         android:id="@+id/pagerFragment"
         android:name="com.ifsc.expensemonitor.ui.pager.PagerFragment"
-        android:label="PagerFragment" />
+        android:label="PagerFragment">
+
+        <action
+            android:id="@+id/action_pagerFragment_to_addEditFragment"
+            app:destination="@id/addEditFragment">
+            <argument
+                android:name="month"
+                app:argType="integer" />
+            <argument
+                android:name="year"
+                app:argType="integer" />
+            <argument
+                android:name="key"
+                app:argType="string" />
+        </action>
+
+        <action
+            android:id="@+id/action_pagerFragment_to_monthListFragment"
+            app:destination="@id/monthListFragment">
+            <argument
+                android:name="month"
+                app:argType="integer" />
+            <argument
+                android:name="year"
+                app:argType="integer" />
+        </action>
+
+    </fragment>
 
 </navigation>

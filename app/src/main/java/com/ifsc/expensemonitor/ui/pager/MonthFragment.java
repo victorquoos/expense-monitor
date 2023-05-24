@@ -1,5 +1,6 @@
 package com.ifsc.expensemonitor.ui.pager;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,7 +24,6 @@ public class MonthFragment extends Fragment {
     private RecyclerView recyclerView;
     private ExpenseListViewModel mViewModel;
     private ExpenseCardAdapter mAdapter;
-    private TextView textView;
 
     public static MonthFragment newInstance(int year, int month) {
         MonthFragment fragment = new MonthFragment();
@@ -34,11 +34,11 @@ public class MonthFragment extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_month, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
-        textView = view.findViewById(R.id.textView);
         mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
 
         mAdapter = new ExpenseCardAdapter(new ArrayList<>(), getChildFragmentManager());
@@ -54,15 +54,7 @@ public class MonthFragment extends Fragment {
             mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
                 mAdapter.setExpenses(expenses);
                 mAdapter.notifyDataSetChanged();
-                String text = "Mês: " + month + " Ano: " + year;
-                for (int i = 0; i < expenses.size(); i++) {
-                    text += "\n" + expenses.get(i).getName();
-                }
-                textView.setText(text);
             });
-
-            String text = "Mês: " + month + " Ano: " + year;
-            textView.setText(text);
         }
 
         return view;

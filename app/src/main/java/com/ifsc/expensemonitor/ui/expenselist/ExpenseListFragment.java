@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.ui.pager.PagerFragmentDirections;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -55,9 +56,6 @@ public class ExpenseListFragment extends Fragment {
         filtersButton = view.findViewById(R.id.filtersButton);
         optionsButton = view.findViewById(R.id.optionsButton);
 
-        // Definição dos valores dos componentes da tela
-
-
         // Ações dos botões
         nextMonthButton.setOnClickListener(v -> mViewModel.goToNextMonth());
         previousMonthButton.setOnClickListener(v -> mViewModel.goToPreviousMonth());
@@ -71,8 +69,8 @@ public class ExpenseListFragment extends Fragment {
         addExpenseButton.setOnClickListener(v -> {
             int month = mViewModel.getMonth().getValue();
             int year = mViewModel.getYear().getValue();
-            ExpenseListFragmentDirections.ActionExpenseListFragmentToAddEditFragment action =
-                    ExpenseListFragmentDirections.actionExpenseListFragmentToAddEditFragment(month, year, "");
+            PagerFragmentDirections.ActionPagerFragmentToAddEditFragment action =
+                    PagerFragmentDirections.actionPagerFragmentToAddEditFragment(month, year, "");
             Navigation.findNavController(v).navigate(action);
         });
 
