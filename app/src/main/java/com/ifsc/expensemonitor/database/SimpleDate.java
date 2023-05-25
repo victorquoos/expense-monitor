@@ -87,6 +87,8 @@ public class SimpleDate {
     Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
+        int offset = TimeZone.getDefault().getOffset(calendar.getTimeInMillis());
+        calendar.setTimeInMillis(calendar.getTimeInMillis() + offset);
         return calendar;
     }
 
