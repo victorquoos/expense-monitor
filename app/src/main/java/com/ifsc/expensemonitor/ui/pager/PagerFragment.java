@@ -68,28 +68,26 @@ public class PagerFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Integer currentPage = pagerViewModel.getLastVisiblePage().getValue();
-                if (currentPage == null || currentPage != position) {
-                    pagerViewModel.getLastVisiblePage().setValue(position);
+                MonthYear currentMonth = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(position);
+                if (!currentMonth.equals(pagerViewModel.getLastVisibleMonthYear().getValue())) {
+                    pagerViewModel.getLastVisibleMonthYear().setValue(currentMonth);
                 }
             }
         });
 
         // Navega para a tela de criação de despesa
         addExpenseButton.setOnClickListener(v -> {
-            int month = pagerViewModel.getVisibleMonth();
-            int year = pagerViewModel.getVisibleYear();
+            int month = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getMonth();
+            int year = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getYear();
             PagerFragmentDirections.ActionPagerFragmentToAddEditFragment action =
                     PagerFragmentDirections.actionPagerFragmentToAddEditFragment(month, year, "");
             Navigation.findNavController(v).navigate(action);
         });
 
 
-
-        // Atualiza o texto do mês e ano quando o mês visível é atualizado
-        pagerViewModel.getLastVisiblePage().observe(getViewLifecycleOwner(), index -> {
-            if (index != null) {
-                MonthYear monthYear = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(index);
+        // Atualiza o texto do mês e ano quando o mês visível é atualizado //todo
+        pagerViewModel.getLastVisibleMonthYear().observe(getViewLifecycleOwner(), monthYear -> {
+            if (monthYear != null) {
                 String monthText = new DateFormatSymbols().getMonths()[monthYear.getMonth()];
                 monthText = monthText.substring(0, 1).toUpperCase() + monthText.substring(1).toLowerCase();
                 monthTextView.setText(monthText);
@@ -100,24 +98,24 @@ public class PagerFragment extends Fragment {
 
         // Atualiza o mês visível quando o botão de mês anterior é clicado
         previousMonthButton.setOnClickListener(v -> {
-            int index = Objects.requireNonNull(pagerViewModel.getLastVisiblePage().getValue());
-            if (index > 0) {
-                pagerViewModel.getTargetPageIndex().setValue(index - 1);
+            int currentPage = viewPager.getCurrentItem();
+            if (currentPage > 0) {
+                pagerViewModel.getTargetPageIndex().setValue(currentPage - 1);
             }
         });
 
         // Atualiza o mês visível quando o botão de próximo mês é clicado
         nextMonthButton.setOnClickListener(v -> {
-            int index = Objects.requireNonNull(pagerViewModel.getLastVisiblePage().getValue());
-            if (index < Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).size() - 1) {
-                pagerViewModel.getTargetPageIndex().setValue(index + 1);
+            int currentPage = viewPager.getCurrentItem();
+            if (currentPage < Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).size() - 1) {
+                pagerViewModel.getTargetPageIndex().setValue(currentPage + 1);
             }
         });
 
         // Navega para a tela de seleção de mês
         selectMonthButton.setOnClickListener(v -> {
-            int month = pagerViewModel.getVisibleMonth();
-            int year = pagerViewModel.getVisibleYear();
+            int month = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getMonth();
+            int year = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getYear();
             PagerFragmentDirections.ActionPagerFragmentToMonthListFragment action =
                     PagerFragmentDirections.actionPagerFragmentToMonthListFragment(month, year);
             Navigation.findNavController(v).navigate(action);
@@ -172,14 +170,16 @@ public class PagerFragment extends Fragment {
                                     viewPager.setCurrentItem(0, false);
                                 }
                             } else {
-                                Integer currentPage = pagerViewModel.getLastVisiblePage().getValue();
-                                if (currentPage != null) {
-                                    viewPager.setCurrentItem(currentPage, false);
+                                MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
+                                if (Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).contains(lastVisibleMonth)) {
+                                    viewPager.setCurrentItem(pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth), false);
                                 } else {
                                     viewPager.setCurrentItem(0, false);
                                 }
                             }
                         }
+                    } else {
+
                     }
                     viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }

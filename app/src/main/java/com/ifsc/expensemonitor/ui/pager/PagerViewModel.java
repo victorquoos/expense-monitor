@@ -18,7 +18,7 @@ import java.util.List;
 
 public class PagerViewModel extends ViewModel {
     private MutableLiveData<List<MonthYear>> listOfMonths;
-    private MutableLiveData<Integer> lastVisiblePage;
+    private MutableLiveData<MonthYear> lastVisibleMonthYear;
     private MutableLiveData<Integer> initialPageIndex;
     private MutableLiveData<Integer> targetPageIndex;
     private MutableLiveData<MonthYear> targetMonthYear;
@@ -29,7 +29,7 @@ public class PagerViewModel extends ViewModel {
     public PagerViewModel() {
         listOfMonths = new MutableLiveData<>();
         initialPageIndex = new MutableLiveData<>(); // talvez não precise ser MutableLiveData
-        lastVisiblePage = new MutableLiveData<>();
+        lastVisibleMonthYear = new MutableLiveData<>();
         targetPageIndex = new MutableLiveData<>();
         targetMonthYear = new MutableLiveData<>();
         currentMonthIndex = 0;
@@ -46,8 +46,8 @@ public class PagerViewModel extends ViewModel {
         return initialPageIndex;
     }
 
-    public MutableLiveData<Integer> getLastVisiblePage() {
-        return lastVisiblePage;
+    public MutableLiveData<MonthYear> getLastVisibleMonthYear() {
+        return lastVisibleMonthYear;
     }
 
     public MutableLiveData<Integer> getTargetPageIndex() {
@@ -65,20 +65,6 @@ public class PagerViewModel extends ViewModel {
 
     public void setFirstTime(boolean firstTime) {
         isFirstTime = firstTime;
-    }
-
-    public int getVisibleMonth() {
-        if (listOfMonths.getValue() == null || lastVisiblePage.getValue() == null) {
-            return -1;
-        }
-        return listOfMonths.getValue().get(lastVisiblePage.getValue()).getMonth();
-    }
-
-    public int getVisibleYear() {
-        if (listOfMonths.getValue() == null || lastVisiblePage.getValue() == null) {
-            return -1;
-        }
-        return listOfMonths.getValue().get(lastVisiblePage.getValue()).getYear();
     }
 
     public int getCurrentMonthIndex() {
