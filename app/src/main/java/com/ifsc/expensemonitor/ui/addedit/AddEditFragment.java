@@ -112,7 +112,7 @@ public class AddEditFragment extends Fragment {
                 }
             }
             PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
-            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(month, year));
+            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
             Navigation.findNavController(view).navigateUp();
         });
 
