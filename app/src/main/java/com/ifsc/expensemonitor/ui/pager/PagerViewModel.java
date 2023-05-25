@@ -21,6 +21,7 @@ public class PagerViewModel extends ViewModel {
     private MutableLiveData<Integer> lastVisiblePage;
     private MutableLiveData<Integer> initialPageIndex;
     private MutableLiveData<Integer> targetPageIndex;
+    private MutableLiveData<MonthYear> targetMonthYear;
 
     private boolean isFirstTime;
 
@@ -30,6 +31,7 @@ public class PagerViewModel extends ViewModel {
         initialPageIndex = new MutableLiveData<>(); // talvez não precise ser MutableLiveData
         lastVisiblePage = new MutableLiveData<>();
         targetPageIndex = new MutableLiveData<>();
+        targetMonthYear = new MutableLiveData<>();
         isFirstTime = true;
 
         startListenerToGetYears();
@@ -51,6 +53,10 @@ public class PagerViewModel extends ViewModel {
         return targetPageIndex;
     }
 
+    public MutableLiveData<MonthYear> getTargetMonthYear() {
+        return targetMonthYear;
+    }
+
 
     public boolean isFirstTime() {
         return isFirstTime;
@@ -59,7 +65,6 @@ public class PagerViewModel extends ViewModel {
     public void setFirstTime(boolean firstTime) {
         isFirstTime = firstTime;
     }
-
 
     public int getVisibleMonth() {
         if (listOfMonths.getValue() == null || lastVisiblePage.getValue() == null) {
@@ -74,7 +79,7 @@ public class PagerViewModel extends ViewModel {
         }
         return listOfMonths.getValue().get(lastVisiblePage.getValue()).getYear();
     }
-
+    
 
     public void startListenerToGetYears() {
         DatabaseReference yearsReference = FirebaseSettings.getUserReference().child("expenses");

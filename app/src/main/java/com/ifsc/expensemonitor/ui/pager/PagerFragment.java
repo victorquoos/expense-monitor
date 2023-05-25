@@ -29,12 +29,13 @@ public class PagerFragment extends Fragment {
     private Button filtersButton, optionsButton, previousMonthButton, nextMonthButton, selectMonthButton;
     private FloatingActionButton addExpenseButton;
     private ViewPager2 viewPager;
-    private boolean isFirstLoad = true;
+    private boolean isFirstLoad;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager, container, false);
         pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+        isFirstLoad = true;
 
         // Declaração dos componentes da tela
         monthTextView = view.findViewById(R.id.monthTextView);
@@ -143,6 +144,9 @@ public class PagerFragment extends Fragment {
         final ViewTreeObserver.OnGlobalLayoutListener layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                if (Objects.requireNonNull(viewPager.getAdapter()).getItemCount() < 1) {
+                    return;
+                }
                 if (viewPager.getChildCount() > 0) {
                     if (isFirstLoad) {
                         isFirstLoad = false;
@@ -155,8 +159,18 @@ public class PagerFragment extends Fragment {
                             }
                         } else {
                             Integer targetIndex = pagerViewModel.getTargetPageIndex().getValue();
+                            pagerViewModel.getInitialPageIndex().setValue(null);
+                            MonthYear targetMonthYear = pagerViewModel.getTargetMonthYear().getValue();
+                            pagerViewModel.getTargetMonthYear().setValue(null);
                             if (targetIndex != null) {
                                 viewPager.setCurrentItem(targetIndex, false);
+                            } else if (targetMonthYear != null) {
+                                int index = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).indexOf(targetMonthYear);
+                                if (index != -1) {
+                                    viewPager.setCurrentItem(index, false);
+                                } else {
+                                    viewPager.setCurrentItem(0, false);
+                                }
                             } else {
                                 Integer currentPage = pagerViewModel.getLastVisiblePage().getValue();
                                 if (currentPage != null) {
@@ -169,6 +183,10 @@ public class PagerFragment extends Fragment {
                     }
                     viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
+                // TODO: implementar a logica para caso a lista atualize
+                // Mandar o usuário para a ultima página que ele estava
+                // Ou para a página do mês atual
+                // Ou para a primeira página
             }
         };
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);

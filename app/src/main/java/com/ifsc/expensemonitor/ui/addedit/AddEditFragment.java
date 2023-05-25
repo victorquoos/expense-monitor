@@ -25,6 +25,8 @@ import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
+import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
+import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.NumberFormat;
 import java.util.Calendar;
@@ -109,6 +111,8 @@ public class AddEditFragment extends Fragment {
                     FirebaseSettings.updateExpense(mViewModel.getExpense().getValue(), expense);
                 }
             }
+            PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(month, year));
             Navigation.findNavController(view).navigateUp();
         });
 
