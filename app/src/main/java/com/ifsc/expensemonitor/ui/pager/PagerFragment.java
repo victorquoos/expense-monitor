@@ -35,7 +35,6 @@ public class PagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager, container, false);
         pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
-        isFirstLoad = true;
 
         // Declaração dos componentes da tela
         monthTextView = view.findViewById(R.id.monthTextView);
@@ -51,6 +50,7 @@ public class PagerFragment extends Fragment {
         // Atualiza o viewpager quando a lista de meses é atualizada
         pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), monthYears -> {
             if (monthYears != null) {
+                isFirstLoad = true;
                 initPager();
             }
         });
@@ -68,9 +68,11 @@ public class PagerFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                MonthYear currentMonth = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(position);
-                if (!currentMonth.equals(pagerViewModel.getLastVisibleMonthYear().getValue())) {
-                    pagerViewModel.getLastVisibleMonthYear().setValue(currentMonth);
+                if (!isFirstLoad) {
+                    MonthYear currentMonth = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(position);
+                    if (!currentMonth.equals(pagerViewModel.getLastVisibleMonthYear().getValue())) {
+                        pagerViewModel.getLastVisibleMonthYear().setValue(currentMonth);
+                    }
                 }
             }
         });
@@ -150,22 +152,18 @@ public class PagerFragment extends Fragment {
                         isFirstLoad = false;
                         if (pagerViewModel.isFirstTime()) {
                             pagerViewModel.setFirstTime(false);
-                            if (pagerViewModel.getInitialPageIndex().getValue() != null) {
-                                viewPager.setCurrentItem(pagerViewModel.getInitialPageIndex().getValue(), false);
-                            } else {
-                                viewPager.setCurrentItem(0, false);
-                            }
+                            viewPager.setCurrentItem(pagerViewModel.getCurrentMonthIndex());
                         } else {
                             Integer targetIndex = pagerViewModel.getTargetPageIndex().getValue();
-                            pagerViewModel.getInitialPageIndex().setValue(null);
+                            pagerViewModel.getTargetPageIndex().setValue(null);
                             MonthYear targetMonthYear = pagerViewModel.getTargetMonthYear().getValue();
                             pagerViewModel.getTargetMonthYear().setValue(null);
                             if (targetIndex != null) {
                                 viewPager.setCurrentItem(targetIndex, false);
                             } else if (targetMonthYear != null) {
-                                int index = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).indexOf(targetMonthYear);
-                                if (index != -1) {
-                                    viewPager.setCurrentItem(index, false);
+                                int monthYearindex = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).indexOf(targetMonthYear);
+                                if (monthYearindex != -1) {
+                                    viewPager.setCurrentItem(monthYearindex, false);
                                 } else {
                                     viewPager.setCurrentItem(0, false);
                                 }
@@ -179,14 +177,15 @@ public class PagerFragment extends Fragment {
                             }
                         }
                     } else {
-
+                        MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
+                        if (Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).contains(lastVisibleMonth)) {
+                            viewPager.setCurrentItem(pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth), false);
+                        } else {
+                            viewPager.setCurrentItem(pagerViewModel.getCurrentMonthIndex(), false);
+                        }
                     }
                     viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
-                // TODO: implementar a logica para caso a lista atualize
-                // Mandar o usuário para a ultima página que ele estava
-                // Ou para a página do mês atual
-                // Ou para a primeira página
             }
         };
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
