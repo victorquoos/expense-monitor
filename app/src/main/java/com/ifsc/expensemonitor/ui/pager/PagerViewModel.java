@@ -22,7 +22,7 @@ public class PagerViewModel extends ViewModel {
     private MutableLiveData<Integer> initialPageIndex;
     private MutableLiveData<Integer> targetPageIndex;
     private MutableLiveData<MonthYear> targetMonthYear;
-
+    private int currentMonthIndex;
     private boolean isFirstTime;
 
 
@@ -32,6 +32,7 @@ public class PagerViewModel extends ViewModel {
         lastVisiblePage = new MutableLiveData<>();
         targetPageIndex = new MutableLiveData<>();
         targetMonthYear = new MutableLiveData<>();
+        currentMonthIndex = 0;
         isFirstTime = true;
 
         startListenerToGetYears();
@@ -79,7 +80,11 @@ public class PagerViewModel extends ViewModel {
         }
         return listOfMonths.getValue().get(lastVisiblePage.getValue()).getYear();
     }
-    
+
+    public int getCurrentMonthIndex() {
+        return currentMonthIndex;
+    }
+
 
     public void startListenerToGetYears() {
         DatabaseReference yearsReference = FirebaseSettings.getUserReference().child("expenses");
@@ -114,18 +119,19 @@ public class PagerViewModel extends ViewModel {
                 }
 
                 // Cria a lista de meses
-                initialPageIndex.setValue(0);
+                currentMonthIndex = 0;
                 List<MonthYear> monthYearList = new ArrayList<>();
                 for (int year = firstYearOfList; year <= lastYearOfList; year++) {
                     for (int month = 0; month < 12; month++) {
                         if (year == currentYear && month == currentMonth) {
-                            initialPageIndex.setValue(monthYearList.size());
+                            currentMonthIndex = monthYearList.size();
                             monthYearList.add(new MonthYear(month, year, true));
                             continue;
                         }
                         monthYearList.add(new MonthYear(month, year));
                     }
                 }
+                initialPageIndex.setValue(currentMonthIndex);
 
                 // Atualiza os valores
                 if (listOfMonths.getValue() == null || !listOfMonths.getValue().equals(monthYearList)) {

@@ -24,6 +24,8 @@ import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.addedit.AddEditFragmentArgs;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
+import java.util.Objects;
+
 public class MonthListFragment extends Fragment {
 
     private PagerViewModel pagerViewModel;
@@ -68,19 +70,20 @@ public class MonthListFragment extends Fragment {
             }
         };
 
+        // Atualiza a lista de meses quando alterado no viewmodel
+        pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), listOfMonths -> {
+            monthsRecyclerView.setAdapter(new MonthYearAdapter(listOfMonths, pagerViewModel));
+        });
+
+        // Realiza o scroll para o mês atual quando a lista de meses é atualizada
         monthsRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if (monthsRecyclerView.computeVerticalScrollRange() > monthsRecyclerView.getHeight()) {
-                    scrollToCurrentMonth();  // Chamando scrollToCurrentMonth
+                    scrollToCurrentMonth();
                     monthsRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
-        });
-
-        // Atualiza a lista de meses quando alterado no viewmodel
-        pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), listOfMonths -> {
-            monthsRecyclerView.setAdapter(new MonthYearAdapter(listOfMonths, pagerViewModel));
         });
 
         return view;
@@ -103,7 +106,7 @@ public class MonthListFragment extends Fragment {
         int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
         int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
-        int indexCurrentMonth = pagerViewModel.getInitialPageIndex().getValue();
+        int indexCurrentMonth = pagerViewModel.getCurrentMonthIndex();
 
         if (indexCurrentMonth < 0) {
             scrollToPosition = 0;
