@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -20,6 +22,7 @@ import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
 
 import java.text.DateFormatSymbols;
+import java.util.List;
 import java.util.Objects;
 
 public class PagerFragment extends Fragment {
@@ -58,7 +61,7 @@ public class PagerFragment extends Fragment {
         pagerViewModel.getTargetPageIndex().observe(getViewLifecycleOwner(), index -> {
             if (index != null && !isLoading) {
                 viewPager.setCurrentItem(index, true);
-                pagerViewModel.getTargetPageIndex().setValue(null);
+                pagerViewModel.getTargetPageIndex().postValue(null);
             }
         });
 
@@ -75,16 +78,6 @@ public class PagerFragment extends Fragment {
                 }
             }
         });
-
-        // Navega para a tela de criação de despesa
-        addExpenseButton.setOnClickListener(v -> {
-            int month = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getMonth();
-            int year = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getYear();
-            PagerFragmentDirections.ActionPagerFragmentToAddEditFragment action =
-                    PagerFragmentDirections.actionPagerFragmentToAddEditFragment(month, year, "");
-            Navigation.findNavController(v).navigate(action);
-        });
-
 
         // Atualiza o texto do mês e ano quando o mês visível é atualizado //todo
         pagerViewModel.getLastVisibleMonthYear().observe(getViewLifecycleOwner(), monthYear -> {
@@ -122,6 +115,15 @@ public class PagerFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
+        // Navega para a tela de criação de despesa
+        addExpenseButton.setOnClickListener(v -> {
+            int month = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getMonth();
+            int year = Objects.requireNonNull(pagerViewModel.getLastVisibleMonthYear().getValue()).getYear();
+            PagerFragmentDirections.ActionPagerFragmentToAddEditFragment action =
+                    PagerFragmentDirections.actionPagerFragmentToAddEditFragment(month, year, "");
+            Navigation.findNavController(v).navigate(action);
+        });
+
         return view;
     }
 
@@ -143,45 +145,14 @@ public class PagerFragment extends Fragment {
         final ViewTreeObserver.OnGlobalLayoutListener layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (Objects.requireNonNull(viewPager.getAdapter()).getItemCount() < 1) {
+                RecyclerView.Adapter<?> adapter = viewPager.getAdapter();
+                if (adapter == null || adapter.getItemCount() < 1) {
                     return;
                 }
+
                 if (viewPager.getChildCount() > 0) {
-                    int startAtPage = 0;
-                    if (isLoading) {
-                        if (pagerViewModel.isFirstTime()) {
-                            startAtPage = pagerViewModel.getCurrentMonthIndex();
-                        } else {
-                            Integer targetIndex = pagerViewModel.getTargetPageIndex().getValue();
-                            pagerViewModel.getTargetPageIndex().setValue(null);
-                            MonthYear targetMonthYear = pagerViewModel.getTargetMonthYear().getValue();
-                            pagerViewModel.getTargetMonthYear().setValue(null);
-                            if (targetIndex != null) {
-                                startAtPage = targetIndex;
-                            } else if (targetMonthYear != null) {
-                                int monthYearindex = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).indexOf(targetMonthYear);
-                                if (monthYearindex != -1) {
-                                    startAtPage = monthYearindex;
-                                } else {
-                                    startAtPage = 0;
-                                }
-                            } else {
-                                MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
-                                if (Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).contains(lastVisibleMonth)) {
-                                    startAtPage = pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth);
-                                } else {
-                                    startAtPage = 0;
-                                }
-                            }
-                        }
-                    } else {
-                        MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
-                        if (Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).contains(lastVisibleMonth)) {
-                            startAtPage = pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth);
-                        } else {
-                            startAtPage = pagerViewModel.getCurrentMonthIndex();
-                        }
-                    }
+                    int startAtPage = determineStartPage();
+
                     isLoading = false;
                     pagerViewModel.setFirstTime(false);
                     viewPager.setCurrentItem(startAtPage, false);
@@ -190,6 +161,43 @@ public class PagerFragment extends Fragment {
             }
         };
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+    }
+
+    private int determineStartPage() {
+        List<MonthYear> listOfMonths = pagerViewModel.getListOfMonths().getValue();
+        if (listOfMonths == null) {
+            return 0;
+        }
+
+        if (isLoading) {
+            if (pagerViewModel.isFirstTime()) {
+                return pagerViewModel.getCurrentMonthIndex();
+            } else {
+                Integer targetIndex = pagerViewModel.getTargetPageIndex().getValue();
+                pagerViewModel.getTargetPageIndex().setValue(null);
+                if (targetIndex != null) {
+                    return targetIndex;
+                }
+
+                MonthYear targetMonthYear = pagerViewModel.getTargetMonthYear().getValue();
+                pagerViewModel.getTargetMonthYear().setValue(null);
+                if (targetMonthYear != null && listOfMonths.contains(targetMonthYear)) {
+                    return listOfMonths.indexOf(targetMonthYear);
+                }
+
+                MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
+                if (lastVisibleMonth != null && listOfMonths.contains(lastVisibleMonth)) {
+                    return listOfMonths.indexOf(lastVisibleMonth);
+                }
+            }
+        } else {
+            MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
+            if (lastVisibleMonth != null && listOfMonths.contains(lastVisibleMonth)) {
+                return listOfMonths.indexOf(lastVisibleMonth);
+            }
+        }
+
+        return pagerViewModel.getCurrentMonthIndex();
     }
 }
 
