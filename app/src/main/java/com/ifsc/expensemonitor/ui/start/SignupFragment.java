@@ -68,7 +68,7 @@ public class SignupFragment extends Fragment {
                     user.setPassword(password);
                     user.save();
                     Toast.makeText(getContext(), "Usuário criado com sucesso", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
-                    Navigation.findNavController(getView()).navigate(R.id.action_signUpFragment_to_expenseListFragment);
+                    Navigation.findNavController(getView()).navigate(R.id.action_signUpFragment_to_pagerFragment);
                 } else {
                     String exception;
                     try {

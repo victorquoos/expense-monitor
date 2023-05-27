@@ -1,6 +1,5 @@
 package com.ifsc.expensemonitor.ui.pager;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,7 @@ public class PagerFragment extends Fragment {
     private Button filtersButton, optionsButton, previousMonthButton, nextMonthButton, selectMonthButton;
     private FloatingActionButton addExpenseButton;
     private ViewPager2 viewPager;
-    private boolean isFirstLoad;
+    private boolean isLoading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,14 +49,14 @@ public class PagerFragment extends Fragment {
         // Atualiza o viewpager quando a lista de meses é atualizada
         pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), monthYears -> {
             if (monthYears != null) {
-                isFirstLoad = true;
+                isLoading = true;
                 initPager();
             }
         });
 
         // Realiza um smoothScroll para um mês alvo se não for o primeiro carregamento
         pagerViewModel.getTargetPageIndex().observe(getViewLifecycleOwner(), index -> {
-            if (index != null && !isFirstLoad) {
+            if (index != null && !isLoading) {
                 viewPager.setCurrentItem(index, true);
                 pagerViewModel.getTargetPageIndex().setValue(null);
             }
@@ -68,7 +67,7 @@ public class PagerFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (!isFirstLoad) {
+                if (!isLoading) {
                     MonthYear currentMonth = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(position);
                     if (!currentMonth.equals(pagerViewModel.getLastVisibleMonthYear().getValue())) {
                         pagerViewModel.getLastVisibleMonthYear().setValue(currentMonth);
@@ -148,42 +147,44 @@ public class PagerFragment extends Fragment {
                     return;
                 }
                 if (viewPager.getChildCount() > 0) {
-                    if (isFirstLoad) {
-                        isFirstLoad = false;
+                    int startAtPage = 0;
+                    if (isLoading) {
                         if (pagerViewModel.isFirstTime()) {
-                            pagerViewModel.setFirstTime(false);
-                            viewPager.setCurrentItem(pagerViewModel.getCurrentMonthIndex());
+                            startAtPage = pagerViewModel.getCurrentMonthIndex();
                         } else {
                             Integer targetIndex = pagerViewModel.getTargetPageIndex().getValue();
                             pagerViewModel.getTargetPageIndex().setValue(null);
                             MonthYear targetMonthYear = pagerViewModel.getTargetMonthYear().getValue();
                             pagerViewModel.getTargetMonthYear().setValue(null);
                             if (targetIndex != null) {
-                                viewPager.setCurrentItem(targetIndex, false);
+                                startAtPage = targetIndex;
                             } else if (targetMonthYear != null) {
                                 int monthYearindex = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).indexOf(targetMonthYear);
                                 if (monthYearindex != -1) {
-                                    viewPager.setCurrentItem(monthYearindex, false);
+                                    startAtPage = monthYearindex;
                                 } else {
-                                    viewPager.setCurrentItem(0, false);
+                                    startAtPage = 0;
                                 }
                             } else {
                                 MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
                                 if (Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).contains(lastVisibleMonth)) {
-                                    viewPager.setCurrentItem(pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth), false);
+                                    startAtPage = pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth);
                                 } else {
-                                    viewPager.setCurrentItem(0, false);
+                                    startAtPage = 0;
                                 }
                             }
                         }
                     } else {
                         MonthYear lastVisibleMonth = pagerViewModel.getLastVisibleMonthYear().getValue();
                         if (Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).contains(lastVisibleMonth)) {
-                            viewPager.setCurrentItem(pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth), false);
+                            startAtPage = pagerViewModel.getListOfMonths().getValue().indexOf(lastVisibleMonth);
                         } else {
-                            viewPager.setCurrentItem(pagerViewModel.getCurrentMonthIndex(), false);
+                            startAtPage = pagerViewModel.getCurrentMonthIndex();
                         }
                     }
+                    isLoading = false;
+                    pagerViewModel.setFirstTime(false);
+                    viewPager.setCurrentItem(startAtPage, false);
                     viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
