@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -36,6 +37,12 @@ public class PagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager, container, false);
+
+        View loadingView = inflater.inflate(R.layout.layout_loading, container, false);
+        ViewGroup root = (ViewGroup) container.getRootView();
+        root.addView(loadingView);
+
+        // Inicialização do viewmodel
         pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
 
         // Declaração dos componentes da tela
@@ -53,7 +60,7 @@ public class PagerFragment extends Fragment {
         pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), monthYears -> {
             if (monthYears != null) {
                 isLoading = true;
-                initPager();
+                initPager(root, loadingView);
             }
         });
 
@@ -127,7 +134,8 @@ public class PagerFragment extends Fragment {
         return view;
     }
 
-    private void initPager() {
+    private void initPager(ViewGroup root, View loadingView) {
+
         viewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
             @NonNull
             @Override
@@ -157,9 +165,12 @@ public class PagerFragment extends Fragment {
                     pagerViewModel.setFirstTime(false);
                     viewPager.setCurrentItem(startAtPage, false);
                     viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    // O CARREGAMENTO DEVE TERMINAR AQUI
+                    root.removeView(loadingView);
                 }
             }
         };
+
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
     }
 

@@ -31,7 +31,7 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_welcome, container, false);
-        
+
         // Declaração dos componentes da tela
         Button signupButton = view.findViewById(R.id.signupButton);
         Button signinButton = view.findViewById(R.id.signinButton);
