@@ -31,8 +31,7 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_welcome, container, false);
-
-
+        
         // Declaração dos componentes da tela
         Button signupButton = view.findViewById(R.id.signupButton);
         Button signinButton = view.findViewById(R.id.signinButton);
@@ -49,8 +48,6 @@ public class WelcomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
-
-        FirebaseSettings.getFirebaseAuth().signOut();
 
         // Se o usuário já estiver logado, vai direto para a lista de despesas
         if (FirebaseSettings.getFirebaseAuth().getCurrentUser() != null) {
