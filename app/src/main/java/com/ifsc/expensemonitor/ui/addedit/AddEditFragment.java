@@ -88,15 +88,15 @@ public class AddEditFragment extends Fragment {
 
         // Lógica de salvar a despesa
         saveExpenseButton.setOnClickListener(v -> {
-            Long value = Long.parseLong(expenseValueEditText.getText().toString());
+            long value = 0L;
+            if (!expenseValueEditText.getText().toString().isEmpty()) {
+                value = Long.parseLong(expenseValueEditText.getText().toString());
+            }
             String name = expenseNameEditText.getText().toString();
             String description = expenseDescriptionEditText.getText().toString();
             SimpleDate date = selectedDate;
 
-            if (value == 0) {
-                expenseValueEditText.setError("Insira um valor válido");
-                expenseValueEditText.requestFocus();
-            } else if (name.isEmpty()) {
+            if (name.isEmpty()) {
                 expenseNameEditText.setError("Insira um nome válido");
                 expenseNameEditText.requestFocus();
             } else if (date == null) {
@@ -110,10 +110,10 @@ public class AddEditFragment extends Fragment {
                     Expense expense = new Expense(name, value, date, description);
                     FirebaseSettings.updateExpense(mViewModel.getExpense().getValue(), expense);
                 }
+                PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+                pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+                Navigation.findNavController(view).navigateUp();
             }
-            PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
-            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
-            Navigation.findNavController(view).navigateUp();
         });
 
         return view;
