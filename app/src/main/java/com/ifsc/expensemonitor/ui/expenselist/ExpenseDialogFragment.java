@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 
 public class ExpenseDialogFragment extends BottomSheetDialogFragment {
@@ -50,7 +51,12 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
             changeStatusButton.setText("MARCAR COMO\nPAGO");
         }
 
-        //todo change status button click listener
+        changeStatusButton.setOnClickListener(v -> {
+            Expense oldExpense = expense;
+            expense.setPaid(!expense.isPaid());
+            FirebaseSettings.updateExpense(oldExpense, expense);
+            dismiss();
+        });
 
         return view;
     }

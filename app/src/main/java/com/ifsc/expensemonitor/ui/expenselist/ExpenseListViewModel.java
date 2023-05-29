@@ -118,6 +118,7 @@ public class ExpenseListViewModel extends ViewModel {
                     }
                 }
 
+                Collections.sort(expenses, (o1, o2) -> Boolean.compare(o1.isPaid(), o2.isPaid()));
                 Collections.sort(expenses, (o1, o2) -> o1.getDate().compareTo(o2.getDate())); //TODO: create other sorting methods
 
                 currentMonthExpenses.setValue(expenses);
