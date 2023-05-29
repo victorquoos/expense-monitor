@@ -61,20 +61,4 @@ public class FirebaseSettings {
         deleteExpense(oldExpense);
         saveExpense(newExpense);
     }
-
-    public static void saveUserLocally() {
-        getUserReference().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    Object childData = childSnapshot.getValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }

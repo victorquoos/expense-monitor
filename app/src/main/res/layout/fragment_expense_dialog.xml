@@ -1,35 +1,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/margin4">
 
     <TextView
         android:id="@+id/expenseNameTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:layout_marginBottom="@dimen/margin3"
+        android:gravity="center"
+        android:text="Nome da despesa"
         android:textAppearance="?attr/textAppearanceHeadline5" />
 
     <TextView
         android:id="@+id/expenseValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:layout_marginBottom="@dimen/margin2"
+        android:text="R$ 999,90"
         android:textAppearance="?attr/textAppearanceBody1" />
 
     <TextView
         android:id="@+id/expenseDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:layout_marginBottom="@dimen/margin2"
+        android:text="31/12/2023"
         android:textAppearance="?attr/textAppearanceBody1" />
 
     <TextView
         android:id="@+id/expenseDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:layout_marginBottom="@dimen/margin2"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultrices ultrices, nisl nisl aliquam elit, vitae aliquam elit nisl eget elit."
         android:textAppearance="?attr/textAppearanceBody1" />
+
+    <Button
+        android:id="@+id/changeStatusButton"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_check"
+        android:text="MARCAR COMO\n..." />
+
 
 </LinearLayout>

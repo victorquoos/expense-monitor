@@ -8,11 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseListViewModel;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.DateFormatSymbols;
