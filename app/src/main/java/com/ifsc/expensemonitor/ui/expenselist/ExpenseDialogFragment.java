@@ -45,10 +45,10 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
 
         if (expense.isPaid()) {
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Red));
-            changeStatusButton.setText("MARCAR COMO\nNÃO PAGO");
+            changeStatusButton.setText("MARCAR COMO NÃO PAGO");
         } else {
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Green));
-            changeStatusButton.setText("MARCAR COMO\nPAGO");
+            changeStatusButton.setText("MARCAR COMO PAGO");
         }
 
         changeStatusButton.setOnClickListener(v -> {

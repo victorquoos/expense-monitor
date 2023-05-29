@@ -92,7 +92,7 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 expenseStatusImageView.setImageResource(R.drawable.shape_yellow);
             }
 
-            expenseCardView.setOnClickListener(v -> { //TODO: implement popup menu
+            expenseCardView.setOnClickListener(v -> {
                 BottomSheetDialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(expenseCard);
                 expenseBottomSheetFragment.show(fragmentManager, "expenseBottomSheet");
             });

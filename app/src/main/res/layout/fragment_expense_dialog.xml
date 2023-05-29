@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/margin4">
+    android:padding="@dimen/margin4"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
         android:id="@+id/expenseNameTextView"
@@ -31,13 +31,22 @@
         android:text="31/12/2023"
         android:textAppearance="?attr/textAppearanceBody1" />
 
-    <TextView
-        android:id="@+id/expenseDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin2"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultrices ultrices, nisl nisl aliquam elit, vitae aliquam elit nisl eget elit."
-        android:textAppearance="?attr/textAppearanceBody1" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:nestedScrollingEnabled="true">
+
+        <TextView
+            android:id="@+id/expenseDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin2"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultrices ultrices, nisl nisl aliquam elit, vitae aliquam elit nisl eget elit."
+            android:textAppearance="?attr/textAppearanceBody1" />
+
+    </ScrollView>
 
     <Button
         android:id="@+id/changeStatusButton"
@@ -45,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_check"
-        android:text="MARCAR COMO\n..." />
-
+        android:text="MARCAR COMO" />
 
 </LinearLayout>
