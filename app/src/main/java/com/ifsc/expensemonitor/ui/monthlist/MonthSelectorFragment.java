@@ -24,9 +24,7 @@ import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.addedit.AddEditFragmentArgs;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
-import java.util.Objects;
-
-public class MonthListFragment extends Fragment {
+public class MonthSelectorFragment extends Fragment {
 
     private PagerViewModel pagerViewModel;
     MaterialToolbar materialToolbar;
@@ -36,14 +34,14 @@ public class MonthListFragment extends Fragment {
     RecyclerView.SmoothScroller smoothScroller;
     int scrollToPosition = -1;
 
-    public static MonthListFragment newInstance() {
-        return new MonthListFragment();
+    public static MonthSelectorFragment newInstance() {
+        return new MonthSelectorFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_month_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_month_selector, container, false);
         pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
 
         // Declaração dos componentes da tela
@@ -59,7 +57,7 @@ public class MonthListFragment extends Fragment {
         goToCurrentMonthButton.setOnClickListener(v -> scrollToCurrentMonth());
 
         monthsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), getSapnCount(), LinearLayoutManager.VERTICAL, false));
-        CustomSpanSizeLookup spanSizeLookup = new CustomSpanSizeLookup(getSapnCount());
+        MonthSelectorSpanSizeLookup spanSizeLookup = new MonthSelectorSpanSizeLookup(getSapnCount());
         ((GridLayoutManager) monthsRecyclerView.getLayoutManager()).setSpanSizeLookup(spanSizeLookup);
 
         // Criação do SmoothScroller

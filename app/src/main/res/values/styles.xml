@@ -28,7 +28,7 @@
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="android:theme">@style/ToolbarTheme</item>
         <item name="android:padding">@dimen/margin3</item>
-        <item name="android:elevation">@dimen/margin2</item>
+
         <item name="android:background">@drawable/shape_white</item>
     </style>
 

@@ -1,120 +1,58 @@
 package com.ifsc.expensemonitor.ui.expenselist;
 
-import androidx.lifecycle.ViewModelProvider;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.MoneyValue;
-import com.ifsc.expensemonitor.ui.pager.PagerFragmentDirections;
 
-import java.text.DateFormatSymbols;
-import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class ExpenseListFragment extends Fragment {
 
+    private RecyclerView recyclerView;
     private ExpenseListViewModel mViewModel;
-    private FloatingActionButton addExpenseButton;
-    private RecyclerView expensesReciclerView;
-    private TextView paidValueTextView, unpaidValueTextView, totalValueTextView, monthTextView, yearTextView;
-    private Button filtersButton, optionsButton, previousMonthButton, nextMonthButton, selectMonthButton;
+    private ExpenseCardAdapter mAdapter;
 
-    public static ExpenseListFragment newInstance() {
-        return new ExpenseListFragment();
+    public static ExpenseListFragment newInstance(int year, int month) {
+        ExpenseListFragment fragment = new ExpenseListFragment();
+        Bundle args = new Bundle();
+        args.putInt("year", year);
+        args.putInt("month", month);
+        fragment.setArguments(args);
+        return fragment;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expense_list, container, false);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
 
+        mAdapter = new ExpenseCardAdapter(new ArrayList<>(), getChildFragmentManager());
+        recyclerView.setAdapter(mAdapter);
 
-        // Declaração dos componentes da tela
-        addExpenseButton = view.findViewById(R.id.addExpenseButton);
-        expensesReciclerView = view.findViewById(R.id.expensesReciclerView);
-        paidValueTextView = view.findViewById(R.id.paidValueTextView);
-        unpaidValueTextView = view.findViewById(R.id.unpaidValueTextView);
-        totalValueTextView = view.findViewById(R.id.totalValueTextView);
-        monthTextView = view.findViewById(R.id.monthTextView);
-        yearTextView = view.findViewById(R.id.yearTextView);
-        selectMonthButton = view.findViewById(R.id.selectMonthButton);
-        previousMonthButton = view.findViewById(R.id.previousMonthButton);
-        nextMonthButton = view.findViewById(R.id.nextMonthButton);
-        filtersButton = view.findViewById(R.id.filtersButton);
-        optionsButton = view.findViewById(R.id.optionsButton);
+        Bundle args = getArguments();
+        if (args != null) {
+            int year = args.getInt("year");
+            int month = args.getInt("month");
 
-        // Ações dos botões
-        nextMonthButton.setOnClickListener(v -> mViewModel.goToNextMonth());
-        previousMonthButton.setOnClickListener(v -> mViewModel.goToPreviousMonth());
+            mViewModel.goToMonth(month, year);
 
-        addExpenseButton.setOnClickListener(v -> {
-            int month = mViewModel.getMonth().getValue();
-            int year = mViewModel.getYear().getValue();
-            PagerFragmentDirections.ActionPagerFragmentToAddEditFragment action =
-                    PagerFragmentDirections.actionPagerFragmentToAddEditFragment(month, year, "");
-            Navigation.findNavController(v).navigate(action);
-        });
+            mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
+                mAdapter.setExpenses(expenses);
+                mAdapter.notifyDataSetChanged();
+            });
+        }
 
         return view;
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity()).get(ExpenseListViewModel.class);
-
-        // Atualiza a lista de despesas quando alterado no viewmodel
-        mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
-            expensesReciclerView.setAdapter(new ExpenseCardAdapter(expenses, getChildFragmentManager()));
-        });
-
-        // Atualiza o mes quando alterado no viewmodel
-        mViewModel.getMonth().observe(getViewLifecycleOwner(), month -> {
-            String monthText = new DateFormatSymbols().getMonths()[month];
-            monthText = monthText.substring(0, 1).toUpperCase() + monthText.substring(1).toLowerCase();
-            monthTextView.setText(monthText);
-        });
-
-        // Atualiza o ano quando alterado no viewmodel
-        mViewModel.getYear().observe(getViewLifecycleOwner(), year -> {
-            String yearText = String.valueOf(year);
-            yearTextView.setText(yearText);
-        });
-
-        // Atualiza o valor pago quando alterado no viewmodel
-        mViewModel.getPaidValue().observe(getViewLifecycleOwner(), paidValue -> {
-            String paidValueText = MoneyValue.format(paidValue);
-            paidValueTextView.setText(paidValueText);
-        });
-
-        // Atualiza o valor não pago quando alterado no viewmodel
-        mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> {
-            String unpaidValueText = MoneyValue.format(unpaidValue);
-            unpaidValueTextView.setText(unpaidValueText);
-        });
-
-        // Atualiza o valor total quando alterado no viewmodel
-        mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> {
-            String totalValueText = MoneyValue.format(totalValue);
-            totalValueTextView.setText(totalValueText);
-        });
-    }
-
-
-    private void setMonth(int month, int year) {
-
-    }
 }
+

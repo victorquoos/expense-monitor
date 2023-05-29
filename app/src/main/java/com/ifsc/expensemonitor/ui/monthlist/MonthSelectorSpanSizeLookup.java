@@ -2,10 +2,10 @@ package com.ifsc.expensemonitor.ui.monthlist;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
-public class CustomSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+public class MonthSelectorSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
     private final int spanCount;
 
-    public CustomSpanSizeLookup(int spanCount) {
+    public MonthSelectorSpanSizeLookup(int spanCount) {
         this.spanCount = spanCount;
     }
 

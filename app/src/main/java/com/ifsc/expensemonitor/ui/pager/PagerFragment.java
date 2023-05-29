@@ -9,17 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment;
 import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
 
 import java.text.DateFormatSymbols;
@@ -141,7 +140,7 @@ public class PagerFragment extends Fragment {
             @Override
             public Fragment createFragment(int position) {
                 MonthYear monthYear = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(position);
-                return MonthFragment.newInstance(monthYear.getYear(), monthYear.getMonth());
+                return ExpenseListFragment.newInstance(monthYear.getYear(), monthYear.getMonth());
             }
 
             @Override

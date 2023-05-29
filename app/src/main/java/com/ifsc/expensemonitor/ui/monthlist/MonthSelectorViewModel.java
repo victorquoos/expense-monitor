@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MonthListViewModel extends ViewModel {
+public class MonthSelectorViewModel extends ViewModel {
     private MutableLiveData<Integer> firstYear;
     private MutableLiveData<Integer> lastYear;
     private MutableLiveData<List<MonthYear>> months;
     private int currentYear, currentMonth;
     private int indexOfCurrentMonth = -1;
 
-    public MonthListViewModel() {
+    public MonthSelectorViewModel() {
         firstYear = new MutableLiveData<>();
         lastYear = new MutableLiveData<>();
         months = new MutableLiveData<>();
@@ -106,7 +106,7 @@ public class MonthListViewModel extends ViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("MonthListViewModel", "Erro ao obter anos", error.toException());
+                Log.e("MonthSelectorViewModel", "Erro ao obter anos", error.toException());
             }
         });
     }
