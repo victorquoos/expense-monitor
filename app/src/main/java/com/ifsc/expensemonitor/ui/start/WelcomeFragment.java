@@ -32,7 +32,6 @@ public class WelcomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_welcome, container, false);
 
-
         // Declaração dos componentes da tela
         Button signupButton = view.findViewById(R.id.signupButton);
         Button signinButton = view.findViewById(R.id.signinButton);
@@ -52,7 +51,7 @@ public class WelcomeFragment extends Fragment {
 
         // Se o usuário já estiver logado, vai direto para a lista de despesas
         if (FirebaseSettings.getFirebaseAuth().getCurrentUser() != null) {
-            Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_expenseListFragment);
+            Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_pagerFragment);
         }
     }
 }

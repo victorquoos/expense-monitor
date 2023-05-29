@@ -25,6 +25,8 @@ import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
+import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
+import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.NumberFormat;
 import java.util.Calendar;
@@ -86,15 +88,15 @@ public class AddEditFragment extends Fragment {
 
         // Lógica de salvar a despesa
         saveExpenseButton.setOnClickListener(v -> {
-            Long value = Long.parseLong(expenseValueEditText.getText().toString());
+            long value = 0L;
+            if (!expenseValueEditText.getText().toString().isEmpty()) {
+                value = Long.parseLong(expenseValueEditText.getText().toString());
+            }
             String name = expenseNameEditText.getText().toString();
             String description = expenseDescriptionEditText.getText().toString();
             SimpleDate date = selectedDate;
 
-            if (value == 0) {
-                expenseValueEditText.setError("Insira um valor válido");
-                expenseValueEditText.requestFocus();
-            } else if (name.isEmpty()) {
+            if (name.isEmpty()) {
                 expenseNameEditText.setError("Insira um nome válido");
                 expenseNameEditText.requestFocus();
             } else if (date == null) {
@@ -108,8 +110,10 @@ public class AddEditFragment extends Fragment {
                     Expense expense = new Expense(name, value, date, description);
                     FirebaseSettings.updateExpense(mViewModel.getExpense().getValue(), expense);
                 }
+                PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+                pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+                Navigation.findNavController(view).navigateUp();
             }
-            Navigation.findNavController(view).navigateUp();
         });
 
         return view;

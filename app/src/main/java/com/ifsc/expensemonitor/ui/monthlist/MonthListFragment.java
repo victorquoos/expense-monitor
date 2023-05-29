@@ -22,11 +22,13 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.addedit.AddEditFragmentArgs;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseListViewModel;
+import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
+
+import java.util.Objects;
 
 public class MonthListFragment extends Fragment {
 
-    private MonthListViewModel mViewModel;
+    private PagerViewModel pagerViewModel;
     MaterialToolbar materialToolbar;
     RecyclerView monthsRecyclerView;
     FloatingActionButton goToCurrentMonthButton;
@@ -42,6 +44,7 @@ public class MonthListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_month_list, container, false);
+        pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
 
         // Declaração dos componentes da tela
         materialToolbar = view.findViewById(R.id.materialToolbar);
@@ -67,29 +70,23 @@ public class MonthListFragment extends Fragment {
             }
         };
 
+        // Atualiza a lista de meses quando alterado no viewmodel
+        pagerViewModel.getListOfMonths().observe(getViewLifecycleOwner(), listOfMonths -> {
+            monthsRecyclerView.setAdapter(new MonthYearAdapter(listOfMonths, pagerViewModel));
+        });
+
+        // Realiza o scroll para o mês atual quando a lista de meses é atualizada
         monthsRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if (monthsRecyclerView.computeVerticalScrollRange() > monthsRecyclerView.getHeight()) {
-                    scrollToCurrentMonth();  // Chamando scrollToCurrentMonth
+                    scrollToCurrentMonth();
                     monthsRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
         });
 
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MonthListViewModel.class);
-
-        // Atualiza a lista de meses quando alterado no viewmodel
-        mViewModel.getMonthList().observe(getViewLifecycleOwner(), monthList -> {
-            ExpenseListViewModel expenseListViewModel = new ViewModelProvider(requireActivity()).get(ExpenseListViewModel.class);
-            monthsRecyclerView.setAdapter(new MonthYearAdapter(monthList, expenseListViewModel));
-        });
     }
 
     private int getSapnCount() {
@@ -109,7 +106,7 @@ public class MonthListFragment extends Fragment {
         int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
         int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
-        int indexCurrentMonth = mViewModel.getIndexOfCurrentMonth();
+        int indexCurrentMonth = pagerViewModel.getCurrentMonthIndex();
 
         if (indexCurrentMonth < 0) {
             scrollToPosition = 0;
@@ -132,7 +129,7 @@ public class MonthListFragment extends Fragment {
             } else {
                 intermediatePosition = scrollToPosition + visibleItems;
             }
-            intermediatePosition = Math.max(0, Math.min(intermediatePosition, mViewModel.getMonthList().getValue().size() - 1));
+            intermediatePosition = Math.max(0, Math.min(intermediatePosition, 0));
 
             monthsRecyclerView.getLayoutManager().scrollToPosition(intermediatePosition);
 

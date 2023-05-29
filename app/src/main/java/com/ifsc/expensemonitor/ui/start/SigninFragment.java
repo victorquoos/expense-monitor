@@ -59,7 +59,7 @@ public class SigninFragment extends Fragment {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "Usuário logado com sucesso", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
                 FirebaseSettings.saveUserLocally(); //TODO: funcionando. porém rever se é necessário, ou fazer uma tela de loading
-                Navigation.findNavController(getView()).navigate(R.id.action_signInFragment_to_expenseListFragment);
+                Navigation.findNavController(getView()).navigate(R.id.action_signInFragment_to_pagerFragment);
             } else {
                 String exception;
                 try {

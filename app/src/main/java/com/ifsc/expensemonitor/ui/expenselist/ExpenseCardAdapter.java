@@ -29,6 +29,10 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.fragmentManager = fragmentManager;
     }
 
+    public void setExpenses(List<Expense> expenses) {
+        this.expenseCards = expenses;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -89,10 +93,6 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
             expenseCardView.setOnClickListener(v -> { //TODO: implement popup menu
-                int month = expenseCard.getDate().getMonth();
-                int year = expenseCard.getDate().getYear();
-                String key = expenseCard.getKey();
-
                 BottomSheetDialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(expenseCard);
                 expenseBottomSheetFragment.show(fragmentManager, "expenseBottomSheet");
             });
