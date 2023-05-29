@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ import android.widget.TextView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
@@ -32,8 +37,7 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 
 public class AddEditFragment extends Fragment {
-    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-    private AddEditViewModel mViewModel;
+
     private MaterialToolbar materialToolbar;
     private EditText expenseValueEditText, expenseNameEditText, expenseDescriptionEditText, expenseDateEditText;
     private TextView expenseValueTextView;
@@ -41,6 +45,7 @@ public class AddEditFragment extends Fragment {
     int month, year;
     private String key;
     SimpleDate selectedDate;
+    Expense oldExpense;
 
     public static AddEditFragment newInstance() {
         return new AddEditFragment();
@@ -65,6 +70,9 @@ public class AddEditFragment extends Fragment {
         year = AddEditFragmentArgs.fromBundle(getArguments()).getYear();
         key = AddEditFragmentArgs.fromBundle(getArguments()).getKey();
 
+        // Configuração dos valores iniciais
+        setInitialValues(month, year, key);
+
         // Configuração da toolbar
         materialToolbar.setNavigationOnClickListener(v -> Navigation.findNavController(view).navigateUp());
 
@@ -72,74 +80,15 @@ public class AddEditFragment extends Fragment {
         expenseValueEditText.addTextChangedListener(expenseValueEditTextWatcher);
 
         // Configuração do datepicker
-        expenseDateEditText.setOnClickListener(v -> {
-            MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
-            builder.setTitleText("Selecione uma data"); //TODO: make a string resource
-            builder.setSelection(selectedDate.getDateInMillis());
-            MaterialDatePicker<Long> datePicker = builder.build();
+        expenseDateEditText.setOnClickListener(v -> openDatePicker());
 
-            datePicker.addOnPositiveButtonClickListener(selection -> {
-                selectedDate.setDate(selection);
-                expenseDateEditText.setText(selectedDate.getFormattedDate());
-            });
-
-            datePicker.show(getParentFragmentManager(), datePicker.toString());
-        });
-
-        // Lógica de salvar a despesa
-        saveExpenseButton.setOnClickListener(v -> {
-            long value = 0L;
-            if (!expenseValueEditText.getText().toString().isEmpty()) {
-                value = Long.parseLong(expenseValueEditText.getText().toString());
-            }
-            String name = expenseNameEditText.getText().toString();
-            String description = expenseDescriptionEditText.getText().toString();
-            SimpleDate date = selectedDate;
-
-            if (name.isEmpty()) {
-                expenseNameEditText.setError("Insira um nome válido");
-                expenseNameEditText.requestFocus();
-            } else if (date == null) {
-                expenseDateEditText.setError("Insira uma data válida");
-                expenseDateEditText.requestFocus();
-            } else {
-                if (mViewModel.getExpense().getValue() == null) {
-                    Expense expense = new Expense(name, value, date, description);
-                    FirebaseSettings.saveExpense(expense);
-                } else {
-                    Expense expense = new Expense(name, value, date, description);
-                    FirebaseSettings.updateExpense(mViewModel.getExpense().getValue(), expense);
-                }
-                PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
-                pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
-                Navigation.findNavController(view).navigateUp();
-            }
-        });
+        // Botão para salvar despesa
+        saveExpenseButton.setOnClickListener(v -> saveExpense(view));
 
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AddEditViewModel.class);
-
-        // Configuração dos valores iniciais
-        setInitialValues(month, year, key, mViewModel);
-
-        // Atualiza os dados de acordo com a despesa selecionada no viewModel
-        mViewModel.getExpense().observe(getViewLifecycleOwner(), expense -> {
-            if (expense != null) {
-                expenseValueEditText.setText(String.valueOf(expense.getValue()));
-                expenseNameEditText.setText(expense.getName());
-                expenseDescriptionEditText.setText(expense.getDescription());
-                expenseDateEditText.setText(expense.getDate().getFormattedDate());
-                selectedDate = expense.getDate();
-            }
-        });
-    }
-
-    public void setInitialValues(int month, int year, String key, AddEditViewModel mViewModel) {
+    public void setInitialValues(int month, int year, String key) {
         selectedDate = SimpleDate.getCurrentDate();
         expenseValueEditText.setText("0");
         if (key.isEmpty()) {
@@ -152,8 +101,29 @@ public class AddEditFragment extends Fragment {
             expenseDateEditText.setText(selectedDate.getFormattedDate());
         } else {
             materialToolbar.setTitle("Editar despesa");
-            mViewModel.loadExpenseData(month, year, key);
+            loadExpenseData(month, year, key);
         }
+    }
+
+    public void loadExpenseData(int month, int year, String key) {
+        DatabaseReference expenseReference = FirebaseSettings.getMonthReference(year, month).child(key);
+        expenseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                oldExpense = snapshot.getValue(Expense.class);
+                oldExpense.setKey(key);
+                expenseValueEditText.setText(String.valueOf(oldExpense.getValue()));
+                expenseNameEditText.setText(oldExpense.getName());
+                expenseDescriptionEditText.setText(oldExpense.getDescription());
+                expenseDateEditText.setText(oldExpense.getDate().getFormattedDate());
+                selectedDate = oldExpense.getDate();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("AddEditViewModel", "Erro ao obter despesa", error.toException());
+            }
+        });
     }
 
     private final TextWatcher expenseValueEditTextWatcher = new TextWatcher() {
@@ -182,4 +152,46 @@ public class AddEditFragment extends Fragment {
 
         }
     };
+
+    private void openDatePicker() {
+        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+        builder.setTitleText("Selecione uma data"); //TODO: make a string resource
+        builder.setSelection(selectedDate.getDateInMillis());
+        MaterialDatePicker<Long> datePicker = builder.build();
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            selectedDate.setDate(selection);
+            expenseDateEditText.setText(selectedDate.getFormattedDate());
+        });
+
+        datePicker.show(getParentFragmentManager(), datePicker.toString());
+    }
+
+    private void saveExpense(View view) {
+        long value = 0L;
+        if (!expenseValueEditText.getText().toString().isEmpty()) {
+            value = Long.parseLong(expenseValueEditText.getText().toString());
+        }
+        String name = expenseNameEditText.getText().toString();
+        String description = expenseDescriptionEditText.getText().toString();
+        SimpleDate date = selectedDate;
+
+        if (name.isEmpty()) {
+            expenseNameEditText.setError("Insira um nome válido");
+            expenseNameEditText.requestFocus();
+        } else if (date == null) {
+            expenseDateEditText.setError("Insira uma data válida");
+            expenseDateEditText.requestFocus();
+        } else {
+            Expense expense = new Expense(name, value, date, description);
+            if (key.isEmpty()) {
+                FirebaseSettings.saveExpense(expense);
+            } else {
+                FirebaseSettings.updateExpense(oldExpense, expense);
+            }
+            PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+            Navigation.findNavController(view).navigateUp();
+        }
+    }
 }

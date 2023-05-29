@@ -17,31 +17,5 @@ import com.ifsc.expensemonitor.database.SimpleDate;
 import java.util.Calendar;
 
 public class AddEditViewModel extends ViewModel {
-    private MutableLiveData<Expense> expense;
-
-    public AddEditViewModel() {
-        expense = new MutableLiveData<>();
-    }
-
-    public MutableLiveData<Expense> getExpense() {
-        return expense;
-    }
-
-    public void loadExpenseData(int month, int year, String key) {
-        DatabaseReference expenseReference = FirebaseSettings.getMonthReference(year, month).child(key);
-        expenseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                expense.setValue(snapshot.getValue(Expense.class));
-                expense.getValue().setKey(key);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("AddEditViewModel", "Erro ao obter despesa", error.toException());
-            }
-        });
-    }
-
 
 }
