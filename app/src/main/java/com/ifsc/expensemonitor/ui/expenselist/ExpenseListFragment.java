@@ -5,17 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.database.MoneyValue;
 
 import java.util.ArrayList;
 
 public class ExpenseListFragment extends Fragment {
 
+    private TextView paidValueTextView, unpaidValueTextView, totalValueTextView;
     private RecyclerView recyclerView;
     private ExpenseListViewModel mViewModel;
     private ExpenseCardAdapter mAdapter;
@@ -33,8 +36,12 @@ public class ExpenseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expense_list, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView);
         mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        paidValueTextView = view.findViewById(R.id.paidValueTextView);
+        unpaidValueTextView = view.findViewById(R.id.unpaidValueTextView);
+        totalValueTextView = view.findViewById(R.id.totalValueTextView);
 
         mAdapter = new ExpenseCardAdapter(new ArrayList<>(), getChildFragmentManager());
         recyclerView.setAdapter(mAdapter);
@@ -51,6 +58,10 @@ public class ExpenseListFragment extends Fragment {
                 mAdapter.notifyDataSetChanged();
             });
         }
+
+        mViewModel.getPaidValue().observe(getViewLifecycleOwner(), paidValue -> paidValueTextView.setText(MoneyValue.format(paidValue)));
+        mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
+        mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
 
         return view;
     }
