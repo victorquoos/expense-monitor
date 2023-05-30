@@ -11,7 +11,7 @@
 
 🏃 - [Como rodar a aplicação](#como-rodar-a-aplicação)
 
-❓ - [Casos de Uso](#casos-de-uso)
+📱 - [Telas](#telas)
 
 🖥️ - [Formato da database](#formato-da-database)
 
@@ -41,21 +41,26 @@
 
 Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/expense-monitor/releases) e instale no seu dispositivo android
 
-## Casos de Uso
+## Telas:
 
+# Tela de Boas Vindas
 ![Tela de Boas Vindas](https://github.com/victorquoos/expense-monitor/blob/main/images/Bem-Vindo.jpeg)
 
+# Tela de Cadastro e Login
 ![Tela de Cadastro](https://github.com/victorquoos/expense-monitor/blob/main/images/Cadastre-se.jpeg)
 
 ![Tela de Login](https://github.com/victorquoos/expense-monitor/blob/main/images/Login.jpeg)
 
+# Menu de Despesas
 ![Menu de Despesas](https://github.com/victorquoos/expense-monitor/blob/main/images/Menu.jpeg)
 
+# Criação de Despesa
 ![Criação de Despesa](https://github.com/victorquoos/expense-monitor/blob/main/images/Despesa.jpeg)
 
+# Calendário de Despesas
 ![Calendário de Despesas](https://github.com/victorquoos/expense-monitor/blob/main/images/Calendario.jpeg)
 
-## Formato da database
+# Formato da database
 
 foto do firebase aqui
 
