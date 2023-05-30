@@ -67,7 +67,7 @@ Liste o time responsável pelo desenvolvimento do projeto
 
 | [<img src="" width=115><br><sub>Victor Quoos</sub>](https://github.com/Diana-ops) 
 |  [<img src="" width=115><br><sub>Gabriel Dziecinny</sub>](https://github.com/Diana-ops) 
-|  [<img src="" width=115><br><sub>Samuel Baron</sub>](/images/sasa.jpeg) |
+|  [<img src="./images/sasa.jpeg" width=115><br><sub>Samuel Baron</sub>](https://github.com/Diana-ops) |
 | :---: | :---: | :---: 
 
 ## Licença 
