@@ -40,6 +40,13 @@ public class WelcomeFragment extends Fragment {
         // Ações dos botões
         signupButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_signUpFragment));
         signinButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_signInFragment));
+        guestButton.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_pagerFragment);
+                }
+            });
+        });
 
         return view;
     }
