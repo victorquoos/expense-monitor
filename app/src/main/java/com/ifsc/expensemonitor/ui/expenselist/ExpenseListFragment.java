@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ExpenseListFragment extends Fragment {
 
-    private TextView paidValueTextView, unpaidValueTextView, totalValueTextView;
+    private TextView unpaidValueTextView, totalValueTextView;
     private RecyclerView recyclerView;
     private ExpenseListViewModel mViewModel;
     private ExpenseCardAdapter mAdapter;
@@ -39,7 +39,6 @@ public class ExpenseListFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        paidValueTextView = view.findViewById(R.id.paidValueTextView);
         unpaidValueTextView = view.findViewById(R.id.unpaidValueTextView);
         totalValueTextView = view.findViewById(R.id.totalValueTextView);
 
@@ -59,7 +58,6 @@ public class ExpenseListFragment extends Fragment {
             });
         }
 
-        mViewModel.getPaidValue().observe(getViewLifecycleOwner(), paidValue -> paidValueTextView.setText(MoneyValue.format(paidValue)));
         mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
         mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
 

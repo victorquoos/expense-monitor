@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TODO - apply the ?attr/colorControlNormal or other color to the text styles -->
-
-
     <style name="CardText">
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/inter_medium</item>
@@ -27,8 +24,11 @@
     <style name="ToolbarStyle">
         <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="android:theme">@style/ToolbarTheme</item>
-        <item name="android:padding">@dimen/margin3</item>
-        <!--<item name="elevation">@dimen/margin2</item>-->
+        <item name="android:paddingLeft">@dimen/margin3</item>
+        <item name="android:paddingRight">@dimen/margin3</item>
+        <item name="android:paddingTop">@dimen/margin2</item>
+        <item name="android:paddingBottom">@dimen/margin2</item>
+        <item name="elevation">@dimen/margin2</item>
         <item name="android:background">@drawable/shape_white</item>
     </style>
 
