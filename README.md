@@ -21,11 +21,9 @@
 
 ## Descrição do projeto 
 
-
  Este projeto visa auxiliar as pessoas que precisam controlar suas despesas. Para que essas pessoas não atrasem ou esqueçam dos pagamentos que precisam fazer. Auxiliando o usuário a planejar de forma mais eficiente seus gastos futuros.
 
 ## Funcionalidades
-
 
 ✔️ Login com google ou usuário local  
 
@@ -37,33 +35,25 @@
 
 ## Pré-requisitos
 
-
 ⚠️ [Android 6.0 Marshmallow](https://www.android.com/intl/pt-BR_br/versions/marshmallow-6-0/) ou mais recente
 
 ## Como rodar a aplicação
-
 
 Baixe o release mais recente dísponivel [aqui]() e instale no seu dispositivo android
 
 ## Casos de Uso
 
-
 inserir gifs login e uso do app
 
 ## Formato da database
-
 
 foto do firebase aqui
 
 ## Linguagens, dependencias e libs utilizadas
 
-
 [Andoid SDK]()
 
 ## Desenvolvedores
-
-
-Liste o time responsável pelo desenvolvimento do projeto
 
 [<img src="./images/koos.jpeg" width=90 height=90><br><sub>Victor Quoos</sub>](https://github.com/Diana-ops)
 
