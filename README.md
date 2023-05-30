@@ -33,7 +33,7 @@
 
 ✔️ Despesas salvas na nuvem
 
-✔️Pode-se adicionar e remover despesas com apenas alguns cliques
+✔️ Pode-se adicionar e remover despesas com apenas alguns cliques
 
 ## Pré-requisitos
 
