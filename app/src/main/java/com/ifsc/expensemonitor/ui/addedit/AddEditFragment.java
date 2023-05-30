@@ -70,9 +70,6 @@ public class AddEditFragment extends Fragment {
         year = AddEditFragmentArgs.fromBundle(getArguments()).getYear();
         key = AddEditFragmentArgs.fromBundle(getArguments()).getKey();
 
-        // Configuração dos valores iniciais
-        setInitialValues(month, year, key);
-
         // Configuração da toolbar
         materialToolbar.setNavigationOnClickListener(v -> Navigation.findNavController(view).navigateUp());
 
@@ -85,45 +82,10 @@ public class AddEditFragment extends Fragment {
         // Botão para salvar despesa
         saveExpenseButton.setOnClickListener(v -> saveExpense(view));
 
+        // Configuração dos valores iniciais
+        setInitialValues(month, year, key);
+
         return view;
-    }
-
-    public void setInitialValues(int month, int year, String key) {
-        selectedDate = SimpleDate.getCurrentDate();
-        expenseValueEditText.setText("0");
-        if (key.isEmpty()) {
-            materialToolbar.setTitle("Adicionar despesa");
-            if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
-                selectedDate.setMonth(month);
-                selectedDate.setYear(year);
-                selectedDate.setDay(1);
-            }
-            expenseDateEditText.setText(selectedDate.getFormattedDate());
-        } else {
-            materialToolbar.setTitle("Editar despesa");
-            loadExpenseData(month, year, key);
-        }
-    }
-
-    public void loadExpenseData(int month, int year, String key) {
-        DatabaseReference expenseReference = FirebaseSettings.getMonthReference(year, month).child(key);
-        expenseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                oldExpense = snapshot.getValue(Expense.class);
-                oldExpense.setKey(key);
-                expenseValueEditText.setText(String.valueOf(oldExpense.getValue()));
-                expenseNameEditText.setText(oldExpense.getName());
-                expenseDescriptionEditText.setText(oldExpense.getDescription());
-                expenseDateEditText.setText(oldExpense.getDate().getFormattedDate());
-                selectedDate = oldExpense.getDate();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("AddEditViewModel", "Erro ao obter despesa", error.toException());
-            }
-        });
     }
 
     private final TextWatcher expenseValueEditTextWatcher = new TextWatcher() {
@@ -193,5 +155,43 @@ public class AddEditFragment extends Fragment {
             pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
             Navigation.findNavController(view).navigateUp();
         }
+    }
+
+    public void setInitialValues(int month, int year, String key) {
+        selectedDate = SimpleDate.getCurrentDate();
+        expenseValueEditText.setText("0");
+        if (key.isEmpty()) {
+            materialToolbar.setTitle("Adicionar despesa");
+            if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
+                selectedDate.setMonth(month);
+                selectedDate.setYear(year);
+                selectedDate.setDay(1);
+            }
+            expenseDateEditText.setText(selectedDate.getFormattedDate());
+        } else {
+            materialToolbar.setTitle("Editar despesa");
+            loadExpenseData(month, year, key);
+        }
+    }
+
+    public void loadExpenseData(int month, int year, String key) {
+        DatabaseReference expenseReference = FirebaseSettings.getMonthReference(year, month).child(key);
+        expenseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                oldExpense = snapshot.getValue(Expense.class);
+                oldExpense.setKey(key);
+                expenseValueEditText.setText(String.valueOf(oldExpense.getValue()));
+                expenseNameEditText.setText(oldExpense.getName());
+                expenseDescriptionEditText.setText(oldExpense.getDescription());
+                expenseDateEditText.setText(oldExpense.getDate().getFormattedDate());
+                selectedDate = oldExpense.getDate();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("AddEditViewModel", "Erro ao obter despesa", error.toException());
+            }
+        });
     }
 }

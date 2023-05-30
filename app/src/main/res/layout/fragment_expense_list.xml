@@ -1,133 +1,88 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     tools:context=".ui.expenselist.ExpenseListFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
+        style="@style/ToolbarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentInsetStart="0dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            android:paddingHorizontal="@dimen/margin2">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                style="@style/ToolbarStyle">
+                app:layout_constraintGuide_percent="0.5013193" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin2"
+                app:layout_constraintBottom_toBottomOf="@+id/unpaidValueTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_clock" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/paidTextView"
-                        app:srcCompat="@drawable/ic_check" />
+            <TextView
+                android:id="@+id/pendingTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin2"
+                android:text="Pendente"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/paidTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin2"
-                        android:text="Pago"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-                        app:layout_constraintStart_toEndOf="@+id/imageView"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/unpaidValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="R$ 0,00"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                app:layout_constraintEnd_toEndOf="@+id/pendingTextView"
+                app:layout_constraintStart_toStartOf="@+id/pendingTextView"
+                app:layout_constraintTop_toBottomOf="@+id/pendingTextView" />
 
-                    <TextView
-                        android:id="@+id/paidValueTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin2"
-                        android:text="R$ 0,00"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-                        app:layout_constraintStart_toStartOf="@+id/paidTextView"
-                        app:layout_constraintTop_toBottomOf="@+id/paidTextView" />
+            <TextView
+                android:id="@+id/totalTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.5013193" />
+            <TextView
+                android:id="@+id/totalValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="R$ 0,00"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+                app:layout_constraintStart_toStartOf="@+id/totalTextView"
+                app:layout_constraintTop_toBottomOf="@+id/totalTextView" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/pendingTextView"
-                        app:srcCompat="@drawable/ic_clock" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/pendingTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin2"
-                        android:text="Pendente"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                        app:layout_constraintStart_toEndOf="@+id/guideline1"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/unpaidValueTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="R$ 0,00"
-                        android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        app:layout_constraintEnd_toEndOf="@+id/pendingTextView"
-                        app:layout_constraintStart_toStartOf="@+id/pendingTextView"
-                        app:layout_constraintTop_toBottomOf="@+id/pendingTextView" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/totalTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Total"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/paidValueTextView" />
-
-                <TextView
-                    android:id="@+id/totalValueTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="R$ 0,00"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/totalTextView" />
-
-            </LinearLayout>
-
-        </com.google.android.material.appbar.MaterialToolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -141,4 +96,4 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

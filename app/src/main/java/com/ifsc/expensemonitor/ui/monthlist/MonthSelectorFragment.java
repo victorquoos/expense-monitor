@@ -105,19 +105,15 @@ public class MonthSelectorFragment extends Fragment {
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
         int visibleItems = lastVisiblePosition - firstVisiblePosition + 1;
         int indexCurrentMonth = pagerViewModel.getCurrentMonthIndex();
+        indexCurrentMonth += (indexCurrentMonth / 12) + 1;
 
-        if (indexCurrentMonth < 0) {
-            scrollToPosition = 0;
+        if (visibleItems > 15) {
+            scrollToPosition = (indexCurrentMonth - (indexCurrentMonth % 13));
+        } else {
+            scrollToPosition = (indexCurrentMonth - (visibleItems / 2 - getSapnCount() * 2));
         }
-        else if (scrollToPosition < 0) {
-            if (visibleItems > 15) {
-                scrollToPosition = (indexCurrentMonth - (indexCurrentMonth % 13));
-            } else {
-                scrollToPosition = (indexCurrentMonth - (visibleItems / 2 - getSapnCount() * 2));
-            }
-            if (scrollToPosition < 0) {
-                scrollToPosition = 0;
-            }
+        if (scrollToPosition < 0) {
+            scrollToPosition = 0;
         }
 
         if (scrollToPosition < firstVisiblePosition - visibleItems || scrollToPosition > lastVisiblePosition + visibleItems) {
@@ -127,7 +123,7 @@ public class MonthSelectorFragment extends Fragment {
             } else {
                 intermediatePosition = scrollToPosition + visibleItems;
             }
-            intermediatePosition = Math.max(0, Math.min(intermediatePosition, 0));
+            intermediatePosition = Math.max(0, Math.min(intermediatePosition, monthsRecyclerView.getAdapter().getItemCount() - 1));
 
             monthsRecyclerView.getLayoutManager().scrollToPosition(intermediatePosition);
 
