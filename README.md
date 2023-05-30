@@ -35,6 +35,8 @@
 
 :warning: [Node](https://nodejs.org/en/download/)
 
+:warning: [Android 6.0 Marshmallow](https://www.android.com/intl/pt-BR_br/versions/marshmallow-6-0/)
+
 ...
 
 Liste todas as dependencias e libs que o usuário deve ter instalado na máquina antes de rodar a aplicação 
@@ -108,7 +110,9 @@ Se for o caso, liste tarefas/funcionalidades que ainda precisam ser implementada
 
 Liste o time responsável pelo desenvolvimento do projeto
 
-| [<img src="https://avatars2.githubusercontent.com/u/46378210?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=4" width=115><br><sub>Diana Regina</sub>](https://github.com/Diana-ops) |  [<img src="https://avatars2.githubusercontent.com/u/46378210?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=4" width=115><br><sub>Diana Regina</sub>](https://github.com/Diana-ops) |  [<img src="https://avatars2.githubusercontent.com/u/46378210?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=4" width=115><br><sub>Diana Regina</sub>](https://github.com/Diana-ops) |
+| [<img src="" width=115><br><sub>kos</sub>](https://github.com/Diana-ops) 
+|  [<img src="" width=115><br><sub>dziecinny</sub>](https://github.com/Diana-ops) 
+|  [<img src="" width=115><br><sub>Baron</sub>](https://github.com/Diana-ops) |
 | :---: | :---: | :---: 
 
 ## Licença 
