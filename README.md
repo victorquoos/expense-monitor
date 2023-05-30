@@ -39,7 +39,7 @@
 
 ## Como rodar a aplicação
 
-Baixe o release mais recente dísponivel [aqui]() e instale no seu dispositivo android
+Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/expense-monitor/releases) e instale no seu dispositivo android
 
 ## Casos de Uso
 
@@ -51,7 +51,7 @@ foto do firebase aqui
 
 ## Linguagens, dependencias e libs utilizadas
 
-[Andoid SDK]()
+[Andoid SDK](https://developer.android.com/studio)
 
 ## Desenvolvedores
 
