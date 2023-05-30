@@ -65,13 +65,13 @@ foto do firebase aqui
 
 Liste o time responsável pelo desenvolvimento do projeto
 
-[<img src="./images/koos.jpeg" width=115><br><sub>Victor Quoos</sub>](https://github.com/Diana-ops)
+[<img src="./images/koos.jpeg" width=115 height=115><br><sub>Victor Quoos</sub>](https://github.com/Diana-ops)
 
 
-[<img src="./images/biel.jpeg" width=115><br><sub>Gabriel Dziecinny</sub>](https://github.com/Diana-ops) 
+[<img src="./images/biel.jpeg" width=115 height=115><br><sub>Gabriel Dziecinny</sub>](https://github.com/Diana-ops) 
 
 
-[<img src="./images/sasa.jpeg" width=115><br><sub>Samuel Baron</sub>](https://github.com/Diana-ops)
+[<img src="./images/sasa.jpeg" width=115 height=115><br><sub>Samuel Baron</sub>](https://github.com/Diana-ops)
 
 
 ## Licença 
