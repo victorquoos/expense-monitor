@@ -2,21 +2,21 @@
 
 ### Tópicos 
 
-📓[Descrição do projeto](#descrição-do-projeto)
+📓 [Descrição do projeto](#descrição-do-projeto)
 
-✔️[Funcionalidades](#funcionalidades)
+✔️ [Funcionalidades](#funcionalidades)
 
-❗[Pré-requisitos](#pré-requisitos)
+❗ [Pré-requisitos](#pré-requisitos)
 
-🏃[Como rodar a aplicação](#como-rodar-a-aplicação)
+🏃 [Como rodar a aplicação](#como-rodar-a-aplicação)
 
-❓[Casos de Uso](#casos-de-uso)
+❓ [Casos de Uso](#casos-de-uso)
 
-🖥️[Formato da database](#formato-da-database)
+🖥️ [Formato da database](#formato-da-database)
 
-📚:[Linguagens, dependencias e libs utilizadas](#Linguagens,-dependencias-e-libs-utilizadas)
+📚 [Linguagens, dependencias e libs utilizadas](#Linguagens,-dependencias-e-libs-utilizadas)
 
-🧍[Desenvolvedores](#Desenvolvedores)
+🧍 [Desenvolvedores](#Desenvolvedores)
 
 ## Descrição do projeto 
 
