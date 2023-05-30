@@ -1,4 +1,4 @@
-<div style="{font-family:monospace}">
+``
 <h1>Expense Monitor</h1> 
 
 ### Tópicos 
@@ -53,6 +53,7 @@ inserir gifs login e uso do app
 foto do firebase aqui
 
 ## Linguagens, dependencias e libs utilizadas
+````
 
 - [Andoid SDK]()
 
@@ -71,4 +72,4 @@ The [MIT License]() (MIT)
 
 Copyright :copyright: 2023 - Expense Monitor
 
- <div>
+``
