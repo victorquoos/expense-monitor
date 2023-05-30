@@ -1,16 +1,14 @@
 <h1>Expense Monitor</h1> 
 
-> Status do Projeto: :heavy_check_mark: :warning: (concluido, em desenvolvimento, etc)
-
 ### Tópicos 
 
-:small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)
+[Descrição do projeto](#descrição-do-projeto)
 
-:small_blue_diamond: [Funcionalidades](#funcionalidades)
+[Funcionalidades](#funcionalidades)
 
-:small_blue_diamond: [Pré-requisitos](#pré-requisitos)
+[Pré-requisitos](#pré-requisitos)
 
-:small_blue_diamond: [Como rodar a aplicação](#como-rodar-a-aplicação-arrow_forward)
+[Como rodar a aplicação](#como-rodar-a-aplicação-arrow_forward)
 
 
 
@@ -22,97 +20,42 @@
 
 ## Funcionalidades
 
-:heavy_check_mark: Ajudar pessoas que tem problemas financeiros   
+:heavy_check_mark: Login com google ou usuário local  
 
-:heavy_check_mark: Utilização de calendario para marcar um compromisso financeiro  
+:heavy_check_mark: Funciona online e offline
 
-:heavy_check_mark: Salvar dados importantes para auxiliar a sua despesa 
+:heavy_check_mark: Despesas salvas na nuvem
 
-:heavy_check_mark: Comparação de valores dos meses com uma calculadora no sistema  
+:heavy_check_mark: Pode-se adicionar e remover despesas com apenas alguns cliques
 
 
 ## Pré-requisitos
 
-:warning: [Node](https://nodejs.org/en/download/)
-
-:warning: [Android 6.0 Marshmallow](https://www.android.com/intl/pt-BR_br/versions/marshmallow-6-0/)
-
-...
-
-Liste todas as dependencias e libs que o usuário deve ter instalado na máquina antes de rodar a aplicação 
+:warning: [Android 6.0 Marshmallow](https://www.android.com/intl/pt-BR_br/versions/marshmallow-6-0/) ou mais recente
 
 ## Como rodar a aplicação :arrow_forward:
 
-No terminal, clone o projeto: 
-
-```
-git clone https://github.com/React-Bootcamp-WoMarkersCode/certificate-generator
-```
-
-... 
-
-Coloque um passo a passo para rodar a sua aplicação. **Dica: clone o próprio projeto e verfique se o passo a passo funciona**
-
-## Como rodar os testes
-
-Coloque um passo a passo para executar os testes
-
-```
-$ npm test, rspec, etc 
-```
+Baixe o release mais recente dísponivel [aqui]() e instale no seu dispositivo android
 
 ## Casos de Uso
 
-Explique com mais detalhes como a sua aplicação poderia ser utilizada. O uso de **gifs** aqui seria bem interessante. 
+inserir gifs login e uso do app
 
-Exemplo: Caso a sua aplicação tenha alguma funcionalidade de login apresente neste tópico os dados necessários para acessá-la.
+## Formato da database :floppy_disk:
 
-## JSON :floppy_disk:
-
-### Usuários: 
-
-|name|email|password|token|avatar|
-| -------- |-------- |-------- |-------- |-------- |
-|Lais Lima|laislima98@hotmail.com|lais123|true|https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS9-U_HbQAipum9lWln3APcBIwng7T46hdBA42EJv8Hf6Z4fDT3&usqp=CAU|
-
-... 
-
-Se quiser, coloque uma amostra do banco de dados 
-
-## Iniciando/Configurando banco de dados
-
-Se for necessário configurar algo antes de iniciar o banco de dados insira os comandos a serem executados 
+foto do firebase aqui
 
 ## Linguagens, dependencias e libs utilizadas :books:
 
-- [React](https://pt-br.reactjs.org/docs/create-a-new-react-app.html)
-- [React PDF](https://react-pdf.org/)
-
-...
-
-Liste as tecnologias utilizadas no projeto que **não** forem reconhecidas pelo Github 
-
-## Resolvendo Problemas :exclamation:
-
-Em [issues]() foram abertos alguns problemas gerados durante o desenvolvimento desse projeto e como foram resolvidos. 
-
-## Tarefas em aberto
-
-Se for o caso, liste tarefas/funcionalidades que ainda precisam ser implementadas na sua aplicação
-
-:memo: Tarefa 1 
-
-:memo: Tarefa 2 
-
-:memo: Tarefa 3 
+- [Andoid SDK]()
 
 ## Desenvolvedores/Contribuintes :octocat:
 
 Liste o time responsável pelo desenvolvimento do projeto
 
-| [<img src="" width=115><br><sub>kos</sub>](https://github.com/Diana-ops) 
-|  [<img src="" width=115><br><sub>dziecinny</sub>](https://github.com/Diana-ops) 
-|  [<img src="" width=115><br><sub>Baron</sub>](https://github.com/Diana-ops) |
+| [<img src="" width=115><br><sub>Victor Quoos</sub>](https://github.com/Diana-ops) 
+|  [<img src="" width=115><br><sub>Gabriel Dziecinny</sub>](https://github.com/Diana-ops) 
+|  [<img src="" width=115><br><sub>Samuel Baron</sub>](https://github.com/Diana-ops) |
 | :---: | :---: | :---: 
 
 ## Licença 
