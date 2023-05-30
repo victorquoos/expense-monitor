@@ -43,7 +43,17 @@ Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/e
 
 ## Casos de Uso
 
-inserir gifs login e uso do app
+![Tela de Boas Vindas](https://github.com/victorquoos/expense-monitor/blob/main/images/Bem-Vindo.jpeg)
+
+![Tela de Cadastro](https://github.com/victorquoos/expense-monitor/blob/main/images/Cadastre-se.jpeg)
+
+![Tela de Login](https://github.com/victorquoos/expense-monitor/blob/main/images/Login.jpeg)
+
+![Menu de Despesas](https://github.com/victorquoos/expense-monitor/blob/main/images/Menu.jpeg)
+
+![Criação de Despesa](https://github.com/victorquoos/expense-monitor/blob/main/images/Despesa.jpeg)
+
+![Calendário de Despesas](https://github.com/victorquoos/expense-monitor/blob/main/images/Calendario.jpeg)
 
 ## Formato da database
 
@@ -65,7 +75,6 @@ foto do firebase aqui
 
 
 ## Licença 
-
 
 The [MIT License]() (MIT)
 
