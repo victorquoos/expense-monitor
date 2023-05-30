@@ -1,4 +1,4 @@
-<div style="font-family:monospace">
+<div style="{font-family:monospace}">
 <h1>Expense Monitor</h1> 
 
 ### Tópicos 
