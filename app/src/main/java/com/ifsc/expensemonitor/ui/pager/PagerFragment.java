@@ -19,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment;
-import com.ifsc.expensemonitor.ui.monthlist.MonthYear;
+import com.ifsc.expensemonitor.ui.monthselector.MonthYear;
 
 import java.text.DateFormatSymbols;
 import java.util.List;
@@ -78,9 +78,7 @@ public class PagerFragment extends Fragment {
                 super.onPageSelected(position);
                 if (!isLoading) {
                     MonthYear currentMonth = Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(position);
-                    if (!currentMonth.equals(pagerViewModel.getLastVisibleMonthYear().getValue())) {
-                        pagerViewModel.getLastVisibleMonthYear().setValue(currentMonth);
-                    }
+                    pagerViewModel.getLastVisibleMonthYear().setValue(currentMonth);
                 }
             }
         });
@@ -159,12 +157,13 @@ public class PagerFragment extends Fragment {
 
                 if (viewPager.getChildCount() > 0) {
                     int startAtPage = determineStartPage();
+                    pagerViewModel.getLastVisibleMonthYear().setValue(Objects.requireNonNull(pagerViewModel.getListOfMonths().getValue()).get(startAtPage));
 
                     isLoading = false;
                     pagerViewModel.setFirstTime(false);
                     viewPager.setCurrentItem(startAtPage, false);
                     viewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    // O CARREGAMENTO DEVE TERMINAR AQUI
+
                     root.removeView(loadingView);
                 }
             }

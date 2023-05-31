@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.ui.monthlist;
+package com.ifsc.expensemonitor.ui.monthselector;
 
 import androidx.lifecycle.ViewModelProvider;
 

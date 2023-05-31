@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/monthListFragment"
-        android:name="com.ifsc.expensemonitor.ui.monthlist.MonthSelectorFragment"
+        android:name="com.ifsc.expensemonitor.ui.monthselector.MonthSelectorFragment"
         android:label="month_list_fragment"
         tools:layout="@layout/fragment_month_selector">
 

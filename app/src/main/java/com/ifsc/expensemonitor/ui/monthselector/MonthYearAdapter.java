@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.ui.monthlist;
+package com.ifsc.expensemonitor.ui.monthselector;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,22 +63,13 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             YearSeparatorViewHolder yearSeparatorViewHolder = (YearSeparatorViewHolder) holder;
             yearSeparatorViewHolder.bind(monthYear);
         } else if (holder instanceof MonthViewHolder) {
-            int monthPosition = countYearSeparatorsUpToPosition(position);
             holder.itemView.findViewById(R.id.monthCardView).setOnClickListener(view -> {
-                if (monthPosition != RecyclerView.NO_POSITION) {
-                    pagerViewModel.getTargetPageIndex().setValue(monthPosition);
-                    Navigation.findNavController(view).navigateUp();
-                }
+                pagerViewModel.getTargetMonthYear().setValue(monthYear);
+                Navigation.findNavController(view).navigateUp();
             });
             MonthViewHolder monthViewHolder = (MonthViewHolder) holder;
             monthViewHolder.bind(monthYear);
         }
-    }
-
-    private int countYearSeparatorsUpToPosition(int position) {
-        int yearCounter = position/13 + 1;
-        int count = position - yearCounter;
-        return count;
     }
 
     @Override
