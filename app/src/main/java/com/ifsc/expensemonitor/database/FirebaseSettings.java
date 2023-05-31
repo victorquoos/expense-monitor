@@ -14,10 +14,6 @@ import com.google.firebase.database.ValueEventListener;
 public class FirebaseSettings {
     private static DatabaseReference userReference;
 
-    public static FirebaseAuth getFirebaseAuth() { //TODO: substituir por FirebaseAuth.getInstance()
-        return FirebaseAuth.getInstance();
-    }
-
     public static FirebaseDatabase getFirebaseDatabase() { //TODO: substituir por FirebaseDatabase.getInstance()
         return FirebaseDatabase.getInstance();
     }
@@ -27,38 +23,14 @@ public class FirebaseSettings {
             userReference = getFirebaseDatabase()
                     .getReference()
                     .child("users")
-                    .child(getFirebaseAuth().getCurrentUser().getUid());
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         }
         return userReference;
     }
 
-    public static DatabaseReference getMonthReference(int year, int month) {
+    public static DatabaseReference getExpensesReference() {
         return getUserReference()
-                .child("expenses")
-                .child("year" + year)
-                .child("month" + month);
+                .child("expenses");
     }
 
-    public static void saveExpense(Expense expense) {
-        getUserReference()
-                .child("expenses")
-                .child("year" + expense.getDate().getYear())
-                .child("month" + expense.getDate().getMonth())
-                .push()
-                .setValue(expense);
-    }
-
-    public static void deleteExpense(Expense expense) {
-        getUserReference()
-                .child("expenses")
-                .child("year" + expense.getDate().getYear())
-                .child("month" + expense.getDate().getMonth())
-                .child(expense.getKey())
-                .removeValue();
-    }
-
-    public static void updateExpense(Expense oldExpense, Expense newExpense) {
-        deleteExpense(oldExpense);
-        saveExpense(newExpense);
-    }
 }

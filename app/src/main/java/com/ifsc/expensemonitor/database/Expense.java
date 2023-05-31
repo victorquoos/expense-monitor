@@ -5,7 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.text.NumberFormat;
 
 public class Expense {
-    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+
     private String key;
     private String name;
     private Long value;
@@ -20,8 +20,25 @@ public class Expense {
         this.name = name;
         this.value = value;
         this.date = date;
-        this.paid = paid;
         this.description = description;
+    }
+
+    public void save() {
+        FirebaseSettings.getExpensesReference()
+                .push()
+                .setValue(this);
+    }
+
+    public void delete() {
+        FirebaseSettings.getExpensesReference()
+                .child(getKey())
+                .removeValue();
+    }
+
+    public void update() {
+        FirebaseSettings.getExpensesReference()
+                .child(getKey())
+                .setValue(this);
     }
 
     @Exclude

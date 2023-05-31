@@ -4,7 +4,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 public class User {
-    // TODO: Add name?
     private String uid;
     private String email;
     private String password;
@@ -16,7 +15,6 @@ public class User {
     public void save() {
         DatabaseReference reference = FirebaseSettings.getFirebaseDatabase().getReference();
         reference.child("users").child(getUid()).setValue(this);
-        System.out.println("User saved");
     }
 
     @Exclude

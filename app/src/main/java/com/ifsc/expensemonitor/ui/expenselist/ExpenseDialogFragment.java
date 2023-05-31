@@ -52,9 +52,8 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
         }
 
         changeStatusButton.setOnClickListener(v -> {
-            Expense oldExpense = expense;
             expense.setPaid(!expense.isPaid());
-            FirebaseSettings.updateExpense(oldExpense, expense);
+            expense.update();
             dismiss();
         });
 

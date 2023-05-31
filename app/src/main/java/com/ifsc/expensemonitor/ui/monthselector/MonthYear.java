@@ -32,26 +32,6 @@ public class MonthYear {
         return year;
     }
 
-    public boolean isBefore(MonthYear other) {
-        if (this.year < other.year) {
-            return true;
-        } else if (this.year == other.year) {
-            return this.month < other.month;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isAfter(MonthYear other) {
-        if (this.year > other.year) {
-            return true;
-        } else if (this.year == other.year) {
-            return this.month > other.month;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

@@ -54,7 +54,7 @@ public class SigninFragment extends Fragment {
     }
 
     private void signin(String email, String password) {
-        auth = FirebaseSettings.getFirebaseAuth();
+        auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "Usuário logado com sucesso", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource

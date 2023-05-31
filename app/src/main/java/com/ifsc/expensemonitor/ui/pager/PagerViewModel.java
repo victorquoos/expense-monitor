@@ -73,7 +73,7 @@ public class PagerViewModel extends ViewModel {
 
 
     public void startListenerToGetYears() {
-        DatabaseReference yearsReference = FirebaseSettings.getUserReference().child("expenses");
+        DatabaseReference yearsReference = FirebaseSettings.getExpensesReference();
 
         yearsReference.addValueEventListener(new ValueEventListener() {
 
@@ -86,11 +86,10 @@ public class PagerViewModel extends ViewModel {
 
                 // Cria a lista de anos
                 List<Integer> yearsList = new ArrayList<>();
-                for (DataSnapshot year : snapshot.getChildren()) {
-                    String yearText = year.getKey();
-                    if (yearText != null && yearText.startsWith("year")) {
-                        int yearNumber = Integer.parseInt(yearText.substring(4));
-                        yearsList.add(yearNumber);
+                for (DataSnapshot expenseData : snapshot.getChildren()) {
+                    int year = expenseData.child("date").child("year").getValue(Integer.class);
+                    if (!yearsList.contains(year)) {
+                        yearsList.add(year);
                     }
                 }
 

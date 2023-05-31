@@ -57,7 +57,7 @@ public class WelcomeFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
 
         // Se o usuário já estiver logado, vai direto para a lista de despesas
-        if (FirebaseSettings.getFirebaseAuth().getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_pagerFragment);
         }
     }

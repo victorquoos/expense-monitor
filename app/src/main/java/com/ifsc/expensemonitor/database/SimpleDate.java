@@ -135,4 +135,8 @@ public class SimpleDate {
         }
         return 1;
     }
+
+    public boolean isInMonth(int month, int year) {
+        return this.month == month && this.year == year;
+    }
 }

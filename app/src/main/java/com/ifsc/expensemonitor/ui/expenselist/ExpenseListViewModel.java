@@ -98,8 +98,8 @@ public class ExpenseListViewModel extends ViewModel {
         if (currentListener != null && currentRef != null) {
             currentRef.removeEventListener(currentListener);
         }
-        DatabaseReference monthReference = FirebaseSettings.getMonthReference(year, month);
-        currentRef = monthReference;
+        DatabaseReference expensesReference = FirebaseSettings.getExpensesReference();
+        currentRef = expensesReference;
 
         currentListener = new ValueEventListener() {
             @Override
@@ -109,16 +109,18 @@ public class ExpenseListViewModel extends ViewModel {
                 Long totalPending = 0L;
                 for (DataSnapshot expenseData : snapshot.getChildren()) {
                     Expense expense = expenseData.getValue(Expense.class);
-                    expense.setKey(expenseData.getKey());
-                    expenses.add(expense);
-                    if (expense.isPaid()) {
-                        totalPaid += expense.getValue();
-                    } else {
-                        totalPending += expense.getValue();
+                    if (expense.getDate().isInMonth(month, year)){
+                        expense.setKey(expenseData.getKey());
+                        expenses.add(expense);
+                        if (expense.isPaid()) {
+                            totalPaid += expense.getValue();
+                        } else {
+                            totalPending += expense.getValue();
+                        }
                     }
                 }
 
-                Collections.sort(expenses, (o1, o2) -> Boolean.compare(o1.isPaid(), o2.isPaid()));
+                //Collections.sort(expenses, (o1, o2) -> Boolean.compare(o1.isPaid(), o2.isPaid()));
                 Collections.sort(expenses, (o1, o2) -> o1.getDate().compareTo(o2.getDate())); //TODO: create other sorting methods
 
                 currentMonthExpenses.setValue(expenses);
@@ -133,7 +135,7 @@ public class ExpenseListViewModel extends ViewModel {
             }
         };
 
-        monthReference.addValueEventListener(currentListener);
+        expensesReference.addValueEventListener(currentListener);
     }
 
     @Override

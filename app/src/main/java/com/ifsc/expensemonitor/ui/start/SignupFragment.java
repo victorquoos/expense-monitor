@@ -59,7 +59,7 @@ public class SignupFragment extends Fragment {
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(getContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show(); // TODO: Make a string resource
         } else {
-            auth = FirebaseSettings.getFirebaseAuth();
+            auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     User user = new User();
