@@ -1,14 +1,13 @@
 package com.ifsc.expensemonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-<<<<<<< HEAD
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-
-import android.content.SharedPreferences;
-import android.os.Build;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.ifsc.expensemonitor.data.PreferenceUtils;

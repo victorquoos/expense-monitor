@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.MoneyValue;
@@ -30,6 +31,10 @@ import com.ifsc.expensemonitor.data.OccurrenceService;
 
 import java.util.ArrayList;
 import java.util.Objects;
+=======
+import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.MoneyValue;
+>>>>>>> 0141262 (botao de editar despesa)
 
 public class ExpenseDialogFragment extends DialogFragment {
     private Occurrence occurrence;
@@ -89,9 +94,13 @@ public class ExpenseDialogFragment extends DialogFragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
             Bundle args = new Bundle();
+<<<<<<< HEAD
             args.putInt("year", occurrence.getDate().getYear());
             args.putInt("month", occurrence.getDate().getMonth());
             args.putString("id", occurrence.getId());
+=======
+            args.putString("key", expense.getKey());
+>>>>>>> 0141262 (botao de editar despesa)
 
             navController.navigate(R.id.addEditFragment, args);
         });
