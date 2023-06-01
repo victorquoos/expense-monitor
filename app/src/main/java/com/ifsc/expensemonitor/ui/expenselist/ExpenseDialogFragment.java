@@ -34,7 +34,10 @@ import java.util.Objects;
 =======
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.MoneyValue;
+<<<<<<< HEAD
 >>>>>>> 0141262 (botao de editar despesa)
+=======
+>>>>>>> d4fbed1 (botao de editar despesa)
 
 public class ExpenseDialogFragment extends DialogFragment {
     private Occurrence occurrence;
@@ -95,12 +98,16 @@ public class ExpenseDialogFragment extends DialogFragment {
 
             Bundle args = new Bundle();
 <<<<<<< HEAD
+<<<<<<< HEAD
             args.putInt("year", occurrence.getDate().getYear());
             args.putInt("month", occurrence.getDate().getMonth());
             args.putString("id", occurrence.getId());
 =======
             args.putString("key", expense.getKey());
 >>>>>>> 0141262 (botao de editar despesa)
+=======
+            args.putString("key", expense.getKey());
+>>>>>>> d4fbed1 (botao de editar despesa)
 
             navController.navigate(R.id.addEditFragment, args);
         });

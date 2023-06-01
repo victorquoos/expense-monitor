@@ -185,9 +185,12 @@ public class AddEditFragment extends Fragment {
             addMode = true;
             materialToolbar.setTitle("Adicionar despesa");
 <<<<<<< HEAD
+<<<<<<< HEAD
             selectedDate = SimpleDate.today();
 =======
 >>>>>>> 0141262 (botao de editar despesa)
+=======
+>>>>>>> d4fbed1 (botao de editar despesa)
             if (month >= 0 && year >= 0 && (month != selectedDate.getMonth() || year != selectedDate.getYear())) {
                 selectedDate.setMonth(month);
                 selectedDate.setYear(year);
