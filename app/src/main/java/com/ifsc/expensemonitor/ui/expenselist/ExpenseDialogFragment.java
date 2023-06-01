@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
         TextView expenseValueTextView = view.findViewById(R.id.expenseValueTextView);
         TextView expenseDateTextView = view.findViewById(R.id.expenseDateTextView);
         TextView expenseDescriptionTextView = view.findViewById(R.id.expenseDescriptionTextView);
+        TextView expenseStatusTextView = view.findViewById(R.id.expenseStatusTextView);
         Button changeStatusButton = view.findViewById(R.id.changeStatusButton);
 
         expenseNameTextView.setText(expense.getName());
@@ -44,11 +46,19 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
         expenseDescriptionTextView.setText(expense.getDescription());
 
         if (expense.isPaid()) {
+            expenseStatusTextView.setText("PAGO");
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Red));
+            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.ic_close), null);
             changeStatusButton.setText("MARCAR COMO NÃO PAGO");
         } else {
+            expenseStatusTextView.setText("NÃO PAGO");
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Green));
+            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.ic_check), null);
             changeStatusButton.setText("MARCAR COMO PAGO");
+        }
+
+        if (expenseDescriptionTextView.getText().toString().isEmpty()) {
+            view.findViewById(R.id.expenseDescriptionLinearLayout).setVisibility(View.GONE);
         }
 
         changeStatusButton.setOnClickListener(v -> {

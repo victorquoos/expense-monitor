@@ -15,40 +15,114 @@
         android:text="Nome da despesa"
         android:textAppearance="?attr/textAppearanceHeadline5" />
 
-    <TextView
-        android:id="@+id/expenseValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin2"
-        android:text="R$ 999,90"
-        android:textAppearance="?attr/textAppearanceBody1" />
-
-    <TextView
-        android:id="@+id/expenseDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin2"
-        android:text="31/12/2023"
-        android:textAppearance="?attr/textAppearanceBody1" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true"
-        android:nestedScrollingEnabled="true">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin2"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/expenseDateLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data:"
+                android:textAppearance="?attr/textAppearanceLabelSmall" />
+
+            <TextView
+                android:id="@+id/expenseDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="31/12/2023"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/expenseStatusLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textAppearance="?attr/textAppearanceLabelSmall" />
+
+            <TextView
+                android:id="@+id/expenseStatusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pago"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/expenseValueLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin2"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/expenseDescriptionTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin2"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultrices ultrices, nisl nisl aliquam elit, vitae aliquam elit nisl eget elit."
+            android:text="Valor:"
+            android:textAppearance="?attr/textAppearanceLabelSmall" />
+
+        <TextView
+            android:id="@+id/expenseValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="R$ 999,90"
             android:textAppearance="?attr/textAppearanceBody1" />
 
-    </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/expenseDescriptionLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin2"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrição:"
+            android:textAppearance="?attr/textAppearanceLabelSmall" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:nestedScrollingEnabled="true">
+
+            <TextView
+                android:id="@+id/expenseDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultrices ultrices, nisl nisl aliquam elit, vitae aliquam elit nisl eget elit."
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+        </ScrollView>
+
+    </LinearLayout>
 
     <Button
+        android:layout_marginTop="@dimen/margin3"
         android:id="@+id/changeStatusButton"
         style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
