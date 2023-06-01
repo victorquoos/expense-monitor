@@ -12,17 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.MoneyValue;
-import com.ifsc.expensemonitor.ui.expenselist.ExpenseDialogFragmentDirections;
-import com.ifsc.expensemonitor.ui.pager.PagerFragmentDirections;
 
 public class ExpenseDialogFragment extends DialogFragment {
     private Expense expense;
@@ -79,7 +77,12 @@ public class ExpenseDialogFragment extends DialogFragment {
 
         editButton.setOnClickListener(v -> {
             dismiss();
-            // todo navigate to edit expense fragment
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+
+            Bundle args = new Bundle();
+            args.putString("key", expense.getKey());
+
+            navController.navigate(R.id.addEditFragment, args);
         });
 
         deleteButton.setOnClickListener(v -> {
