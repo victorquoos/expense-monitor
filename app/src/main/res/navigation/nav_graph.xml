@@ -35,7 +35,7 @@
             android:id="@+id/action_signInFragment_to_pagerFragment"
             app:destination="@id/pagerFragment"
             app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
 
@@ -48,7 +48,7 @@
             android:id="@+id/action_signUpFragment_to_pagerFragment"
             app:destination="@id/pagerFragment"
             app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

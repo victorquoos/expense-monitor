@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,11 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.ui.expenselist.ExpenseDialogFragmentDirections;
+import com.ifsc.expensemonitor.ui.pager.PagerFragmentDirections;
 
 public class ExpenseDialogFragment extends DialogFragment {
     private Expense expense;
@@ -38,7 +42,13 @@ public class ExpenseDialogFragment extends DialogFragment {
         TextView expenseDateTextView = view.findViewById(R.id.expenseDateTextView);
         TextView expenseDescriptionTextView = view.findViewById(R.id.expenseDescriptionTextView);
         TextView expenseStatusTextView = view.findViewById(R.id.expenseStatusTextView);
+
+        Button editButton = view.findViewById(R.id.editButton);
+        Button deleteButton = view.findViewById(R.id.deleteButton);
+
         Button changeStatusButton = view.findViewById(R.id.changeStatusButton);
+        TextView changeStatusBottomTextView = view.findViewById(R.id.changeStatusBottomTextView);
+        ImageView changeStatusImageView = view.findViewById(R.id.changeStatusImageView);
 
         expenseNameTextView.setText(expense.getName());
         expenseValueTextView.setText(MoneyValue.format(expense.getValue()));
@@ -47,14 +57,14 @@ public class ExpenseDialogFragment extends DialogFragment {
 
         if (expense.isPaid()) {
             expenseStatusTextView.setText("PAGO");
+            changeStatusImageView.setImageResource(R.drawable.ic_close);
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Red));
-            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close), null);
-            changeStatusButton.setText("MARCAR COMO NÃO PAGO");
+            changeStatusBottomTextView.setText("NÃO PAGO");
         } else {
             expenseStatusTextView.setText("NÃO PAGO");
+            changeStatusImageView.setImageResource(R.drawable.ic_done);
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Green));
-            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(requireContext(), R.drawable.ic_done), null);
-            changeStatusButton.setText("MARCAR COMO PAGO");
+            changeStatusBottomTextView.setText("PAGO");
         }
 
         if (expenseDescriptionTextView.getText().toString().isEmpty()) {
@@ -65,6 +75,23 @@ public class ExpenseDialogFragment extends DialogFragment {
             expense.setPaid(!expense.isPaid());
             expense.update();
             dismiss();
+        });
+
+        editButton.setOnClickListener(v -> {
+            dismiss();
+            // todo navigate to edit expense fragment
+        });
+
+        deleteButton.setOnClickListener(v -> {
+            new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Excluir despesa")
+                    .setMessage("Tem certeza que deseja excluir esta despesa?")
+                    .setPositiveButton("Sim", (dialog, which) -> {
+                        expense.delete();
+                        dismiss();
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
