@@ -132,7 +132,7 @@ public class AddEditFragment extends Fragment {
         expenseValueEditText.setText("0");
         if (key.isEmpty()) {
             materialToolbar.setTitle("Adicionar despesa");
-            if (month != Calendar.getInstance().get(Calendar.MONTH) || year != Calendar.getInstance().get(Calendar.YEAR)) {
+            if (month >= 0 && year >= 0 && (month != selectedDate.getMonth() || year != selectedDate.getYear())) {
                 selectedDate.setMonth(month);
                 selectedDate.setYear(year);
                 selectedDate.setDay(1);
