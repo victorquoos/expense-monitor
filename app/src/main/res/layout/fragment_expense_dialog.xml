@@ -127,7 +127,7 @@
         style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_check"
+        android:drawableEnd="@drawable/ic_done"
         android:text="MARCAR COMO" />
 
 </LinearLayout>

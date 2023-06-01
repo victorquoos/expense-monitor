@@ -1,12 +1,10 @@
 package com.ifsc.expensemonitor.ui.expenselist;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 
 public class ExpenseDialogFragment extends BottomSheetDialogFragment {
@@ -53,7 +50,7 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
         } else {
             expenseStatusTextView.setText("NÃO PAGO");
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Green));
-            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.ic_check), null);
+            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.ic_done), null);
             changeStatusButton.setText("MARCAR COMO PAGO");
         }
 

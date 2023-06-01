@@ -146,7 +146,7 @@
         android:layout_margin="@dimen/margin3"
         android:contentDescription="Salvar despesa"
         android:text="Salvar"
-        app:icon="@drawable/ic_check" />
+        app:icon="@drawable/ic_done" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
