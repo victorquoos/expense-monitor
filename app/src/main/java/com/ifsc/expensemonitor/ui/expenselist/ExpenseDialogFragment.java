@@ -1,5 +1,7 @@
 package com.ifsc.expensemonitor.ui.expenselist;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,24 +13,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.MoneyValue;
 
-public class ExpenseDialogFragment extends BottomSheetDialogFragment {
+public class ExpenseDialogFragment extends DialogFragment {
     private Expense expense;
 
     public ExpenseDialogFragment(Expense expense) {
         this.expense = expense;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_expense_dialog, container, false);
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.fragment_expense_dialog, null);
 
         TextView expenseNameTextView = view.findViewById(R.id.expenseNameTextView);
         TextView expenseValueTextView = view.findViewById(R.id.expenseValueTextView);
@@ -44,13 +47,13 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
 
         if (expense.isPaid()) {
             expenseStatusTextView.setText("PAGO");
-            changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Red));
-            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.ic_close), null);
+            changeStatusButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Red));
+            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(requireContext(), R.drawable.ic_close), null);
             changeStatusButton.setText("MARCAR COMO NÃO PAGO");
         } else {
             expenseStatusTextView.setText("NÃO PAGO");
-            changeStatusButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.Green));
-            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.ic_done), null);
+            changeStatusButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Green));
+            changeStatusButton.setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(requireContext(), R.drawable.ic_done), null);
             changeStatusButton.setText("MARCAR COMO PAGO");
         }
 
@@ -64,6 +67,8 @@ public class ExpenseDialogFragment extends BottomSheetDialogFragment {
             dismiss();
         });
 
-        return view;
+        return new MaterialAlertDialogBuilder(requireContext())
+                .setView(view)
+                .create();
     }
 }

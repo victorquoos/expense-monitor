@@ -8,10 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.dialog.MaterialDialogs;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.database.Expense;
 import com.ifsc.expensemonitor.database.MoneyValue;
@@ -93,8 +96,8 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
             expenseCardView.setOnClickListener(v -> {
-                BottomSheetDialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(expenseCard);
-                expenseBottomSheetFragment.show(fragmentManager, "expenseBottomSheet");
+                DialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(expenseCard);
+                expenseBottomSheetFragment.show(fragmentManager, "expenseDialogFragment");
             });
         }
     }
