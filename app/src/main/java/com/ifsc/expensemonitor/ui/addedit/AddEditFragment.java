@@ -2,6 +2,7 @@ package com.ifsc.expensemonitor.ui.addedit;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,6 +42,7 @@ public class AddEditFragment extends Fragment {
 
     private MaterialToolbar materialToolbar;
     private EditText expenseValueEditText, expenseNameEditText, expenseDescriptionEditText, expenseDateEditText;
+    private Button expenseDateButton;
     private TextView expenseValueTextView;
     private ExtendedFloatingActionButton saveExpenseButton;
     int month, year;
@@ -60,6 +64,7 @@ public class AddEditFragment extends Fragment {
         expenseNameEditText = view.findViewById(R.id.expenseNameEditText);
         expenseDescriptionEditText = view.findViewById(R.id.expenseDescriptionEditText);
         expenseDateEditText = view.findViewById(R.id.expenseDateEditText);
+        expenseDateButton = view.findViewById(R.id.expenseDateButton);
         saveExpenseButton = view.findViewById(R.id.saveExpenseButton);
         expenseValueTextView = view.findViewById(R.id.expenseValueTextView);
 
@@ -76,6 +81,7 @@ public class AddEditFragment extends Fragment {
 
         // Configuração do datepicker
         expenseDateEditText.setOnClickListener(v -> openDatePicker());
+        expenseDateButton.setOnClickListener(v -> openSimpleDatePicker());
 
         // Botão para salvar despesa
         saveExpenseButton.setOnClickListener(v -> saveExpense(view));
@@ -125,6 +131,17 @@ public class AddEditFragment extends Fragment {
         });
 
         datePicker.show(getParentFragmentManager(), datePicker.toString());
+    }
+
+    private void openSimpleDatePicker() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
+            selectedDate.setDay(dayOfMonth);
+            selectedDate.setMonth(month);
+            selectedDate.setYear(year);
+            expenseDateEditText.setText(selectedDate.getFormattedDate());
+        }, selectedDate.getYear(), selectedDate.getMonth(), selectedDate.getDay());
+
+        datePickerDialog.show();
     }
 
     public void setInitialValues(int month, int year, String key) {

@@ -105,6 +105,13 @@
                     android:text="Data"
                     android:textSize="18sp" />
 
+                <Button
+                    android:id="@+id/expenseDateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin2"
+                    android:text="Selecionar data" />
+
                 <EditText
                     android:id="@+id/expenseDateEditText"
                     android:layout_width="match_parent"
