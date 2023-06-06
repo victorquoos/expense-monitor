@@ -71,7 +71,11 @@ public class SimpleDate {
 
     @Exclude
     private static DateFormat getDateFormat() {
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
         return DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+=======
+        return dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+>>>>>>> 1e28f89 (correção de erro):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
     }
 
     @Exclude
@@ -102,6 +106,7 @@ public class SimpleDate {
 
     @Exclude
     public boolean isBeforeToday() {
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
         return year < today().getYear() ||
                 (year == today().getYear() && month < today().getMonth()) ||
                 (year == today().getYear() && month == today().getMonth() && day < today().getDay());
@@ -132,6 +137,11 @@ public class SimpleDate {
         Calendar calendar = getCalendar();
         calendar.add(Calendar.DAY_OF_MONTH, days);
         return new SimpleDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+=======
+        return year < getCurrentDate().getYear() ||
+                (year == getCurrentDate().getYear() && month < getCurrentDate().getMonth()) ||
+                (year == getCurrentDate().getYear() && month == getCurrentDate().getMonth() && day < getCurrentDate().getDay());
+>>>>>>> 1e28f89 (correção de erro):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
     }
 
     @Exclude
