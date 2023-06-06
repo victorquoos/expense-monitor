@@ -75,15 +75,6 @@ public class SimpleDate {
     }
 
     @Exclude
-    private static SimpleDate getToday() {
-        if (today == null) {
-            today = new SimpleDate();
-            today.setDate(Calendar.getInstance().getTimeInMillis());
-        }
-        return today;
-    }
-
-    @Exclude
     Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
@@ -106,16 +97,9 @@ public class SimpleDate {
 
     @Exclude
     public boolean isBeforeToday() {
-        if (year < getToday().getYear()) {
-            return true;
-        } else if (year == getToday().getYear()) {
-            if (month < getToday().getMonth()) {
-                return true;
-            } else if (month == getToday().getMonth()) {
-                return day < getToday().getDay();
-            }
-        }
-        return false;
+        return year < getCurrentDate().getYear() ||
+                (year == getCurrentDate().getYear() && month < getCurrentDate().getMonth()) ||
+                (year == getCurrentDate().getYear() && month == getCurrentDate().getMonth() && day < getCurrentDate().getDay());
     }
 
     @Exclude
