@@ -3,12 +3,16 @@ package com.ifsc.expensemonitor.database;
 import java.util.Calendar;
 
 public class MonthYear {
+
     private int month;
     private int year;
-    private boolean isCurrentMonth;
+    private boolean isCurrentMonth = false;
     private Long paidValue = 0L;
     private Long unpaidValue = 0L;
     private Long totalValue = 0L;
+    private boolean hasValue = false;
+    private boolean hasUnpaidValue = false;
+    private boolean hasOverdueValue = false;
 
     public MonthYear(int month, int year) {
         this.month = month;
@@ -90,6 +94,30 @@ public class MonthYear {
 
     public void setTotalValue(Long totalValue) {
         this.totalValue = totalValue;
+    }
+
+    public boolean hasValue() {
+        return hasValue;
+    }
+
+    public void setHasValue(boolean hasValue) {
+        this.hasValue = hasValue;
+    }
+
+    public boolean hasUnpaidValue() {
+        return hasUnpaidValue;
+    }
+
+    public void setHasUnpaidValue(boolean hasUnpaidValue) {
+        this.hasUnpaidValue = hasUnpaidValue;
+    }
+
+    public boolean hasOverdueValue() {
+        return hasOverdueValue;
+    }
+
+    public void setHasOverdueValue(boolean hasOverdueValue) {
+        this.hasOverdueValue = hasOverdueValue;
     }
 
     public boolean isBefore(MonthYear other) {

@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MonthYear;
+import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -104,19 +106,28 @@ public class PagerViewModel extends ViewModel {
                             DataSnapshot yearSnapshot = dataSnapshot.child(String.valueOf(year));
                             if (yearSnapshot.hasChild(String.valueOf(month))) {
                                 DataSnapshot monthSnapshot = yearSnapshot.child(String.valueOf(month));
-                                Long paidValue = 0L;
-                                Long unpaidValue = 0L;
-                                Long totalValue = 0L;
+                                long paidValue = 0L;
+                                long unpaidValue = 0L;
+                                long totalValue = 0L;
                                 for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
-                                    boolean paid = occurrenceSnapshot.child("paid").getValue(Boolean.class);
-                                    Long value = occurrenceSnapshot.child("value").getValue(Long.class);
-                                    if (paid) {
-                                        paidValue += value;
-                                    } else {
-                                        unpaidValue += value;
-                                    }
+                                    Occurrence occurrence = occurrenceSnapshot.getValue(Occurrence.class);
+                                    long value = occurrence.getValue();
+
                                     totalValue += value;
+                                    monthYear.setHasValue(true);
+
+                                    if (!occurrence.isPaid()) {
+                                        unpaidValue += value;
+                                        monthYear.setHasUnpaidValue(true);
+
+                                        if (occurrence.getDate().isBeforeToday()) {
+                                            monthYear.setHasOverdueValue(true);
+                                        }
+                                    } else {
+                                        paidValue += value;
+                                    }
                                 }
+
                                 monthYear.setPaidValue(paidValue);
                                 monthYear.setUnpaidValue(unpaidValue);
                                 monthYear.setTotalValue(totalValue);
