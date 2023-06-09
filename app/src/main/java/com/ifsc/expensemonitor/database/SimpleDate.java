@@ -75,6 +75,11 @@ public class SimpleDate {
     @Exclude
     Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, month);
+        int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        if (day > maxDay) {
+            day = maxDay;
+        }
         calendar.set(year, month, day);
         int offset = TimeZone.getDefault().getOffset(calendar.getTimeInMillis());
         calendar.setTimeInMillis(calendar.getTimeInMillis() + offset);
@@ -142,4 +147,5 @@ public class SimpleDate {
     public boolean isInMonth(int month, int year) {
         return this.month == month && this.year == year;
     }
+
 }

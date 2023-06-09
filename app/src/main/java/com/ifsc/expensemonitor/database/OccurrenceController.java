@@ -59,7 +59,9 @@ public class OccurrenceController {
         // atualiza o index
         controllIndex++;
         // atualiza a data
-        controllDate = controllDate.plusMonths(intervaInlMonths);
+        int day = controllDate.getDay();
+        controllDate = (controllDate.plusMonths(intervaInlMonths));
+        controllDate.setDay(day);
         // atualiza no banco de dados
         OccurrenceControllerService.update(this);
     }

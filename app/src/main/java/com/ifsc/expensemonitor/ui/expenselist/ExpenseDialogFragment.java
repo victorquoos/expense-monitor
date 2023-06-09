@@ -78,7 +78,9 @@ public class ExpenseDialogFragment extends DialogFragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
             Bundle args = new Bundle();
-            args.putString("key", occurrence.getId());
+            args.putInt("year", occurrence.getDate().getYear());
+            args.putInt("month", occurrence.getDate().getMonth());
+            args.putString("id", occurrence.getId());
 
             navController.navigate(R.id.addEditFragment, args);
         });
