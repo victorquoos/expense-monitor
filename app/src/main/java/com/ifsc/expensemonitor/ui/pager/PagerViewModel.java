@@ -16,7 +16,12 @@ import com.ifsc.expensemonitor.data.OccurrenceController;
 =======
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MonthYear;
+<<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
+=======
+import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.SimpleDate;
+>>>>>>> 9fbce0d (ajustes)
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -116,6 +121,7 @@ public class PagerViewModel extends ViewModel {
                             if (yearSnapshot.hasChild(String.valueOf(month))) {
                                 DataSnapshot monthSnapshot = yearSnapshot.child(String.valueOf(month));
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 long paidValue = 0L;
                                 long unpaidValue = 0L;
                                 long totalValue = 0L;
@@ -142,17 +148,34 @@ public class PagerViewModel extends ViewModel {
                                 Long paidValue = 0L;
                                 Long unpaidValue = 0L;
                                 Long totalValue = 0L;
+=======
+                                long paidValue = 0L;
+                                long unpaidValue = 0L;
+                                long totalValue = 0L;
+>>>>>>> 9fbce0d (ajustes)
                                 for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
-                                    boolean paid = occurrenceSnapshot.child("paid").getValue(Boolean.class);
-                                    Long value = occurrenceSnapshot.child("value").getValue(Long.class);
-                                    if (paid) {
-                                        paidValue += value;
-                                    } else {
-                                        unpaidValue += value;
-                                    }
+                                    Occurrence occurrence = occurrenceSnapshot.getValue(Occurrence.class);
+                                    long value = occurrence.getValue();
+
                                     totalValue += value;
+                                    monthYear.setHasValue(true);
+
+                                    if (!occurrence.isPaid()) {
+                                        unpaidValue += value;
+                                        monthYear.setHasUnpaidValue(true);
+
+                                        if (occurrence.getDate().isBeforeToday()) {
+                                            monthYear.setHasOverdueValue(true);
+                                        }
+                                    } else {
+                                        paidValue += value;
+                                    }
                                 }
+<<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
+=======
+
+>>>>>>> 9fbce0d (ajustes)
                                 monthYear.setPaidValue(paidValue);
                                 monthYear.setUnpaidValue(unpaidValue);
                                 monthYear.setTotalValue(totalValue);

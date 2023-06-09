@@ -3,24 +3,29 @@ package com.ifsc.expensemonitor.ui.monthselector;
 import android.content.Context;
 import android.content.res.ColorStateList;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import android.content.res.TypedArray;
 >>>>>>> 5f814f6 (checkpoint)
+=======
+>>>>>>> 9fbce0d (ajustes)
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ContextThemeWrapper;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import androidx.core.view.ViewCompat;
 >>>>>>> 5f814f6 (checkpoint)
+=======
+>>>>>>> 9fbce0d (ajustes)
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -143,6 +148,7 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (monthYear.hasValue()){
                 valueTextView.setVisibility(View.VISIBLE);
                 statusCircleImageView.setVisibility(View.VISIBLE);
@@ -163,6 +169,16 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorYellow)));
                     }
 >>>>>>> 5f814f6 (checkpoint)
+=======
+            if (monthYear.hasValue()){
+                valueTextView.setVisibility(View.VISIBLE);
+                statusCircleImageView.setVisibility(View.VISIBLE);
+                valueTextView.setText(MoneyValue.format(monthYear.getTotalValue()));
+                if (monthYear.hasOverdueValue()) {
+                    statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorRed)));
+                } else if (monthYear.hasUnpaidValue()) {
+                    statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorYellow)));
+>>>>>>> 9fbce0d (ajustes)
                 } else {
                     statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorGreen)));
                 }

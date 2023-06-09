@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.MonthYear;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
@@ -42,13 +43,20 @@ import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.util.Objects;
 =======
+=======
+import com.ifsc.expensemonitor.database.MonthYear;
+>>>>>>> 9fbce0d (ajustes)
 import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.OccurrenceControllerService;
 import com.ifsc.expensemonitor.database.SimpleDate;
+<<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
+=======
+import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
+>>>>>>> 9fbce0d (ajustes)
 
 public class AddEditFragment extends Fragment {
 
@@ -337,6 +345,8 @@ public class AddEditFragment extends Fragment {
             controller.setDescription(description);
 
             OccurrenceControllerService.save(controller);
+            PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
             Navigation.findNavController(view).navigateUp();
         }
 

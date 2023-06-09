@@ -86,8 +86,12 @@ public class OccurrenceController {
 =======
         controllDate = controllDate.plusMonths(intervaInlMonths);
         // atualiza no banco de dados
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
         //todo
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
+=======
+        OccurrenceControllerService.update(this);
+>>>>>>> 9fbce0d (ajustes):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
     }
 
     public String getGroupId() {
