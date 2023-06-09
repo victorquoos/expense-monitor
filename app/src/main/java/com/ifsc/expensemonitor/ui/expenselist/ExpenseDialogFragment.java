@@ -108,6 +108,7 @@ public class ExpenseDialogFragment extends DialogFragment {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             args.putInt("year", occurrence.getDate().getYear());
             args.putInt("month", occurrence.getDate().getMonth());
             args.putString("id", occurrence.getId());
@@ -120,6 +121,11 @@ public class ExpenseDialogFragment extends DialogFragment {
 =======
             args.putString("key", occurrence.getId());
 >>>>>>> 5f814f6 (checkpoint)
+=======
+            args.putInt("year", occurrence.getDate().getYear());
+            args.putInt("month", occurrence.getDate().getMonth());
+            args.putString("id", occurrence.getId());
+>>>>>>> 0cdd0dd (ajuste na exibição da data)
 
             navController.navigate(R.id.addEditFragment, args);
         });

@@ -194,6 +194,7 @@ public class AddEditFragment extends Fragment {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void setInitialValues(int month, int year, String id) {
         expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
         expenseValueEditText.setText("0");
@@ -212,14 +213,21 @@ public class AddEditFragment extends Fragment {
 =======
     public void setInitialValues(int month, int year, String key) {
         selectedDate = SimpleDate.today();
+=======
+    public void setInitialValues(int month, int year, String id) {
+>>>>>>> 0cdd0dd (ajuste na exibição da data)
         expenseValueEditText.setText("0");
-        if (key.isEmpty()) {
+        expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
+        if (id.isEmpty()) {
             addMode = true;
             materialToolbar.setTitle("Adicionar despesa");
-            expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
             expenseParcelEditText.setText("12");
             expenseIntervalInMonthsEditText.setText("1");
+<<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
+=======
+            selectedDate = SimpleDate.today();
+>>>>>>> 0cdd0dd (ajuste na exibição da data)
             if (month >= 0 && year >= 0 && (month != selectedDate.getMonth() || year != selectedDate.getYear())) {
                 selectedDate.setMonth(month);
                 selectedDate.setYear(year);
@@ -234,6 +242,7 @@ public class AddEditFragment extends Fragment {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void loadExpenseData(String id) {
         DatabaseReference occurrenceRef = FirebaseSettings.getOccurrencesReference()
                 .child(String.valueOf(year))
@@ -246,6 +255,13 @@ public class AddEditFragment extends Fragment {
                 .child(String.valueOf(month))
                 .child(key);
 >>>>>>> 5f814f6 (checkpoint)
+=======
+    public void loadExpenseData(String id) {
+        DatabaseReference occurrenceRef = FirebaseSettings.getOccurrencesReference()
+                .child(String.valueOf(year))
+                .child(String.valueOf(month))
+                .child(id);
+>>>>>>> 0cdd0dd (ajuste na exibição da data)
         occurrenceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

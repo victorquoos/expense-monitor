@@ -78,6 +78,9 @@ public class OccurrenceController {
         controllIndex++;
         // atualiza a data
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+=======
+>>>>>>> 0cdd0dd (ajuste na exibição da data):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
         int day = controllDate.getDay();
         controllDate = (controllDate.plusMonths(intervaInlMonths));
         controllDate.setDay(day);
