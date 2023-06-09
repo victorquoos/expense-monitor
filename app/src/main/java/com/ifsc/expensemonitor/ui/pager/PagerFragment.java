@@ -19,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment;
-import com.ifsc.expensemonitor.ui.monthselector.MonthYear;
+import com.ifsc.expensemonitor.database.MonthYear;
 
 import java.text.DateFormatSymbols;
 import java.util.List;

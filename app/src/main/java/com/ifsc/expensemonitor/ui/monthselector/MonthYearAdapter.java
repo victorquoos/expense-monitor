@@ -1,16 +1,27 @@
 package com.ifsc.expensemonitor.ui.monthselector;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.core.view.ViewCompat;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.database.MonthYear;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.DateFormatSymbols;
@@ -92,15 +103,17 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public static class MonthViewHolder extends RecyclerView.ViewHolder {
-        private TextView monthTextView;
-        private TextView yearTextView;
-        private ImageView todayIconImageView;
+        private MaterialCardView monthCardView;
+        private TextView monthTextView, yearTextView, valueTextView;
+        private ImageView statusCircleImageView;
 
         public MonthViewHolder(@NonNull View itemView) {
             super(itemView);
+            monthCardView = itemView.findViewById(R.id.monthCardView);
             monthTextView = itemView.findViewById(R.id.monthTextView);
             yearTextView = itemView.findViewById(R.id.yearTextView);
-            todayIconImageView = itemView.findViewById(R.id.todayIconImageView);
+            valueTextView = itemView.findViewById(R.id.valueTextView);
+            statusCircleImageView = itemView.findViewById(R.id.statusCircleImageView);
         }
 
         public void bind(MonthYear monthYear) {
@@ -111,10 +124,37 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             yearTextView.setText(year);
 
             if (monthYear.isCurrentMonth()) {
-                todayIconImageView.setVisibility(View.VISIBLE);
+                monthCardView.setStrokeColor(getAttrColor(monthCardView.getContext(), com.google.android.material.R.attr.colorPrimaryInverse));
+                monthCardView.setStrokeWidth(8);
             } else {
-                todayIconImageView.setVisibility(View.INVISIBLE);
+                monthCardView.setStrokeColor(Color.TRANSPARENT);
+                monthCardView.setStrokeWidth(0);
+            }
+
+            if (monthYear.getTotalValue() > 0){
+                valueTextView.setVisibility(View.VISIBLE);
+                statusCircleImageView.setVisibility(View.VISIBLE);
+                valueTextView.setText(MoneyValue.format(monthYear.getTotalValue()));
+                if (monthYear.getUnpaidValue() > 0) {
+                    if (monthYear.isBefore(MonthYear.today())){
+                        statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorRed)));
+                    } else {
+                        statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorYellow)));
+                    }
+                } else {
+                    statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorGreen)));
+                }
+            } else {
+                valueTextView.setVisibility(View.GONE);
+                statusCircleImageView.setVisibility(View.GONE);
             }
         }
+    }
+
+    public static int getAttrColor(Context context, int attr) {
+        TypedValue typedValue = new TypedValue();
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, android.R.style.Theme);
+        contextThemeWrapper.getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.data;
     }
 }

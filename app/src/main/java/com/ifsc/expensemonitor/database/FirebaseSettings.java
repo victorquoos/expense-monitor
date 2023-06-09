@@ -33,4 +33,14 @@ public class FirebaseSettings {
                 .child("expenses");
     }
 
+    public static DatabaseReference getOccurrencesReference() {
+        return getUserReference()
+                .child("occurrences");
+    }
+
+    public static DatabaseReference getOccurrenceControllersReference() {
+        return getUserReference()
+                .child("occurrence-controllers");
+    }
+
 }

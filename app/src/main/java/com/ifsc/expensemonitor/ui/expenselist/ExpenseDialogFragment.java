@@ -1,11 +1,9 @@
 package com.ifsc.expensemonitor.ui.expenselist;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,14 +17,14 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.MoneyValue;
 
 public class ExpenseDialogFragment extends DialogFragment {
-    private Expense expense;
+    private Occurrence occurrence;
 
-    public ExpenseDialogFragment(Expense expense) {
-        this.expense = expense;
+    public ExpenseDialogFragment(Occurrence occurrence) {
+        this.occurrence = occurrence;
     }
 
     @NonNull
@@ -48,12 +46,12 @@ public class ExpenseDialogFragment extends DialogFragment {
         TextView changeStatusBottomTextView = view.findViewById(R.id.changeStatusBottomTextView);
         ImageView changeStatusImageView = view.findViewById(R.id.changeStatusImageView);
 
-        expenseNameTextView.setText(expense.getName());
-        expenseValueTextView.setText(MoneyValue.format(expense.getValue()));
-        expenseDateTextView.setText(expense.getDate().getFormattedDate());
-        expenseDescriptionTextView.setText(expense.getDescription());
+        expenseNameTextView.setText(occurrence.getName());
+        expenseValueTextView.setText(MoneyValue.format(occurrence.getValue()));
+        expenseDateTextView.setText(occurrence.getDate().getFormattedDate());
+        expenseDescriptionTextView.setText(occurrence.getDescription());
 
-        if (expense.isPaid()) {
+        if (occurrence.isPaid()) {
             expenseStatusTextView.setText("PAGO");
             changeStatusImageView.setImageResource(R.drawable.ic_close);
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Red));
@@ -70,8 +68,8 @@ public class ExpenseDialogFragment extends DialogFragment {
         }
 
         changeStatusButton.setOnClickListener(v -> {
-            expense.setPaid(!expense.isPaid());
-            expense.update();
+            occurrence.setPaid(!occurrence.isPaid());
+            //occurrence.update();
             dismiss();
         });
 
@@ -80,7 +78,7 @@ public class ExpenseDialogFragment extends DialogFragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
             Bundle args = new Bundle();
-            args.putString("key", expense.getKey());
+            args.putString("key", occurrence.getId());
 
             navController.navigate(R.id.addEditFragment, args);
         });
@@ -90,7 +88,7 @@ public class ExpenseDialogFragment extends DialogFragment {
                     .setTitle("Excluir despesa")
                     .setMessage("Tem certeza que deseja excluir esta despesa?")
                     .setPositiveButton("Sim", (dialog, which) -> {
-                        expense.delete();
+                        //occurrence.delete();
                         dismiss();
                     })
                     .setNegativeButton("Não", null)
