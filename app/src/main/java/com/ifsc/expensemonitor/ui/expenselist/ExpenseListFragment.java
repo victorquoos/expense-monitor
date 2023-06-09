@@ -57,6 +57,7 @@ public class ExpenseListFragment extends Fragment {
             mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
             mViewModel.setMonth(String.valueOf(year), String.valueOf(month));
 
+<<<<<<< HEAD
             mPreferenceUtils = new PreferenceUtils(requireContext());
 
             mViewModel.getCurrentMonthOccurrences().observe(getViewLifecycleOwner(), occurrences -> {
@@ -75,9 +76,16 @@ public class ExpenseListFragment extends Fragment {
                 }
             });
         }
+=======
+            mViewModel.getCurrentMonthOccurrences().observe(getViewLifecycleOwner(), occurrences -> {
+                mAdapter.setExpenses(occurrences);
+                mAdapter.notifyDataSetChanged();
+            });
+>>>>>>> 5f814f6 (checkpoint)
 
-        mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
-        mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+            mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
+            mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+        }
 
         return view;
     }

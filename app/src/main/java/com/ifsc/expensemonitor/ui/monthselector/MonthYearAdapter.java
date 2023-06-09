@@ -2,23 +2,37 @@ package com.ifsc.expensemonitor.ui.monthselector;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+<<<<<<< HEAD
+=======
+import android.content.res.TypedArray;
+>>>>>>> 5f814f6 (checkpoint)
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ContextThemeWrapper;
+<<<<<<< HEAD
+=======
+import androidx.core.view.ViewCompat;
+>>>>>>> 5f814f6 (checkpoint)
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.ifsc.expensemonitor.R;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.MoneyValue;
 import com.ifsc.expensemonitor.data.MonthYear;
+=======
+import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.database.MonthYear;
+>>>>>>> 5f814f6 (checkpoint)
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.DateFormatSymbols;
@@ -128,6 +142,7 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 monthCardView.setStrokeWidth(0);
             }
 
+<<<<<<< HEAD
             if (monthYear.hasValue()){
                 valueTextView.setVisibility(View.VISIBLE);
                 statusCircleImageView.setVisibility(View.VISIBLE);
@@ -136,6 +151,18 @@ public class MonthYearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorRed)));
                 } else if (monthYear.hasUnpaidValue()) {
                     statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorYellow)));
+=======
+            if (monthYear.getTotalValue() > 0){
+                valueTextView.setVisibility(View.VISIBLE);
+                statusCircleImageView.setVisibility(View.VISIBLE);
+                valueTextView.setText(MoneyValue.format(monthYear.getTotalValue()));
+                if (monthYear.getUnpaidValue() > 0) {
+                    if (monthYear.isBefore(MonthYear.today())){
+                        statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorRed)));
+                    } else {
+                        statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorYellow)));
+                    }
+>>>>>>> 5f814f6 (checkpoint)
                 } else {
                     statusCircleImageView.setImageTintList(ColorStateList.valueOf(getAttrColor(valueTextView.getContext(), R.attr.colorGreen)));
                 }

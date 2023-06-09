@@ -8,10 +8,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.MonthYear;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.OccurrenceController;
+=======
+import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.MonthYear;
+>>>>>>> 5f814f6 (checkpoint)
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +39,10 @@ public class PagerViewModel extends ViewModel {
         currentMonthIndex = 0;
         isFirstTime = true;
         getMonthsList();
+<<<<<<< HEAD
         generateOccurrences();
+=======
+>>>>>>> 5f814f6 (checkpoint)
     }
 
     public MutableLiveData<List<MonthYear>> getListOfMonths() {
@@ -107,6 +115,7 @@ public class PagerViewModel extends ViewModel {
                             DataSnapshot yearSnapshot = dataSnapshot.child(String.valueOf(year));
                             if (yearSnapshot.hasChild(String.valueOf(month))) {
                                 DataSnapshot monthSnapshot = yearSnapshot.child(String.valueOf(month));
+<<<<<<< HEAD
                                 long paidValue = 0L;
                                 long unpaidValue = 0L;
                                 long totalValue = 0L;
@@ -129,6 +138,21 @@ public class PagerViewModel extends ViewModel {
                                     }
                                 }
 
+=======
+                                Long paidValue = 0L;
+                                Long unpaidValue = 0L;
+                                Long totalValue = 0L;
+                                for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                                    boolean paid = occurrenceSnapshot.child("paid").getValue(Boolean.class);
+                                    Long value = occurrenceSnapshot.child("value").getValue(Long.class);
+                                    if (paid) {
+                                        paidValue += value;
+                                    } else {
+                                        unpaidValue += value;
+                                    }
+                                    totalValue += value;
+                                }
+>>>>>>> 5f814f6 (checkpoint)
                                 monthYear.setPaidValue(paidValue);
                                 monthYear.setUnpaidValue(unpaidValue);
                                 monthYear.setTotalValue(totalValue);
@@ -138,6 +162,7 @@ public class PagerViewModel extends ViewModel {
                     }
                 }
                 getListOfMonths().setValue(monthYearList);
+<<<<<<< HEAD
             }
 
             @Override
@@ -158,11 +183,13 @@ public class PagerViewModel extends ViewModel {
                         occurrenceController.generateOccurrences();
                     }
                 }
+=======
+>>>>>>> 5f814f6 (checkpoint)
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // handle error
             }
         });
     }

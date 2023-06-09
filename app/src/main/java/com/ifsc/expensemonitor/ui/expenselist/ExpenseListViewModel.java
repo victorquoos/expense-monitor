@@ -8,8 +8,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
+=======
+import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
+>>>>>>> 5f814f6 (checkpoint)
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,6 +89,7 @@ public class ExpenseListViewModel extends ViewModel {
                         totalValue += occurrence.getValue();
                     }
 
+<<<<<<< HEAD
                     if (!occurrences.equals(currentMonthOccurrences.getValue())) {
                         currentMonthOccurrences.setValue(occurrences);
                     }
@@ -92,6 +98,18 @@ public class ExpenseListViewModel extends ViewModel {
                     getTotalValue().setValue(totalValue);
                 }
 
+=======
+                    Collections.sort(occurrences, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+
+                    if (!occurrences.equals(currentMonthOccurrences.getValue())) {
+                        currentMonthOccurrences.setValue(occurrences);
+                    }
+                    getPaidValue().setValue(paidValue);
+                    getUnpaidValue().setValue(unpaidValue);
+                    getTotalValue().setValue(totalValue);
+                }
+
+>>>>>>> 5f814f6 (checkpoint)
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // handle error

@@ -10,13 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.MoneyValue;
 import com.ifsc.expensemonitor.data.SimpleDate;
+=======
+import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.database.SimpleDate;
+>>>>>>> 5f814f6 (checkpoint)
 
 import java.util.List;
 

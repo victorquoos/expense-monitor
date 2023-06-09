@@ -1,8 +1,13 @@
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/MonthYear.java
 package com.ifsc.expensemonitor.data;
+=======
+package com.ifsc.expensemonitor.database;
+>>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/MonthYear.java
 
 import java.util.Calendar;
 
 public class MonthYear {
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/MonthYear.java
 
     private int month;
     private int year;
@@ -13,6 +18,14 @@ public class MonthYear {
     private boolean hasValue = false;
     private boolean hasUnpaidValue = false;
     private boolean hasOverdueValue = false;
+=======
+    private int month;
+    private int year;
+    private boolean isCurrentMonth;
+    private Long paidValue = 0L;
+    private Long unpaidValue = 0L;
+    private Long totalValue = 0L;
+>>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/MonthYear.java
 
     public MonthYear(int month, int year) {
         this.month = month;
@@ -96,6 +109,7 @@ public class MonthYear {
         this.totalValue = totalValue;
     }
 
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/MonthYear.java
     public boolean hasValue() {
         return hasValue;
     }
@@ -120,6 +134,8 @@ public class MonthYear {
         this.hasOverdueValue = hasOverdueValue;
     }
 
+=======
+>>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/MonthYear.java
     public boolean isBefore(MonthYear other) {
         if (this.year < other.year) {
             return true;

@@ -1,4 +1,10 @@
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/Occurrence.java
 package com.ifsc.expensemonitor.data;
+=======
+package com.ifsc.expensemonitor.database;
+
+import com.google.firebase.database.Exclude;
+>>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/Occurrence.java
 
 public class Occurrence {
     private String id;

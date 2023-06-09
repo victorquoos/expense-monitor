@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.MonthYear;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
@@ -40,6 +41,14 @@ import com.ifsc.expensemonitor.data.SimpleDate;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.util.Objects;
+=======
+import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.database.OccurrenceController;
+import com.ifsc.expensemonitor.database.OccurrenceControllerService;
+import com.ifsc.expensemonitor.database.SimpleDate;
+>>>>>>> 5f814f6 (checkpoint)
 
 public class AddEditFragment extends Fragment {
 
@@ -176,6 +185,7 @@ public class AddEditFragment extends Fragment {
         datePicker.show(getParentFragmentManager(), datePicker.toString());
     }
 
+<<<<<<< HEAD
     public void setInitialValues(int month, int year, String id) {
         expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
         expenseValueEditText.setText("0");
@@ -191,6 +201,17 @@ public class AddEditFragment extends Fragment {
 >>>>>>> 0141262 (botao de editar despesa)
 =======
 >>>>>>> d4fbed1 (botao de editar despesa)
+=======
+    public void setInitialValues(int month, int year, String key) {
+        selectedDate = SimpleDate.today();
+        expenseValueEditText.setText("0");
+        if (key.isEmpty()) {
+            addMode = true;
+            materialToolbar.setTitle("Adicionar despesa");
+            expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
+            expenseParcelEditText.setText("12");
+            expenseIntervalInMonthsEditText.setText("1");
+>>>>>>> 5f814f6 (checkpoint)
             if (month >= 0 && year >= 0 && (month != selectedDate.getMonth() || year != selectedDate.getYear())) {
                 selectedDate.setMonth(month);
                 selectedDate.setYear(year);
@@ -204,11 +225,19 @@ public class AddEditFragment extends Fragment {
         }
     }
 
+<<<<<<< HEAD
     public void loadExpenseData(String id) {
         DatabaseReference occurrenceRef = FirebaseSettings.getOccurrencesReference()
                 .child(String.valueOf(year))
                 .child(String.valueOf(month))
                 .child(id);
+=======
+    public void loadExpenseData(String key) {
+        DatabaseReference occurrenceRef = FirebaseSettings.getOccurrencesReference()
+                .child(String.valueOf(year))
+                .child(String.valueOf(month))
+                .child(key);
+>>>>>>> 5f814f6 (checkpoint)
         occurrenceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -227,7 +256,10 @@ public class AddEditFragment extends Fragment {
                                 expenseParcelEditText.setText(String.valueOf(occurrenceController.getMaxOccurrences()));
                             } else if (occurrenceController.getMaxOccurrences() == -1) {
                                 expenseTypeButtonToggleGroup.check(R.id.recurringTypeButton);
+<<<<<<< HEAD
                                 expenseParcelEditText.setText(String.valueOf(occurrence.getIndex()+1));
+=======
+>>>>>>> 5f814f6 (checkpoint)
                             }
                             expenseIntervalInMonthsEditText.setText(String.valueOf(occurrenceController.getIntervaInlMonths()));
                         }
@@ -243,7 +275,11 @@ public class AddEditFragment extends Fragment {
                 expenseNameEditText.setText(occurrence.getName());
                 expenseDescriptionEditText.setText(occurrence.getDescription());
                 expenseDateEditText.setText(occurrence.getDate().getFormattedDate());
+<<<<<<< HEAD
                 selectedDate = occurrence.getDate().clone();
+=======
+                selectedDate = occurrence.getDate();
+>>>>>>> 5f814f6 (checkpoint)
             }
 
             @Override
@@ -261,6 +297,8 @@ public class AddEditFragment extends Fragment {
             return;
         }
         Long value = 0L;
+<<<<<<< HEAD
+=======
         if (!expenseValueEditText.getText().toString().isEmpty()) {
             value = Long.parseLong(expenseValueEditText.getText().toString());
         }
@@ -284,6 +322,54 @@ public class AddEditFragment extends Fragment {
             maxOccurrences = -1;
             intervalInMonths = Integer.parseInt(expenseIntervalInMonthsEditText.getText().toString());
         } else {
+            Toast.makeText(getContext(), "Selecione um tipo de despesa", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (addMode) {
+            OccurrenceController controller = new OccurrenceController();
+            controller.setMaxOccurrences(maxOccurrences);
+            controller.setIntervaInlMonths(intervalInMonths);
+            controller.setLastEditDate(date);
+            controller.setControllDate(date);
+            controller.setName(name);
+            controller.setValue(value);
+            controller.setDescription(description);
+
+            OccurrenceControllerService.save(controller);
+            Navigation.findNavController(view).navigateUp();
+        }
+
+
+
+
+        /*
+        long value = 0L;
+>>>>>>> 5f814f6 (checkpoint)
+        if (!expenseValueEditText.getText().toString().isEmpty()) {
+            value = Long.parseLong(expenseValueEditText.getText().toString());
+        }
+        SimpleDate date = selectedDate;
+        String description = expenseDescriptionEditText.getText().toString();
+
+        int checkedId = expenseTypeButtonToggleGroup.getCheckedButtonId();
+        int maxOccurrences = 0;
+        int intervalInMonths = 0;
+
+        int singleTypeButtonId = R.id.singleTypeButton;
+        int parceledTypeButtonId = R.id.parceledTypeButton;
+        int recurringTypeButtonId = R.id.recurringTypeButton;
+        if (checkedId == singleTypeButtonId) {
+            maxOccurrences = 1;
+            intervalInMonths = 1;
+        } else if (checkedId == parceledTypeButtonId) {
+            maxOccurrences = Integer.parseInt(expenseParcelEditText.getText().toString());
+            intervalInMonths = Integer.parseInt(expenseIntervalInMonthsEditText.getText().toString());
+        } else if (checkedId == recurringTypeButtonId) {
+            maxOccurrences = -1;
+            intervalInMonths = Integer.parseInt(expenseIntervalInMonthsEditText.getText().toString());
+        } else {
+<<<<<<< HEAD
             Toast.makeText(getContext(), "Selecione um tipo de despesa", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -391,5 +477,19 @@ public class AddEditFragment extends Fragment {
         PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
         pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
         Navigation.findNavController(view).navigateUp();
+=======
+            Occurrence occurrence = new Occurrence(name, value, date, description);
+            if (key.isEmpty()) {
+                occurrence.save();
+            } else {
+                occurrence.setKey(key);
+                occurrence.update();
+            }
+            PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+            Navigation.findNavController(view).navigateUp();
+        }
+        */
+>>>>>>> 5f814f6 (checkpoint)
     }
 }

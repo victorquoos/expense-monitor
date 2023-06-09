@@ -9,6 +9,7 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <option name="gradleJvm" value="jbr-11" />
 =======
         <option name="gradleJvm" value="JDK" />
@@ -16,6 +17,9 @@
 =======
         <option name="gradleJvm" value="JDK" />
 >>>>>>> d4fbed1 (botao de editar despesa)
+=======
+        <option name="gradleJvm" value="jbr-11" />
+>>>>>>> 5f814f6 (checkpoint)
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />

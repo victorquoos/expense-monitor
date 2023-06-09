@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.MoneyValue;
@@ -33,6 +34,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 =======
 import com.ifsc.expensemonitor.database.Expense;
+=======
+import com.ifsc.expensemonitor.database.Occurrence;
+>>>>>>> 5f814f6 (checkpoint)
 import com.ifsc.expensemonitor.database.MoneyValue;
 <<<<<<< HEAD
 >>>>>>> 0141262 (botao de editar despesa)
@@ -88,7 +92,11 @@ public class ExpenseDialogFragment extends DialogFragment {
 
         changeStatusButton.setOnClickListener(v -> {
             occurrence.setPaid(!occurrence.isPaid());
+<<<<<<< HEAD
             OccurrenceService.update(occurrence);
+=======
+            //occurrence.update();
+>>>>>>> 5f814f6 (checkpoint)
             dismiss();
         });
 
@@ -97,6 +105,7 @@ public class ExpenseDialogFragment extends DialogFragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
             Bundle args = new Bundle();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             args.putInt("year", occurrence.getDate().getYear());
@@ -108,11 +117,15 @@ public class ExpenseDialogFragment extends DialogFragment {
 =======
             args.putString("key", expense.getKey());
 >>>>>>> d4fbed1 (botao de editar despesa)
+=======
+            args.putString("key", occurrence.getId());
+>>>>>>> 5f814f6 (checkpoint)
 
             navController.navigate(R.id.addEditFragment, args);
         });
 
         deleteButton.setOnClickListener(v -> {
+<<<<<<< HEAD
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
 
             DatabaseReference controllerRef = FirebaseSettings.getOccurrenceControllersReference().child(occurrence.getGroupId());
@@ -161,6 +174,17 @@ public class ExpenseDialogFragment extends DialogFragment {
 
                 }
             });
+=======
+            new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Excluir despesa")
+                    .setMessage("Tem certeza que deseja excluir esta despesa?")
+                    .setPositiveButton("Sim", (dialog, which) -> {
+                        //occurrence.delete();
+                        dismiss();
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
+>>>>>>> 5f814f6 (checkpoint)
         });
 
         return new MaterialAlertDialogBuilder(requireContext())

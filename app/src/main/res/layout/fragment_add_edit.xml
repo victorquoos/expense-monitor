@@ -52,7 +52,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2"
+<<<<<<< HEAD
                     android:inputType="textPersonName|textCapSentences"
+=======
+                    android:inputType="textPersonName"
+>>>>>>> 5f814f6 (checkpoint)
                     android:textAlignment="center" />
 
                 <TextView
@@ -204,7 +208,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2"
+<<<<<<< HEAD
                     android:inputType="textMultiLine|textCapSentences" />
+=======
+                    android:inputType="textMultiLine" />
+>>>>>>> 5f814f6 (checkpoint)
 
             </LinearLayout>
 
