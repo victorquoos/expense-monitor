@@ -172,15 +172,15 @@ public class AddEditFragment extends Fragment {
         datePicker.show(getParentFragmentManager(), datePicker.toString());
     }
 
-    public void setInitialValues(int month, int year, String key) {
-        selectedDate = SimpleDate.today();
+    public void setInitialValues(int month, int year, String id) {
         expenseValueEditText.setText("0");
-        if (key.isEmpty()) {
+        expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
+        if (id.isEmpty()) {
             addMode = true;
             materialToolbar.setTitle("Adicionar despesa");
-            expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
             expenseParcelEditText.setText("12");
             expenseIntervalInMonthsEditText.setText("1");
+            selectedDate = SimpleDate.today();
             if (month >= 0 && year >= 0 && (month != selectedDate.getMonth() || year != selectedDate.getYear())) {
                 selectedDate.setMonth(month);
                 selectedDate.setYear(year);
@@ -190,15 +190,15 @@ public class AddEditFragment extends Fragment {
         } else {
             addMode = false;
             materialToolbar.setTitle("Editar despesa");
-            loadExpenseData(key);
+            loadExpenseData(id);
         }
     }
 
-    public void loadExpenseData(String key) {
+    public void loadExpenseData(String id) {
         DatabaseReference occurrenceRef = FirebaseSettings.getOccurrencesReference()
                 .child(String.valueOf(year))
                 .child(String.valueOf(month))
-                .child(key);
+                .child(id);
         occurrenceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
