@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
@@ -27,12 +28,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.database.MonthYear;
 import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.OccurrenceControllerService;
 import com.ifsc.expensemonitor.database.SimpleDate;
+import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 public class AddEditFragment extends Fragment {
 
@@ -285,6 +288,8 @@ public class AddEditFragment extends Fragment {
             controller.setDescription(description);
 
             OccurrenceControllerService.save(controller);
+            PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+            pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
             Navigation.findNavController(view).navigateUp();
         }
 

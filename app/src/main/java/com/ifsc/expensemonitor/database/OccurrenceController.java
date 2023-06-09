@@ -61,7 +61,7 @@ public class OccurrenceController {
         // atualiza a data
         controllDate = controllDate.plusMonths(intervaInlMonths);
         // atualiza no banco de dados
-        //todo
+        OccurrenceControllerService.update(this);
     }
 
     public String getGroupId() {
