@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
-import com.ifsc.expensemonitor.ui.monthselector.MonthYear;
+import com.ifsc.expensemonitor.database.MonthYear;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,31 +19,23 @@ import java.util.List;
 public class PagerViewModel extends ViewModel {
     private MutableLiveData<List<MonthYear>> listOfMonths;
     private MutableLiveData<MonthYear> lastVisibleMonthYear;
-    private MutableLiveData<Integer> initialPageIndex;
     private MutableLiveData<Integer> targetPageIndex;
     private MutableLiveData<MonthYear> targetMonthYear;
     private int currentMonthIndex;
     private boolean isFirstTime;
 
-
     public PagerViewModel() {
         listOfMonths = new MutableLiveData<>();
-        initialPageIndex = new MutableLiveData<>(); // talvez não precise ser MutableLiveData
         lastVisibleMonthYear = new MutableLiveData<>();
         targetPageIndex = new MutableLiveData<>();
         targetMonthYear = new MutableLiveData<>();
         currentMonthIndex = 0;
         isFirstTime = true;
-
-        startListenerToGetYears();
+        getMonthsList();
     }
 
     public MutableLiveData<List<MonthYear>> getListOfMonths() {
         return listOfMonths;
-    }
-
-    public MutableLiveData<Integer> getInitialPageIndex() {
-        return initialPageIndex;
     }
 
     public MutableLiveData<MonthYear> getLastVisibleMonthYear() {
@@ -58,6 +50,9 @@ public class PagerViewModel extends ViewModel {
         return targetMonthYear;
     }
 
+    public int getCurrentMonthIndex() {
+        return currentMonthIndex;
+    }
 
     public boolean isFirstTime() {
         return isFirstTime;
@@ -67,18 +62,12 @@ public class PagerViewModel extends ViewModel {
         isFirstTime = firstTime;
     }
 
-    public int getCurrentMonthIndex() {
-        return currentMonthIndex;
-    }
-
-
-    public void startListenerToGetYears() {
-        DatabaseReference yearsReference = FirebaseSettings.getExpensesReference();
-
-        yearsReference.addValueEventListener(new ValueEventListener() {
-
+    // listener para obter uma lista de meses de acordo com os anos na database
+    private void getMonthsList() {
+        DatabaseReference ref = FirebaseSettings.getOccurrencesReference();
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Calendar calendar = Calendar.getInstance();
                 int currentYear = calendar.get(Calendar.YEAR);
                 int currentMonth = calendar.get(Calendar.MONTH);
@@ -86,11 +75,8 @@ public class PagerViewModel extends ViewModel {
 
                 // Cria a lista de anos
                 List<Integer> yearsList = new ArrayList<>();
-                for (DataSnapshot expenseData : snapshot.getChildren()) {
-                    int year = expenseData.child("date").child("year").getValue(Integer.class);
-                    if (!yearsList.contains(year)) {
-                        yearsList.add(year);
-                    }
+                for (DataSnapshot yearSnapshot : dataSnapshot.getChildren()) {
+                    yearsList.add(Integer.parseInt(yearSnapshot.getKey()));
                 }
 
                 // Define o primeiro e último ano da lista de meses
@@ -108,27 +94,44 @@ public class PagerViewModel extends ViewModel {
                 List<MonthYear> monthYearList = new ArrayList<>();
                 for (int year = firstYearOfList; year <= lastYearOfList; year++) {
                     for (int month = 0; month < 12; month++) {
+                        MonthYear monthYear = new MonthYear(month, year);
                         if (year == currentYear && month == currentMonth) {
                             currentMonthIndex = monthYearList.size();
-                            monthYearList.add(new MonthYear(month, year, true));
-                            continue;
+                            monthYear.setCurrentMonth(true);
                         }
-                        monthYearList.add(new MonthYear(month, year));
+                        //procura o mes na database para obter os valores
+                        if (dataSnapshot.hasChild(String.valueOf(year))) {
+                            DataSnapshot yearSnapshot = dataSnapshot.child(String.valueOf(year));
+                            if (yearSnapshot.hasChild(String.valueOf(month))) {
+                                DataSnapshot monthSnapshot = yearSnapshot.child(String.valueOf(month));
+                                Long paidValue = 0L;
+                                Long unpaidValue = 0L;
+                                Long totalValue = 0L;
+                                for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                                    boolean paid = occurrenceSnapshot.child("paid").getValue(Boolean.class);
+                                    Long value = occurrenceSnapshot.child("value").getValue(Long.class);
+                                    if (paid) {
+                                        paidValue += value;
+                                    } else {
+                                        unpaidValue += value;
+                                    }
+                                    totalValue += value;
+                                }
+                                monthYear.setPaidValue(paidValue);
+                                monthYear.setUnpaidValue(unpaidValue);
+                                monthYear.setTotalValue(totalValue);
+                            }
+                        }
+                        monthYearList.add(monthYear);
                     }
                 }
-                initialPageIndex.setValue(currentMonthIndex);
-
-                // Atualiza os valores
-                if (listOfMonths.getValue() == null || !listOfMonths.getValue().equals(monthYearList)) {
-                    listOfMonths.setValue(monthYearList);
-                }
+                getListOfMonths().setValue(monthYearList);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // handle error
             }
         });
     }
-
 }

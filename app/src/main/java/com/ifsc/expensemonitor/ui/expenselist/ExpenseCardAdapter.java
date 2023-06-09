@@ -10,14 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.dialog.MaterialDialogs;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
@@ -25,16 +21,16 @@ import java.util.List;
 
 public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Expense> expenseCards;
+    private List<Occurrence> occurrenceCards;
     private FragmentManager fragmentManager;
 
-    public ExpenseCardAdapter(List<Expense> expenses, FragmentManager fragmentManager) {
-        this.expenseCards = expenses;
+    public ExpenseCardAdapter(List<Occurrence> occurrenceList, FragmentManager fragmentManager) {
+        this.occurrenceCards = occurrenceList;
         this.fragmentManager = fragmentManager;
     }
 
-    public void setExpenses(List<Expense> expenses) {
-        this.expenseCards = expenses;
+    public void setExpenses(List<Occurrence> occurrences) {
+        this.occurrenceCards = occurrences;
     }
 
     @NonNull
@@ -47,14 +43,14 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Expense expenseCard = expenseCards.get(position);
+        Occurrence occurrenceCard = occurrenceCards.get(position);
         ExpenseCardViewHolder expenseCardViewHolder = (ExpenseCardViewHolder) holder;
-        expenseCardViewHolder.bind(expenseCard, fragmentManager);
+        expenseCardViewHolder.bind(occurrenceCard, fragmentManager);
     }
 
     @Override
     public int getItemCount() {
-        return expenseCards.size();
+        return occurrenceCards.size();
     }
 
     private static class ExpenseCardViewHolder extends RecyclerView.ViewHolder {
@@ -75,11 +71,11 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             expenseCardView = itemView.findViewById(R.id.expenseCardView);
         }
 
-        public void bind(Expense expenseCard, FragmentManager fragmentManager) {
-            String name = expenseCard.getName();
-            Long value = expenseCard.getValue();
-            SimpleDate simpleDate = expenseCard.getDate();
-            boolean isPaid = expenseCard.isPaid();
+        public void bind(Occurrence occurrenceCard, FragmentManager fragmentManager) {
+            String name = occurrenceCard.getName();
+            Long value = occurrenceCard.getValue();
+            SimpleDate simpleDate = occurrenceCard.getDate();
+            boolean isPaid = occurrenceCard.isPaid();
 
             expenseNameTextView.setText(name);
             expenseValueTextView.setText(MoneyValue.format(value));
@@ -97,7 +93,7 @@ public class ExpenseCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
             expenseCardView.setOnClickListener(v -> {
-                DialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(expenseCard);
+                DialogFragment expenseBottomSheetFragment = new ExpenseDialogFragment(occurrenceCard);
                 expenseBottomSheetFragment.show(fragmentManager, "expenseDialogFragment");
             });
         }

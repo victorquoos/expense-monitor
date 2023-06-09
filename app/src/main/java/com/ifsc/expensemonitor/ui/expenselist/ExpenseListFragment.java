@@ -36,7 +36,6 @@ public class ExpenseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expense_list, container, false);
-        mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         unpaidValueTextView = view.findViewById(R.id.unpaidValueTextView);
@@ -50,16 +49,17 @@ public class ExpenseListFragment extends Fragment {
             int year = args.getInt("year");
             int month = args.getInt("month");
 
-            mViewModel.goToMonth(month, year);
+            mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
+            mViewModel.setMonth(String.valueOf(year), String.valueOf(month));
 
-            mViewModel.getCurrentMonthExpenses().observe(getViewLifecycleOwner(), expenses -> {
-                mAdapter.setExpenses(expenses);
+            mViewModel.getCurrentMonthOccurrences().observe(getViewLifecycleOwner(), occurrences -> {
+                mAdapter.setExpenses(occurrences);
                 mAdapter.notifyDataSetChanged();
             });
-        }
 
-        mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
-        mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+            mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
+            mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+        }
 
         return view;
     }

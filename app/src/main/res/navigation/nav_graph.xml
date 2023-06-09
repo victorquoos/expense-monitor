@@ -83,7 +83,7 @@
             android:defaultValue="-1"
             app:argType="integer" />
         <argument
-            android:name="key"
+            android:name="id"
             android:defaultValue=""
             app:argType="string" />
 
@@ -104,7 +104,7 @@
                 android:name="year"
                 app:argType="integer" />
             <argument
-                android:name="key"
+                android:name="id"
                 app:argType="string" />
         </action>
 

@@ -40,6 +40,98 @@
                 android:padding="@dimen/margin3">
 
                 <TextView
+                    android:id="@+id/nameLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin3"
+                    android:text="Nome"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/expenseNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin2"
+                    android:inputType="textPersonName"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/typeLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin3"
+                    android:text="Tipo"
+                    android:textSize="18sp" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/expenseTypeButtonToggleGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin2"
+                    app:checkedButton="@+id/expenseTypeButton"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/singleTypeButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Unico" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/parceledTypeButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Parcelado" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/recurringTypeButton"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Recorrente" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <TextView
+                    android:id="@+id/parcelLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin3"
+                    android:text="Parcelas"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/expenseParcelEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin2"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/intervalInMonthsLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin3"
+                    android:text="Intervalo em meses"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/expenseIntervalInMonthsEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin2"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:textAlignment="center" />
+
+                <TextView
                     android:id="@+id/valueLabelTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,6 +151,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="fill_horizontal"
+                        android:padding="@dimen/margin2"
                         android:text="0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +164,6 @@
                         android:layout_gravity="fill"
                         android:cursorVisible="false"
                         android:digits="0123456789"
-                        android:hint="Insira um valor"
                         android:inputType="numberDecimal"
                         android:maxLength="14"
                         app:layout_constraintBottom_toBottomOf="@+id/expenseValueTextView"
@@ -80,22 +172,6 @@
                         app:layout_constraintTop_toTopOf="@+id/expenseValueTextView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/nameLabelTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin3"
-                    android:text="Nome"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/expenseNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin2"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/dateLabelTextView"
@@ -111,9 +187,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2"
                     android:clickable="true"
-                    android:ems="10"
                     android:focusable="false"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/descriptionLabelTextView"
@@ -128,7 +204,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2"
-                    android:ems="10"
                     android:inputType="textMultiLine" />
 
             </LinearLayout>

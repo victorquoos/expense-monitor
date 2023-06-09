@@ -11,8 +11,6 @@ public class SimpleDate {
     private int year;
     private int month;
     private int day;
-    private static DateFormat dateFormat;
-    private static SimpleDate today;
 
     public SimpleDate() {
 
@@ -71,7 +69,7 @@ public class SimpleDate {
 
     @Exclude
     private static DateFormat getDateFormat() {
-        return dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+        return DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
     }
 
     @Exclude
@@ -90,16 +88,37 @@ public class SimpleDate {
     }
 
     @Exclude
-    public static SimpleDate getCurrentDate() {
+    public static SimpleDate today() {
         Calendar calendar = Calendar.getInstance();
         return new SimpleDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Exclude
     public boolean isBeforeToday() {
-        return year < getCurrentDate().getYear() ||
-                (year == getCurrentDate().getYear() && month < getCurrentDate().getMonth()) ||
-                (year == getCurrentDate().getYear() && month == getCurrentDate().getMonth() && day < getCurrentDate().getDay());
+        return year < today().getYear() ||
+                (year == today().getYear() && month < today().getMonth()) ||
+                (year == today().getYear() && month == today().getMonth() && day < today().getDay());
+    }
+
+    @Exclude
+    public boolean isBefore(SimpleDate date) {
+        return year < date.getYear() ||
+                (year == date.getYear() && month < date.getMonth()) ||
+                (year == date.getYear() && month == date.getMonth() && day < date.getDay());
+    }
+
+    @Exclude
+    public boolean isAfter(SimpleDate date) {
+        return year > date.getYear() ||
+                (year == date.getYear() && month > date.getMonth()) ||
+                (year == date.getYear() && month == date.getMonth() && day > date.getDay());
+    }
+
+    @Exclude
+    public SimpleDate plusMonths(int months) {
+        Calendar calendar = getCalendar();
+        calendar.add(Calendar.MONTH, months);
+        return new SimpleDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Exclude
