@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.data.MoneyValue;
 
 import java.util.ArrayList;
 

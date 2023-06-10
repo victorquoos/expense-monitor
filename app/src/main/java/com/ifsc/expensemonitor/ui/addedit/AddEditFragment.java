@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -30,17 +29,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.MonthYear;
-import com.ifsc.expensemonitor.database.Occurrence;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
-import com.ifsc.expensemonitor.database.MoneyValue;
-import com.ifsc.expensemonitor.database.OccurrenceController;
-import com.ifsc.expensemonitor.database.OccurrenceControllerService;
-import com.ifsc.expensemonitor.database.OccurrenceService;
-import com.ifsc.expensemonitor.database.SimpleDate;
+import com.ifsc.expensemonitor.data.MonthYear;
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.FirebaseSettings;
+import com.ifsc.expensemonitor.data.MoneyValue;
+import com.ifsc.expensemonitor.data.OccurrenceController;
+import com.ifsc.expensemonitor.data.OccurrenceControllerService;
+import com.ifsc.expensemonitor.data.OccurrenceService;
+import com.ifsc.expensemonitor.data.SimpleDate;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddEditFragment extends Fragment {
