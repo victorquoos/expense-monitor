@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MonthYear;
 import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class PagerViewModel extends ViewModel {
         currentMonthIndex = 0;
         isFirstTime = true;
         getMonthsList();
+        generateOccurrences();
     }
 
     public MutableLiveData<List<MonthYear>> getListOfMonths() {
@@ -142,6 +144,26 @@ public class PagerViewModel extends ViewModel {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // handle error
+            }
+        });
+    }
+
+    private void generateOccurrences() {
+        DatabaseReference ref = FirebaseSettings.getOccurrenceControllersReference();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot controllerSnapshot : snapshot.getChildren()) {
+                    OccurrenceController occurrenceController = controllerSnapshot.getValue(OccurrenceController.class);
+                    if (occurrenceController != null) {
+                        occurrenceController.generateOccurrences();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

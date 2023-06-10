@@ -1,5 +1,7 @@
 package com.ifsc.expensemonitor.database;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 
 import java.text.DateFormat;
@@ -148,4 +150,8 @@ public class SimpleDate {
         return this.month == month && this.year == year;
     }
 
+    @NonNull
+    public SimpleDate clone() {
+        return new SimpleDate(year, month, day);
+    }
 }
