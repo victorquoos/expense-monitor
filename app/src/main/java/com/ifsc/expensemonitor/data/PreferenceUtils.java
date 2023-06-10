@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 public class PreferenceUtils {
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static final String PREFERENCES_NAME = "my_preferences";
     public static final String ORDINATION = "ordination";
     public static final String MOVE_PAID_TO_END = "move_paid_to_end";
@@ -12,10 +13,17 @@ public class PreferenceUtils {
 
     public static final String DEFAULT_ORDINATION = "date_asc";
     public static final boolean DEFAULT_MOVE_PAID_TO_END = false;
+=======
+    public static final String PREFERENCE_NAME = "NomePreferencia";
+    public static final String KEY_ORDENACAO = "ordenacao";
+    public static final String KEY_MOVE_PAID_TO_END = "move_paid_to_end";
+    public static final String KEY_SETTINGS_SET = "settings_set";
+>>>>>>> 13ef0d5 (menu de opções finalizado)
 
     public static final String SORT_DATE = "date_asc";
     public static final String SORT_VALUE_ASC = "value_asc";
     public static final String SORT_VALUE_DESC = "value_desc";
+<<<<<<< HEAD
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -79,9 +87,21 @@ public class PreferenceUtils {
     private static final String KEY_ORDENACAO = "ordenacao";
     private static final String KEY_MOVE_PAID_TO_END = "move_paid_to_end";
     private static final String KEY_SETTINGS_SET = "settings_set";
+=======
+>>>>>>> 13ef0d5 (menu de opções finalizado)
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
+
+    public void setPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
+        this.preferenceChangeListener = listener;
+        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
+    }
+
+    public void unregisterPreferenceChangeListener() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
+    }
 
     public PreferenceUtils(Context context) {
         sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);

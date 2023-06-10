@@ -95,6 +95,7 @@ public class ExpenseListViewModel extends ViewModel {
                     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     if (!occurrences.equals(currentMonthOccurrences.getValue())) {
                         currentMonthOccurrences.setValue(occurrences);
                     }
@@ -106,6 +107,8 @@ public class ExpenseListViewModel extends ViewModel {
 =======
                     Collections.sort(occurrences, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
 
+=======
+>>>>>>> 13ef0d5 (menu de opções finalizado)
                     if (!occurrences.equals(currentMonthOccurrences.getValue())) {
                         currentMonthOccurrences.setValue(occurrences);
                     }

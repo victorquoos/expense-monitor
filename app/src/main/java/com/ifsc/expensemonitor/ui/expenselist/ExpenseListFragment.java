@@ -14,10 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.data.MoneyValue;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 =======
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.PreferenceUtils;
+>>>>>>> 13ef0d5 (menu de opções finalizado)
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,6 +66,7 @@ public class ExpenseListFragment extends Fragment {
             mViewModel.setMonth(String.valueOf(year), String.valueOf(month));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             mPreferenceUtils = new PreferenceUtils(requireContext());
 
             mViewModel.getCurrentMonthOccurrences().observe(getViewLifecycleOwner(), occurrences -> {
@@ -80,15 +86,30 @@ public class ExpenseListFragment extends Fragment {
             });
         }
 =======
+=======
+            mPreferenceUtils = new PreferenceUtils(requireContext());
+
+>>>>>>> 13ef0d5 (menu de opções finalizado)
             mViewModel.getCurrentMonthOccurrences().observe(getViewLifecycleOwner(), occurrences -> {
-                mAdapter.setExpenses(occurrences);
+                mAdapter.setExpenses(sortList(occurrences));
                 mAdapter.notifyDataSetChanged();
             });
 >>>>>>> 5f814f6 (checkpoint)
 
-            mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
-            mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+            mPreferenceUtils.setPreferenceChangeListener((sharedPreferences, key) -> {
+                if (PreferenceUtils.KEY_ORDENACAO.equals(key) || PreferenceUtils.KEY_MOVE_PAID_TO_END.equals(key)) {
+                    List<Occurrence> occurrences = mViewModel.getCurrentMonthOccurrences().getValue();
+                    if (occurrences != null) {
+                        sortList(occurrences);
+                        mAdapter.setExpenses(sortList(occurrences));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
         }
+
+        mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
+        mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
 
         return view;
     }

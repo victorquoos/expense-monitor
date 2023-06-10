@@ -1,10 +1,13 @@
 package com.ifsc.expensemonitor.ui.pager;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import android.content.Context;
 import android.content.SharedPreferences;
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+>>>>>>> 13ef0d5 (menu de opções finalizado)
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -283,6 +286,7 @@ public class PagerFragment extends Fragment {
         // Set the selected options in the popup
         switch (ordenacao) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             case PreferenceUtils.SORT_DATE:
                 radioSortDate.setChecked(true);
                 break;
@@ -292,13 +296,20 @@ public class PagerFragment extends Fragment {
             case PreferenceUtils.SORT_VALUE_DESC:
 =======
             case "data_asc":
+=======
+            case PreferenceUtils.SORT_DATE:
+>>>>>>> 13ef0d5 (menu de opções finalizado)
                 radioSortDate.setChecked(true);
                 break;
-            case "valor_asc":
+            case PreferenceUtils.SORT_VALUE_ASC:
                 radioSortValueAsc.setChecked(true);
                 break;
+<<<<<<< HEAD
             case "valor_desc":
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+            case PreferenceUtils.SORT_VALUE_DESC:
+>>>>>>> 13ef0d5 (menu de opções finalizado)
                 radioSortValueDesc.setChecked(true);
                 break;
         }
@@ -309,6 +320,7 @@ public class PagerFragment extends Fragment {
         radioGroupSort.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.sortByDateRadioButton) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 preferenceUtils.setOrdenacao(PreferenceUtils.SORT_DATE);
             } else if (checkedId == R.id.sortByValueAscRadioButton) {
                 preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_ASC);
@@ -316,11 +328,18 @@ public class PagerFragment extends Fragment {
                 preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_DESC);
 =======
                 preferenceUtils.setOrdenacao("data_asc");
+=======
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_DATE);
+>>>>>>> 13ef0d5 (menu de opções finalizado)
             } else if (checkedId == R.id.sortByValueAscRadioButton) {
-                preferenceUtils.setOrdenacao("valor_asc");
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_ASC);
             } else if (checkedId == R.id.sortByValueDescRadioButton) {
+<<<<<<< HEAD
                 preferenceUtils.setOrdenacao("valor_desc");
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_DESC);
+>>>>>>> 13ef0d5 (menu de opções finalizado)
             }
         });
 

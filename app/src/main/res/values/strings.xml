@@ -21,6 +21,7 @@
     <string name="pending">Pendente</string>
     <string name="paid">Pago</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <string name="title_activity_main">MainActivity</string>
     <string name="notification_overdue_singular">Você tem %d despesa atrasada!</string>
@@ -29,4 +30,6 @@
     <string name="notification_pending_plural">Você tem %d despesas próximas do vencimento!</string>
 
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+>>>>>>> 13ef0d5 (menu de opções finalizado)
 </resources>
