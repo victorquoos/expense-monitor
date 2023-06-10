@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Expense Monitor</string>
+    <string name="app_name">Pay It</string>
 
     <string name="welcome">Bem-vindo</string>
     <string name="welcome_message">Escolha uma das opções abaixo para começar a usar o app.</string>
@@ -20,10 +20,13 @@
     <string name="late">Atrasado</string>
     <string name="pending">Pendente</string>
     <string name="paid">Pago</string>
+<<<<<<< HEAD
     <string name="title_activity_main">MainActivity</string>
     <string name="notification_overdue_singular">Você tem %d despesa atrasada!</string>
     <string name="notification_overdue_plural">Você tem %d despesas atrasadas!</string>
     <string name="notification_pending_singular">Você tem %d despesa próxima do vencimento!</string>
     <string name="notification_pending_plural">Você tem %d despesas próximas do vencimento!</string>
 
+=======
+>>>>>>> 13ef0d5 (menu de opções finalizado)
 </resources>

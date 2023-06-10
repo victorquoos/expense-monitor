@@ -84,8 +84,6 @@ public class ExpenseListViewModel extends ViewModel {
                         totalValue += occurrence.getValue();
                     }
 
-                    Collections.sort(occurrences, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
-
                     if (!occurrences.equals(currentMonthOccurrences.getValue())) {
                         currentMonthOccurrences.setValue(occurrences);
                     }
