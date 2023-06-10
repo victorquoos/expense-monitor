@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.database;
+package com.ifsc.expensemonitor.data;
 
 import androidx.annotation.NonNull;
 

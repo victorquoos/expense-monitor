@@ -8,8 +8,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.ifsc.expensemonitor.database.Occurrence;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.FirebaseSettings;
 
 import java.util.ArrayList;
 import java.util.Collections;
