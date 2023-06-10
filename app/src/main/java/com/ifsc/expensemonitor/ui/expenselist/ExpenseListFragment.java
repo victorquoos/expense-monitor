@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.data.MoneyValue;
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.PreferenceUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ExpenseListFragment extends Fragment {
 
@@ -22,6 +26,7 @@ public class ExpenseListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ExpenseListViewModel mViewModel;
     private ExpenseCardAdapter mAdapter;
+    private PreferenceUtils mPreferenceUtils;
 
     public static ExpenseListFragment newInstance(int year, int month) {
         ExpenseListFragment fragment = new ExpenseListFragment();
@@ -52,16 +57,65 @@ public class ExpenseListFragment extends Fragment {
             mViewModel = new ViewModelProvider(this).get(ExpenseListViewModel.class);
             mViewModel.setMonth(String.valueOf(year), String.valueOf(month));
 
+            mPreferenceUtils = new PreferenceUtils(requireContext());
+
             mViewModel.getCurrentMonthOccurrences().observe(getViewLifecycleOwner(), occurrences -> {
-                mAdapter.setExpenses(occurrences);
+                mAdapter.setExpenses(sortList(occurrences));
                 mAdapter.notifyDataSetChanged();
             });
 
-            mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
-            mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+            mPreferenceUtils.setPreferenceChangeListener((sharedPreferences, key) -> {
+                if (PreferenceUtils.KEY_ORDENACAO.equals(key) || PreferenceUtils.KEY_MOVE_PAID_TO_END.equals(key)) {
+                    List<Occurrence> occurrences = mViewModel.getCurrentMonthOccurrences().getValue();
+                    if (occurrences != null) {
+                        sortList(occurrences);
+                        mAdapter.setExpenses(sortList(occurrences));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
         }
 
+        mViewModel.getUnpaidValue().observe(getViewLifecycleOwner(), unpaidValue -> unpaidValueTextView.setText(MoneyValue.format(unpaidValue)));
+        mViewModel.getTotalValue().observe(getViewLifecycleOwner(), totalValue -> totalValueTextView.setText(MoneyValue.format(totalValue)));
+
         return view;
+    }
+
+    private List<Occurrence> sortList(List<Occurrence> list) {
+        String newOrdenacao = mPreferenceUtils.getOrdenacao();
+
+        switch (newOrdenacao) {
+            case PreferenceUtils.SORT_DATE:
+                Collections.sort(list, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+                break;
+            case PreferenceUtils.SORT_VALUE_ASC:
+                Collections.sort(list, (o1, o2) -> o1.getValue().compareTo(o2.getValue()));
+                break;
+            case PreferenceUtils.SORT_VALUE_DESC:
+                Collections.sort(list, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+                break;
+        }
+
+        if (mPreferenceUtils.getMovePaidToEnd()) {
+            Collections.sort(list, (o1, o2) -> {
+                if (o1.isPaid() && !o2.isPaid()) {
+                    return 1;
+                } else if (!o1.isPaid() && o2.isPaid()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+
+        return list;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPreferenceUtils.unregisterPreferenceChangeListener();
     }
 }
 

@@ -1,7 +1,5 @@
 package com.ifsc.expensemonitor.ui.pager;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -265,13 +263,13 @@ public class PagerFragment extends Fragment {
 
         // Set the selected options in the popup
         switch (ordenacao) {
-            case "data_asc":
+            case PreferenceUtils.SORT_DATE:
                 radioSortDate.setChecked(true);
                 break;
-            case "valor_asc":
+            case PreferenceUtils.SORT_VALUE_ASC:
                 radioSortValueAsc.setChecked(true);
                 break;
-            case "valor_desc":
+            case PreferenceUtils.SORT_VALUE_DESC:
                 radioSortValueDesc.setChecked(true);
                 break;
         }
@@ -281,11 +279,11 @@ public class PagerFragment extends Fragment {
         // Apply the settings automatically
         radioGroupSort.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.sortByDateRadioButton) {
-                preferenceUtils.setOrdenacao("data_asc");
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_DATE);
             } else if (checkedId == R.id.sortByValueAscRadioButton) {
-                preferenceUtils.setOrdenacao("valor_asc");
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_ASC);
             } else if (checkedId == R.id.sortByValueDescRadioButton) {
-                preferenceUtils.setOrdenacao("valor_desc");
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_DESC);
             }
         });
 
