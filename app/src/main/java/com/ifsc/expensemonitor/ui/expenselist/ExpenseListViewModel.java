@@ -9,12 +9,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 =======
 import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 >>>>>>> 5f814f6 (checkpoint)
+=======
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.FirebaseSettings;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 import java.util.ArrayList;
 import java.util.Collections;

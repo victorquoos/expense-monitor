@@ -9,10 +9,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.MonthYear;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.OccurrenceController;
+<<<<<<< HEAD
 =======
 import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MonthYear;
@@ -23,6 +27,8 @@ import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.SimpleDate;
 >>>>>>> 9fbce0d (ajustes)
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 import java.util.ArrayList;
 import java.util.Calendar;

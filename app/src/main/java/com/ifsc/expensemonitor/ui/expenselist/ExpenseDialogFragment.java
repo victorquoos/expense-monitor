@@ -24,10 +24,14 @@ import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.MoneyValue;
 import com.ifsc.expensemonitor.data.OccurrenceController;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.OccurrenceControllerService;
 import com.ifsc.expensemonitor.data.OccurrenceService;
 
@@ -51,6 +55,9 @@ import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.OccurrenceControllerService;
 import com.ifsc.expensemonitor.database.OccurrenceService;
+=======
+import com.ifsc.expensemonitor.data.OccurrenceService;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 import java.util.ArrayList;
 import java.util.Objects;

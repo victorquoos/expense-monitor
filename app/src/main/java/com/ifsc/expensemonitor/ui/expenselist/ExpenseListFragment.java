@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.data.MoneyValue;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 import java.util.ArrayList;
 import java.util.Collections;

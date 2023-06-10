@@ -32,12 +32,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.MoneyValue;
 import com.ifsc.expensemonitor.data.MonthYear;
 =======
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.MonthYear;
 >>>>>>> 5f814f6 (checkpoint)
+=======
+import com.ifsc.expensemonitor.data.MoneyValue;
+import com.ifsc.expensemonitor.data.MonthYear;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.DateFormatSymbols;

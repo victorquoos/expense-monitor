@@ -16,7 +16,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Opções"
+<<<<<<< HEAD
             android:textColor="?attr/colorControlNormal"
+=======
+            android:textColor="?attr/colorPrimary"
+>>>>>>> 8e57fcd (iniciando menu de opções)
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -31,21 +35,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ordenar por data"
+<<<<<<< HEAD
                 android:textColor="?attr/colorOnSurface" />
+=======
+                android:textColor="?attr/colorControlNormal" />
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/sortByValueAscRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ordenar por valor (crescente)"
+<<<<<<< HEAD
                 android:textColor="?attr/colorOnSurface" />
+=======
+                android:textColor="?attr/colorControlNormal" />
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/sortByValueDescRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ordenar por valor (decrescente)"
+<<<<<<< HEAD
                 android:textColor="?attr/colorOnSurface" />
+=======
+                android:textColor="?attr/colorControlNormal" />
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
         </RadioGroup>
 
@@ -54,7 +70,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mover pagos para o final"
+<<<<<<< HEAD
             android:textColor="?attr/colorOnSurface" />
+=======
+            android:textColor="?attr/colorControlNormal" />
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
     </LinearLayout>
 

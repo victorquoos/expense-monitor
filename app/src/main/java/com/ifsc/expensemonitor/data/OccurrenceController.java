@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
 package com.ifsc.expensemonitor.data;
 
@@ -16,6 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+=======
+package com.ifsc.expensemonitor.data;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 public class OccurrenceController {
     private String groupId;

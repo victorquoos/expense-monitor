@@ -1,5 +1,10 @@
 package com.ifsc.expensemonitor.ui.pager;
 
+<<<<<<< HEAD
+=======
+import android.content.Context;
+import android.content.SharedPreferences;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,10 +32,14 @@ import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.MonthYear;
 =======
 import com.ifsc.expensemonitor.database.MonthYear;
 >>>>>>> 5f814f6 (checkpoint)
+=======
+import com.ifsc.expensemonitor.data.MonthYear;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 import java.text.DateFormatSymbols;
 import java.util.List;
@@ -142,9 +151,12 @@ public class PagerFragment extends Fragment {
         // Pop up de opções
         optionsButton.setOnClickListener(v -> showOptionsPopup());
 
+<<<<<<< HEAD
         // Tela de configurações
         settingsButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_pagerFragment_to_settingsFragment));
 
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
         return view;
     }
 
@@ -270,6 +282,7 @@ public class PagerFragment extends Fragment {
 
         // Set the selected options in the popup
         switch (ordenacao) {
+<<<<<<< HEAD
             case PreferenceUtils.SORT_DATE:
                 radioSortDate.setChecked(true);
                 break;
@@ -277,6 +290,15 @@ public class PagerFragment extends Fragment {
                 radioSortValueAsc.setChecked(true);
                 break;
             case PreferenceUtils.SORT_VALUE_DESC:
+=======
+            case "data_asc":
+                radioSortDate.setChecked(true);
+                break;
+            case "valor_asc":
+                radioSortValueAsc.setChecked(true);
+                break;
+            case "valor_desc":
+>>>>>>> 8e57fcd (iniciando menu de opções)
                 radioSortValueDesc.setChecked(true);
                 break;
         }
@@ -286,11 +308,19 @@ public class PagerFragment extends Fragment {
         // Apply the settings automatically
         radioGroupSort.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.sortByDateRadioButton) {
+<<<<<<< HEAD
                 preferenceUtils.setOrdenacao(PreferenceUtils.SORT_DATE);
             } else if (checkedId == R.id.sortByValueAscRadioButton) {
                 preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_ASC);
             } else if (checkedId == R.id.sortByValueDescRadioButton) {
                 preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_DESC);
+=======
+                preferenceUtils.setOrdenacao("data_asc");
+            } else if (checkedId == R.id.sortByValueAscRadioButton) {
+                preferenceUtils.setOrdenacao("valor_asc");
+            } else if (checkedId == R.id.sortByValueDescRadioButton) {
+                preferenceUtils.setOrdenacao("valor_desc");
+>>>>>>> 8e57fcd (iniciando menu de opções)
             }
         });
 

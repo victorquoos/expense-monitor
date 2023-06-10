@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceService.java
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 package com.ifsc.expensemonitor.data;
 
 import androidx.annotation.NonNull;
@@ -9,11 +12,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
+<<<<<<< HEAD
 =======
 package com.ifsc.expensemonitor.database;
 
 import com.google.firebase.database.DatabaseReference;
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceService.java
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
 public class OccurrenceService {
     public static void save(Occurrence occurrence) {
@@ -24,7 +30,10 @@ public class OccurrenceService {
         occurrence.setId(id);
         occurrencesRef.child(id).setValue(occurrence);
     }
+<<<<<<< HEAD
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceService.java
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 
     public static void update(Occurrence occurrence) {
         // atualiza a ocorrência
@@ -70,6 +79,9 @@ public class OccurrenceService {
 
         occurrenceRef.setValue(occurrence);
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceService.java
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 }

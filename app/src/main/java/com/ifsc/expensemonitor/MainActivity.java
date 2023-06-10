@@ -2,6 +2,7 @@ package com.ifsc.expensemonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< HEAD
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
@@ -14,6 +15,9 @@ import android.os.Bundle;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
+=======
+import android.os.Bundle;
+>>>>>>> 8e57fcd (iniciando menu de opções)
 =======
 import android.os.Bundle;
 >>>>>>> 8e57fcd (iniciando menu de opções)

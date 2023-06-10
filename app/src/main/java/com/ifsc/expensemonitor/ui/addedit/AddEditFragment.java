@@ -31,6 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 import com.ifsc.expensemonitor.data.MonthYear;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
@@ -39,6 +42,7 @@ import com.ifsc.expensemonitor.data.OccurrenceController;
 import com.ifsc.expensemonitor.data.OccurrenceControllerService;
 import com.ifsc.expensemonitor.data.OccurrenceService;
 import com.ifsc.expensemonitor.data.SimpleDate;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.util.Objects;
@@ -56,6 +60,8 @@ import com.ifsc.expensemonitor.database.SimpleDate;
 <<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
 =======
+=======
+>>>>>>> 8e57fcd (iniciando menu de opções)
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 >>>>>>> 9fbce0d (ajustes)
 
