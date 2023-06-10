@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.MoneyValue;
@@ -35,13 +36,25 @@ import java.util.Objects;
 =======
 import com.ifsc.expensemonitor.database.Expense;
 =======
+=======
+import com.ifsc.expensemonitor.database.FirebaseSettings;
+>>>>>>> a1379b2 (edição e exclusão)
 import com.ifsc.expensemonitor.database.Occurrence;
 >>>>>>> 5f814f6 (checkpoint)
 import com.ifsc.expensemonitor.database.MoneyValue;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0141262 (botao de editar despesa)
 =======
 >>>>>>> d4fbed1 (botao de editar despesa)
+=======
+import com.ifsc.expensemonitor.database.OccurrenceController;
+import com.ifsc.expensemonitor.database.OccurrenceControllerService;
+import com.ifsc.expensemonitor.database.OccurrenceService;
+
+import java.util.ArrayList;
+import java.util.Objects;
+>>>>>>> a1379b2 (edição e exclusão)
 
 public class ExpenseDialogFragment extends DialogFragment {
     private Occurrence occurrence;
@@ -74,6 +87,30 @@ public class ExpenseDialogFragment extends DialogFragment {
         expenseDateTextView.setText(occurrence.getDate().getFormattedDate());
         expenseDescriptionTextView.setText(occurrence.getDescription());
 
+        DatabaseReference ref = FirebaseSettings.getOccurrencesReference();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Occurrence> occurrences = new ArrayList<>();
+                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
+                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                            Occurrence occurrenceData = occurrenceSnapshot.getValue(Occurrence.class);
+                            if (Objects.equals(occurrence.getGroupId(), occurrenceData.getGroupId())) {
+                                occurrences.add(occurrenceData);
+                            }
+                        }
+                    }
+                }
+                // tratar aqui
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if (occurrence.isPaid()) {
             expenseStatusTextView.setText("PAGO");
             changeStatusImageView.setImageResource(R.drawable.ic_close);
@@ -93,10 +130,14 @@ public class ExpenseDialogFragment extends DialogFragment {
         changeStatusButton.setOnClickListener(v -> {
             occurrence.setPaid(!occurrence.isPaid());
 <<<<<<< HEAD
+<<<<<<< HEAD
             OccurrenceService.update(occurrence);
 =======
             //occurrence.update();
 >>>>>>> 5f814f6 (checkpoint)
+=======
+            OccurrenceService.update(occurrence);
+>>>>>>> a1379b2 (edição e exclusão)
             dismiss();
         });
 
@@ -183,14 +224,25 @@ public class ExpenseDialogFragment extends DialogFragment {
 =======
             new MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Excluir despesa")
-                    .setMessage("Tem certeza que deseja excluir esta despesa?")
-                    .setPositiveButton("Sim", (dialog, which) -> {
-                        //occurrence.delete();
+                    .setMessage("Deseja excluir todas as despesas, apenas essa ou todas as seguintes?")
+                    .setPositiveButton("Todas as seguintes", (dialog, which) -> {
+                        deleteAllFollowingOccurrences(occurrence);
                         dismiss();
                     })
-                    .setNegativeButton("Não", null)
+                    .setNeutralButton("Apenas essa", (dialog, which) -> {
+                        deleteOnlyThis(occurrence);
+                        dismiss();
+                    })
+                    .setNegativeButton("Todas", (dialog, which) -> {
+                        deleteAllOccurrences(occurrence);
+                        dismiss();
+                    })
                     .show();
+<<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
+=======
+
+>>>>>>> a1379b2 (edição e exclusão)
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
@@ -240,7 +292,11 @@ public class ExpenseDialogFragment extends DialogFragment {
                     for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
                         for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
                             if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
+<<<<<<< HEAD
                                 if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) >= index) {
+=======
+                                if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) > index) {
+>>>>>>> a1379b2 (edição e exclusão)
                                     occurrenceSnapshot.getRef().removeValue();
                                 }
                             }
@@ -286,6 +342,7 @@ public class ExpenseDialogFragment extends DialogFragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         OccurrenceController occurrenceController = snapshot.getValue(OccurrenceController.class);
+<<<<<<< HEAD
 
                         occurrenceController.setControllIndex(occurrenceController.getControllIndex() - 1);
                         if (occurrenceController.getMaxOccurrences() != -1) {
@@ -295,6 +352,16 @@ public class ExpenseDialogFragment extends DialogFragment {
                         occurrenceController.setLastEditIndex(occurrence.getIndex());
 
                         OccurrenceControllerService.update(occurrenceController);
+=======
+                        int controllIndex = occurrenceController.getControllIndex();
+                        int maxOccurrences = occurrenceController.getMaxOccurrences();
+
+                        controllerRef.child("controllIndex").setValue(controllIndex - 1);
+                        if (maxOccurrences != -1) {
+                            controllerRef.child("maxOccurrences").setValue(maxOccurrences - 1);
+                        }
+                        occurrenceController.generateOccurrences();
+>>>>>>> a1379b2 (edição e exclusão)
                     }
 
                     @Override

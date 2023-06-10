@@ -2,6 +2,8 @@ package com.ifsc.expensemonitor.data;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 
 import java.text.DateFormat;
@@ -187,10 +189,16 @@ public class SimpleDate {
     }
 
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
+=======
+>>>>>>> a1379b2 (edição e exclusão):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
     @NonNull
     public SimpleDate clone() {
         return new SimpleDate(year, month, day);
     }
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
 =======
 >>>>>>> 0cdd0dd (ajuste na exibição da data):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
+=======
+>>>>>>> a1379b2 (edição e exclusão):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
 }

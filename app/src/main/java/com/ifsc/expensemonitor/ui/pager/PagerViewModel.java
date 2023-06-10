@@ -20,6 +20,7 @@ import com.ifsc.expensemonitor.database.MonthYear;
 >>>>>>> 5f814f6 (checkpoint)
 =======
 import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.SimpleDate;
 >>>>>>> 9fbce0d (ajustes)
 
@@ -45,9 +46,13 @@ public class PagerViewModel extends ViewModel {
         isFirstTime = true;
         getMonthsList();
 <<<<<<< HEAD
+<<<<<<< HEAD
         generateOccurrences();
 =======
 >>>>>>> 5f814f6 (checkpoint)
+=======
+        generateOccurrences();
+>>>>>>> a1379b2 (edição e exclusão)
     }
 
     public MutableLiveData<List<MonthYear>> getListOfMonths() {
@@ -213,6 +218,26 @@ public class PagerViewModel extends ViewModel {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // handle error
+            }
+        });
+    }
+
+    private void generateOccurrences() {
+        DatabaseReference ref = FirebaseSettings.getOccurrenceControllersReference();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot controllerSnapshot : snapshot.getChildren()) {
+                    OccurrenceController occurrenceController = controllerSnapshot.getValue(OccurrenceController.class);
+                    if (occurrenceController != null) {
+                        occurrenceController.generateOccurrences();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

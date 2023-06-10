@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -51,12 +52,16 @@ import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.MoneyValue;
 import com.ifsc.expensemonitor.database.OccurrenceController;
 import com.ifsc.expensemonitor.database.OccurrenceControllerService;
+import com.ifsc.expensemonitor.database.OccurrenceService;
 import com.ifsc.expensemonitor.database.SimpleDate;
 <<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
 =======
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 >>>>>>> 9fbce0d (ajustes)
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddEditFragment extends Fragment {
 
@@ -196,6 +201,7 @@ public class AddEditFragment extends Fragment {
 <<<<<<< HEAD
 <<<<<<< HEAD
     public void setInitialValues(int month, int year, String id) {
+<<<<<<< HEAD
         expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
         expenseValueEditText.setText("0");
         expenseParcelEditText.setText("12");
@@ -217,15 +223,23 @@ public class AddEditFragment extends Fragment {
     public void setInitialValues(int month, int year, String id) {
 >>>>>>> 0cdd0dd (ajuste na exibição da data)
         expenseValueEditText.setText("0");
+=======
+>>>>>>> a1379b2 (edição e exclusão)
         expenseTypeButtonToggleGroup.check(R.id.singleTypeButton);
+        expenseValueEditText.setText("0");
+        expenseParcelEditText.setText("12");
+        expenseIntervalInMonthsEditText.setText("1");
         if (id.isEmpty()) {
             addMode = true;
             materialToolbar.setTitle("Adicionar despesa");
+<<<<<<< HEAD
             expenseParcelEditText.setText("12");
             expenseIntervalInMonthsEditText.setText("1");
 <<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
 =======
+=======
+>>>>>>> a1379b2 (edição e exclusão)
             selectedDate = SimpleDate.today();
 >>>>>>> 0cdd0dd (ajuste na exibição da data)
             if (month >= 0 && year >= 0 && (month != selectedDate.getMonth() || year != selectedDate.getYear())) {
@@ -300,10 +314,14 @@ public class AddEditFragment extends Fragment {
                 expenseDescriptionEditText.setText(occurrence.getDescription());
                 expenseDateEditText.setText(occurrence.getDate().getFormattedDate());
 <<<<<<< HEAD
+<<<<<<< HEAD
                 selectedDate = occurrence.getDate().clone();
 =======
                 selectedDate = occurrence.getDate();
 >>>>>>> 5f814f6 (checkpoint)
+=======
+                selectedDate = occurrence.getDate().clone();
+>>>>>>> a1379b2 (edição e exclusão)
             }
 
             @Override
@@ -351,6 +369,7 @@ public class AddEditFragment extends Fragment {
         }
 
         if (addMode) {
+<<<<<<< HEAD
             OccurrenceController controller = new OccurrenceController();
             controller.setMaxOccurrences(maxOccurrences);
             controller.setIntervaInlMonths(intervalInMonths);
@@ -405,6 +424,12 @@ public class AddEditFragment extends Fragment {
         } else if (occurrence.getIndex()+1 == occurrenceController.getMaxOccurrences()) {
             editAllNext(maxOccurrences, intervalInMonths, date, name, value, description, view);
         } else {
+=======
+            createController(maxOccurrences, intervalInMonths, date, name, value, description, view);
+        } else if (occurrence.getIndex()+1 == occurrenceController.getMaxOccurrences()) {
+            editAllNext(maxOccurrences, intervalInMonths, date, name, value, description, view);
+        } else {
+>>>>>>> a1379b2 (edição e exclusão)
             long finalValue = value;
             int finalMaxOccurrences = maxOccurrences;
             int finalIntervalInMonths = intervalInMonths;
@@ -414,6 +439,7 @@ public class AddEditFragment extends Fragment {
                     .setPositiveButton("Todas as seguintes", (dialog, which) -> editAllNext(finalMaxOccurrences, finalIntervalInMonths, date, name, finalValue, description, view))
                     .setNegativeButton("Apenas esta", (dialog, which) -> editOnlyThis(date, name, finalValue, description, view))
                     .show();
+<<<<<<< HEAD
         }
 
     }
@@ -517,5 +543,94 @@ public class AddEditFragment extends Fragment {
         }
         */
 >>>>>>> 5f814f6 (checkpoint)
+=======
+        }
+
+    }
+
+    private void createController(int maxOccurrences, int intervalInMonths, SimpleDate date, String name, Long value, String description, View view) {
+        OccurrenceController controller = new OccurrenceController();
+        controller.setMaxOccurrences(maxOccurrences);
+        controller.setIntervaInlMonths(intervalInMonths);
+        controller.setLastEditDate(date);
+        controller.setControllDate(date);
+        controller.setName(name);
+        controller.setValue(value);
+        controller.setDescription(description);
+
+        OccurrenceControllerService.save(controller);
+        PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+        pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+        Navigation.findNavController(view).navigateUp();
+    }
+
+    private void editAllNext(int finalMaxOccurrences, int finalIntervalInMonths, SimpleDate date, String name, long finalValue, String description, View view) {
+        occurrence.setName(name);
+        occurrence.setValue(finalValue);
+        occurrence.setDate(date);
+        occurrence.setDescription(description);
+
+        occurrenceController.setMaxOccurrences(finalMaxOccurrences);
+        occurrenceController.setIntervaInlMonths(finalIntervalInMonths);
+        occurrenceController.setLastEditDate(date);
+        occurrenceController.setControllDate(date);
+        occurrenceController.setControllIndex(occurrence.getIndex());
+        occurrenceController.setName(name);
+        occurrenceController.setValue(finalValue);
+        occurrenceController.setDescription(description);
+
+        String groupId = occurrenceController.getGroupId();
+        // remove todas as despesas do grupo que possuem o index maior ou igual ao controller
+        DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
+        occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // percorre todos os anos
+                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
+                    // percorre todos os meses
+                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
+                        // percorre todas as despesas
+                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                            if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
+                                Integer index = occurrenceSnapshot.child("index").getValue(Integer.class);
+                                if (index != null){
+                                    if (index >= occurrenceController.getControllIndex()) {
+                                        // remove a despesa
+                                        occurrenceSnapshot.getRef().removeValue();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // atualiza o controller
+                OccurrenceControllerService.update(occurrenceController);
+                // gera as novas despesas
+                occurrenceController.generateOccurrences();
+                // volta para a tela de despesas
+                PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+                pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+                Navigation.findNavController(view).navigateUp();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void editOnlyThis(SimpleDate date, String name, Long value, String description, View view) {
+        SimpleDate oldDate = occurrence.getDate().clone();
+        occurrence.setName(name);
+        occurrence.setValue(value);
+        occurrence.setDate(date);
+        occurrence.setDescription(description);
+
+        OccurrenceService.update(occurrence);
+        PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
+        pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
+        Navigation.findNavController(view).navigateUp();
+>>>>>>> a1379b2 (edição e exclusão)
     }
 }
