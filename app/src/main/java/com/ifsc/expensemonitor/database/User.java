@@ -4,8 +4,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 public class User {
+    @Exclude
     private String uid;
     private String email;
+    @Exclude
     private String password;
 
 
@@ -17,7 +19,6 @@ public class User {
         reference.child("users").child(getUid()).setValue(this);
     }
 
-    @Exclude
     public String getUid() {
         return uid;
     }
@@ -34,7 +35,6 @@ public class User {
         this.email = email;
     }
 
-    @Exclude
     public String getPassword() {
         return password;
     }

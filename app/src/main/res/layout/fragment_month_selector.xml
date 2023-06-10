@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- TODO: Substituir por um toolbar personalizada semelhante ao expense list.
+            <!-- TODO: Substituir por um toolbar personalizada semelhante ao occurrence list.
             contendo um valor para os TOTAIS AINDA NÃO PAGOS
             e talvez um outro valor como MÉDIA DOS ÚLTIMOS 12 MESES -->
             <com.google.android.material.appbar.MaterialToolbar

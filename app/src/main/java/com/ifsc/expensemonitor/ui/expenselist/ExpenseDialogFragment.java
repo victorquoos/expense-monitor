@@ -1,11 +1,9 @@
 package com.ifsc.expensemonitor.ui.expenselist;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,15 +16,26 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.MoneyValue;
+import com.ifsc.expensemonitor.database.OccurrenceController;
+import com.ifsc.expensemonitor.database.OccurrenceControllerService;
+import com.ifsc.expensemonitor.database.OccurrenceService;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ExpenseDialogFragment extends DialogFragment {
-    private Expense expense;
+    private Occurrence occurrence;
 
-    public ExpenseDialogFragment(Expense expense) {
-        this.expense = expense;
+    public ExpenseDialogFragment(Occurrence occurrence) {
+        this.occurrence = occurrence;
     }
 
     @NonNull
@@ -48,12 +57,36 @@ public class ExpenseDialogFragment extends DialogFragment {
         TextView changeStatusBottomTextView = view.findViewById(R.id.changeStatusBottomTextView);
         ImageView changeStatusImageView = view.findViewById(R.id.changeStatusImageView);
 
-        expenseNameTextView.setText(expense.getName());
-        expenseValueTextView.setText(MoneyValue.format(expense.getValue()));
-        expenseDateTextView.setText(expense.getDate().getFormattedDate());
-        expenseDescriptionTextView.setText(expense.getDescription());
+        expenseNameTextView.setText(occurrence.getName());
+        expenseValueTextView.setText(MoneyValue.format(occurrence.getValue()));
+        expenseDateTextView.setText(occurrence.getDate().getFormattedDate());
+        expenseDescriptionTextView.setText(occurrence.getDescription());
 
-        if (expense.isPaid()) {
+        DatabaseReference ref = FirebaseSettings.getOccurrencesReference();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Occurrence> occurrences = new ArrayList<>();
+                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
+                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                            Occurrence occurrenceData = occurrenceSnapshot.getValue(Occurrence.class);
+                            if (Objects.equals(occurrence.getGroupId(), occurrenceData.getGroupId())) {
+                                occurrences.add(occurrenceData);
+                            }
+                        }
+                    }
+                }
+                // tratar aqui
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        if (occurrence.isPaid()) {
             expenseStatusTextView.setText("PAGO");
             changeStatusImageView.setImageResource(R.drawable.ic_close);
             changeStatusButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Red));
@@ -70,8 +103,8 @@ public class ExpenseDialogFragment extends DialogFragment {
         }
 
         changeStatusButton.setOnClickListener(v -> {
-            expense.setPaid(!expense.isPaid());
-            expense.update();
+            occurrence.setPaid(!occurrence.isPaid());
+            OccurrenceService.update(occurrence);
             dismiss();
         });
 
@@ -80,7 +113,9 @@ public class ExpenseDialogFragment extends DialogFragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
 
             Bundle args = new Bundle();
-            args.putString("key", expense.getKey());
+            args.putInt("year", occurrence.getDate().getYear());
+            args.putInt("month", occurrence.getDate().getMonth());
+            args.putString("id", occurrence.getId());
 
             navController.navigate(R.id.addEditFragment, args);
         });
@@ -88,17 +123,137 @@ public class ExpenseDialogFragment extends DialogFragment {
         deleteButton.setOnClickListener(v -> {
             new MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Excluir despesa")
-                    .setMessage("Tem certeza que deseja excluir esta despesa?")
-                    .setPositiveButton("Sim", (dialog, which) -> {
-                        expense.delete();
+                    .setMessage("Deseja excluir todas as despesas, apenas essa ou todas as seguintes?")
+                    .setPositiveButton("Todas as seguintes", (dialog, which) -> {
+                        deleteAllFollowingOccurrences(occurrence);
                         dismiss();
                     })
-                    .setNegativeButton("Não", null)
+                    .setNeutralButton("Apenas essa", (dialog, which) -> {
+                        deleteOnlyThis(occurrence);
+                        dismiss();
+                    })
+                    .setNegativeButton("Todas", (dialog, which) -> {
+                        deleteAllOccurrences(occurrence);
+                        dismiss();
+                    })
                     .show();
+
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
                 .setView(view)
                 .create();
+    }
+
+    private void deleteAllOccurrences(Occurrence occurrence) {
+        String groupId = occurrence.getGroupId();
+        DatabaseReference controllerRef = FirebaseSettings.getOccurrenceControllersReference().child(groupId);
+        controllerRef.removeValue();
+        DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
+        occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
+                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                            if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
+                                occurrenceSnapshot.getRef().removeValue();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteAllFollowingOccurrences(Occurrence occurrence) {
+        String groupId = occurrence.getGroupId();
+        int index = occurrence.getIndex();
+
+        DatabaseReference controllerRef = FirebaseSettings.getOccurrenceControllersReference().child(groupId);
+        controllerRef.child("controllIndex").setValue(index);
+        controllerRef.child("maxOccurrences").setValue(index);
+
+        DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
+        occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
+                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                            if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
+                                if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) > index) {
+                                    occurrenceSnapshot.getRef().removeValue();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteOnlyThis(Occurrence occurrence) {
+        String groupId = occurrence.getGroupId();
+        int index = occurrence.getIndex();
+
+
+        DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
+        occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
+                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
+                            if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
+                                int occurrenceIndex = Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString());
+
+                                if (occurrenceIndex == index) {
+                                    occurrenceSnapshot.getRef().removeValue();
+                                } else if (occurrenceIndex > index) {
+                                    DatabaseReference indexRef = occurrenceSnapshot.child("index").getRef();
+                                    indexRef.setValue(occurrenceIndex - 1);
+                                }
+                            }
+                        }
+                    }
+                }
+                DatabaseReference controllerRef = FirebaseSettings.getOccurrenceControllersReference().child(groupId);
+                controllerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        OccurrenceController occurrenceController = snapshot.getValue(OccurrenceController.class);
+                        int controllIndex = occurrenceController.getControllIndex();
+                        int maxOccurrences = occurrenceController.getMaxOccurrences();
+
+                        controllerRef.child("controllIndex").setValue(controllIndex - 1);
+                        if (maxOccurrences != -1) {
+                            controllerRef.child("maxOccurrences").setValue(maxOccurrences - 1);
+                        }
+                        occurrenceController.generateOccurrences();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

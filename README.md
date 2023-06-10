@@ -39,26 +39,26 @@
 
 ## Como rodar a aplicação
 
-Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/expense-monitor/releases) e instale no seu dispositivo android
+Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/occurrence-monitor/releases) e instale no seu dispositivo android
 
 ## Telas:
 
 # Tela de Boas Vindas
-![Tela de Boas Vindas](https://github.com/victorquoos/expense-monitor/blob/main/images/Bem-Vindo.jpeg)
+![Tela de Boas Vindas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Bem-Vindo.jpeg)
 
 # Tela de Cadastro e Login
-![Tela de Cadastro](https://github.com/victorquoos/expense-monitor/blob/main/images/Cadastre-se.jpeg)
+![Tela de Cadastro](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Cadastre-se.jpeg)
 
-![Tela de Login](https://github.com/victorquoos/expense-monitor/blob/main/images/Login.jpeg)
+![Tela de Login](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Login.jpeg)
 
 # Menu de Despesas
-![Menu de Despesas](https://github.com/victorquoos/expense-monitor/blob/main/images/Menu.jpeg)
+![Menu de Despesas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Menu.jpeg)
 
 # Criação de Despesa
-![Criação de Despesa](https://github.com/victorquoos/expense-monitor/blob/main/images/Despesa.jpeg)
+![Criação de Despesa](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Despesa.jpeg)
 
 # Calendário de Despesas
-![Calendário de Despesas](https://github.com/victorquoos/expense-monitor/blob/main/images/Calendario.jpeg)
+![Calendário de Despesas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Calendario.jpeg)
 
 # Formato da database
 

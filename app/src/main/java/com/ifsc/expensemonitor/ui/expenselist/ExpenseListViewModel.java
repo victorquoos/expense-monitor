@@ -8,9 +8,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.ifsc.expensemonitor.database.Expense;
+import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.FirebaseSettings;
-import com.ifsc.expensemonitor.database.SimpleDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,32 +18,20 @@ import java.util.List;
 public class ExpenseListViewModel extends ViewModel {
     private ValueEventListener currentListener = null;
     private DatabaseReference currentRef = null;
-    private MutableLiveData<Integer> month;
-    private MutableLiveData<Integer> year;
+    private MutableLiveData<List<Occurrence>> currentMonthOccurrences;
     private MutableLiveData<Long> paidValue;
     private MutableLiveData<Long> unpaidValue;
     private MutableLiveData<Long> totalValue;
-    private MutableLiveData<List<Expense>> currentMonthExpenses;
 
     public ExpenseListViewModel() {
-        month = new MutableLiveData<>();
-        year = new MutableLiveData<>();
+        currentMonthOccurrences = new MutableLiveData<>();
         paidValue = new MutableLiveData<>();
         unpaidValue = new MutableLiveData<>();
         totalValue = new MutableLiveData<>();
-        currentMonthExpenses = new MutableLiveData<>(new ArrayList<>()); //TODO: Por que esse arraylist no final?
-
-        int month = SimpleDate.getCurrentDate().getMonth();
-        int year = SimpleDate.getCurrentDate().getYear();
-        loadExpensesForMonth(month, year);
     }
 
-    public MutableLiveData<Integer> getMonth() {
-        return month;
-    }
-
-    public MutableLiveData<Integer> getYear() {
-        return year;
+    public MutableLiveData<List<Occurrence>> getCurrentMonthOccurrences() {
+        return currentMonthOccurrences;
     }
 
     public MutableLiveData<Long> getPaidValue() {
@@ -59,92 +46,68 @@ public class ExpenseListViewModel extends ViewModel {
         return totalValue;
     }
 
-    public MutableLiveData<List<Expense>> getCurrentMonthExpenses() {
-        return currentMonthExpenses;
-    }
+    public void setMonth(String year, String month) {
+        if (currentListener == null) {
+            currentRef = FirebaseSettings.getOccurrencesReference().child(year).child(month);
 
-    public void goToNextMonth() {
-        int month = this.month.getValue();
-        int year = this.year.getValue();
-        if (month == 11) {
-            month = 0;
-            year++;
-        } else {
-            month++;
-        }
-        loadExpensesForMonth(month, year);
-    }
-
-    public void goToPreviousMonth() {
-        int month = this.month.getValue();
-        int year = this.year.getValue();
-        if (month == 0) {
-            month = 11;
-            year--;
-        } else {
-            month--;
-        }
-        loadExpensesForMonth(month, year);
-    }
-
-    public void goToMonth(int month, int year) {
-        loadExpensesForMonth(month, year);
-    }
-
-    public void loadExpensesForMonth(int month, int year) {
-        this.month.setValue(month);
-        this.year.setValue(year);
-
-        if (currentListener != null && currentRef != null) {
-            currentRef.removeEventListener(currentListener);
-        }
-        DatabaseReference expensesReference = FirebaseSettings.getExpensesReference();
-        currentRef = expensesReference;
-
-        currentListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Expense> expenses = new ArrayList<>();
-                Long totalPaid = 0L;
-                Long totalPending = 0L;
-                for (DataSnapshot expenseData : snapshot.getChildren()) {
-                    Expense expense = expenseData.getValue(Expense.class);
-                    if (expense.getDate().isInMonth(month, year)){
-                        expense.setKey(expenseData.getKey());
-                        expenses.add(expense);
-                        if (expense.isPaid()) {
-                            totalPaid += expense.getValue();
-                        } else {
-                            totalPending += expense.getValue();
-                        }
-                    }
+            currentRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    System.out.println("onDataChange");
+                    System.out.println(snapshot);
+                    System.out.println(snapshot.getValue());
+                    System.out.println(snapshot.getChildren());
+                    System.out.println(snapshot.getChildrenCount());
                 }
 
-                //Collections.sort(expenses, (o1, o2) -> Boolean.compare(o1.isPaid(), o2.isPaid()));
-                Collections.sort(expenses, (o1, o2) -> o1.getDate().compareTo(o2.getDate())); //TODO: create other sorting methods
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                currentMonthExpenses.setValue(expenses);
-                paidValue.setValue(totalPaid);
-                unpaidValue.setValue(totalPending);
-                totalValue.setValue(totalPaid + totalPending);
-            }
+                }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            currentListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<Occurrence> occurrences = new ArrayList<>();
+                    Long paidValue = 0L;
+                    Long unpaidValue = 0L;
+                    Long totalValue = 0L;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Occurrence occurrence = snapshot.getValue(Occurrence.class);
+                        occurrences.add(occurrence);
+                        if (occurrence.isPaid()) {
+                            paidValue += occurrence.getValue();
+                        } else {
+                            unpaidValue += occurrence.getValue();
+                        }
+                        totalValue += occurrence.getValue();
+                    }
 
-            }
-        };
+                    Collections.sort(occurrences, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
 
-        expensesReference.addValueEventListener(currentListener);
+                    if (!occurrences.equals(currentMonthOccurrences.getValue())) {
+                        currentMonthOccurrences.setValue(occurrences);
+                    }
+                    getPaidValue().setValue(paidValue);
+                    getUnpaidValue().setValue(unpaidValue);
+                    getTotalValue().setValue(totalValue);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // handle error
+                }
+            };
+            currentRef.addValueEventListener(currentListener);
+        }
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        if (currentListener != null && currentRef != null) {
+        if (currentListener != null) {
             currentRef.removeEventListener(currentListener);
         }
     }
-
-
 }
