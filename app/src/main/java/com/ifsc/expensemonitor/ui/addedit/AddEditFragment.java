@@ -358,8 +358,6 @@ public class AddEditFragment extends Fragment {
                 }
                 // atualiza o controller
                 OccurrenceControllerService.update(occurrenceController);
-                // gera as novas despesas
-                occurrenceController.generateOccurrences();
                 // volta para a tela de despesas
                 PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
                 pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
@@ -374,13 +372,15 @@ public class AddEditFragment extends Fragment {
     }
 
     private void editOnlyThis(SimpleDate date, String name, Long value, String description, View view) {
-        SimpleDate oldDate = occurrence.getDate().clone();
         occurrence.setName(name);
         occurrence.setValue(value);
         occurrence.setDate(date);
         occurrence.setDescription(description);
-
         OccurrenceService.update(occurrence);
+
+        occurrenceController.setLastEditDate(date);
+        OccurrenceControllerService.update(occurrenceController);
+
         PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
         pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
         Navigation.findNavController(view).navigateUp();
