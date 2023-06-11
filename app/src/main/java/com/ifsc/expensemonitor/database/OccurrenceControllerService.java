@@ -23,5 +23,6 @@ public class OccurrenceControllerService {
     public static void update(OccurrenceController controller) {
         DatabaseReference controllersRef = FirebaseSettings.getOccurrenceControllersReference();
         controllersRef.child(controller.getGroupId()).setValue(controller);
+        controller.generateOccurrences();
     }
 }

@@ -87,30 +87,6 @@ public class ExpenseDialogFragment extends DialogFragment {
         expenseDateTextView.setText(occurrence.getDate().getFormattedDate());
         expenseDescriptionTextView.setText(occurrence.getDescription());
 
-        DatabaseReference ref = FirebaseSettings.getOccurrencesReference();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Occurrence> occurrences = new ArrayList<>();
-                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
-                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
-                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
-                            Occurrence occurrenceData = occurrenceSnapshot.getValue(Occurrence.class);
-                            if (Objects.equals(occurrence.getGroupId(), occurrenceData.getGroupId())) {
-                                occurrences.add(occurrenceData);
-                            }
-                        }
-                    }
-                }
-                // tratar aqui
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         if (occurrence.isPaid()) {
             expenseStatusTextView.setText("PAGO");
             changeStatusImageView.setImageResource(R.drawable.ic_close);
@@ -239,10 +215,13 @@ public class ExpenseDialogFragment extends DialogFragment {
                     })
                     .show();
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5f814f6 (checkpoint)
 =======
 
 >>>>>>> a1379b2 (edição e exclusão)
+=======
+>>>>>>> c0130aa (aplicar lasteditdate quando editar apenas uma)
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
@@ -347,6 +326,7 @@ public class ExpenseDialogFragment extends DialogFragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         OccurrenceController occurrenceController = snapshot.getValue(OccurrenceController.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                         occurrenceController.setControllIndex(occurrenceController.getControllIndex() - 1);
                         if (occurrenceController.getMaxOccurrences() != -1) {
@@ -359,13 +339,21 @@ public class ExpenseDialogFragment extends DialogFragment {
 =======
                         int controllIndex = occurrenceController.getControllIndex();
                         int maxOccurrences = occurrenceController.getMaxOccurrences();
+=======
+>>>>>>> c0130aa (aplicar lasteditdate quando editar apenas uma)
 
-                        controllerRef.child("controllIndex").setValue(controllIndex - 1);
-                        if (maxOccurrences != -1) {
-                            controllerRef.child("maxOccurrences").setValue(maxOccurrences - 1);
+                        occurrenceController.setControllIndex(occurrenceController.getControllIndex() - 1);
+                        if (occurrenceController.getMaxOccurrences() != -1) {
+                            occurrenceController.setMaxOccurrences(occurrenceController.getMaxOccurrences() - 1);
                         }
+<<<<<<< HEAD
                         occurrenceController.generateOccurrences();
 >>>>>>> a1379b2 (edição e exclusão)
+=======
+                        occurrenceController.setLastEditDate(occurrence.getDate());
+
+                        OccurrenceControllerService.update(occurrenceController);
+>>>>>>> c0130aa (aplicar lasteditdate quando editar apenas uma)
                     }
 
                     @Override
