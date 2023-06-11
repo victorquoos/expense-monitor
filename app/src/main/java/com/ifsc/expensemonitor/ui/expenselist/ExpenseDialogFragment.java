@@ -149,6 +149,9 @@ public class ExpenseDialogFragment extends DialogFragment {
 
         deleteButton.setOnClickListener(v -> {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05a49d0 (ajustes das mensagens de exclusão)
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
 
             DatabaseReference controllerRef = FirebaseSettings.getOccurrenceControllersReference().child(occurrence.getGroupId());
@@ -197,6 +200,7 @@ public class ExpenseDialogFragment extends DialogFragment {
 
                 }
             });
+<<<<<<< HEAD
 =======
             new MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Excluir despesa")
@@ -222,6 +226,8 @@ public class ExpenseDialogFragment extends DialogFragment {
 >>>>>>> a1379b2 (edição e exclusão)
 =======
 >>>>>>> c0130aa (aplicar lasteditdate quando editar apenas uma)
+=======
+>>>>>>> 05a49d0 (ajustes das mensagens de exclusão)
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
