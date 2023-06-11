@@ -293,9 +293,13 @@ public class AddEditFragment extends Fragment {
                             } else if (occurrenceController.getMaxOccurrences() == -1) {
                                 expenseTypeButtonToggleGroup.check(R.id.recurringTypeButton);
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 expenseParcelEditText.setText(String.valueOf(occurrence.getIndex()+1));
 =======
 >>>>>>> 5f814f6 (checkpoint)
+=======
+                                expenseParcelEditText.setText(String.valueOf(occurrence.getIndex()+1));
+>>>>>>> 0770c05 (ajuste no numero de parcelas ao editar)
                             }
                             expenseIntervalInMonthsEditText.setText(String.valueOf(occurrenceController.getIntervaInlMonths()));
                         }
