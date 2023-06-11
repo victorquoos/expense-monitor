@@ -187,7 +187,7 @@ public class ExpenseDialogFragment extends DialogFragment {
                     for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
                         for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
                             if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
-                                if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) > index) {
+                                if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) >= index) {
                                     occurrenceSnapshot.getRef().removeValue();
                                 }
                             }
