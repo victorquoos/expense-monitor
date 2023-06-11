@@ -62,30 +62,6 @@ public class ExpenseDialogFragment extends DialogFragment {
         expenseDateTextView.setText(occurrence.getDate().getFormattedDate());
         expenseDescriptionTextView.setText(occurrence.getDescription());
 
-        DatabaseReference ref = FirebaseSettings.getOccurrencesReference();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Occurrence> occurrences = new ArrayList<>();
-                for (DataSnapshot yearSnapshot : snapshot.getChildren()) {
-                    for (DataSnapshot monthSnapshot : yearSnapshot.getChildren()) {
-                        for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
-                            Occurrence occurrenceData = occurrenceSnapshot.getValue(Occurrence.class);
-                            if (Objects.equals(occurrence.getGroupId(), occurrenceData.getGroupId())) {
-                                occurrences.add(occurrenceData);
-                            }
-                        }
-                    }
-                }
-                // tratar aqui
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         if (occurrence.isPaid()) {
             expenseStatusTextView.setText("PAGO");
             changeStatusImageView.setImageResource(R.drawable.ic_close);
@@ -137,7 +113,6 @@ public class ExpenseDialogFragment extends DialogFragment {
                         dismiss();
                     })
                     .show();
-
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
@@ -233,14 +208,14 @@ public class ExpenseDialogFragment extends DialogFragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         OccurrenceController occurrenceController = snapshot.getValue(OccurrenceController.class);
-                        int controllIndex = occurrenceController.getControllIndex();
-                        int maxOccurrences = occurrenceController.getMaxOccurrences();
 
-                        controllerRef.child("controllIndex").setValue(controllIndex - 1);
-                        if (maxOccurrences != -1) {
-                            controllerRef.child("maxOccurrences").setValue(maxOccurrences - 1);
+                        occurrenceController.setControllIndex(occurrenceController.getControllIndex() - 1);
+                        if (occurrenceController.getMaxOccurrences() != -1) {
+                            occurrenceController.setMaxOccurrences(occurrenceController.getMaxOccurrences() - 1);
                         }
-                        occurrenceController.generateOccurrences();
+                        occurrenceController.setLastEditDate(occurrence.getDate());
+
+                        OccurrenceControllerService.update(occurrenceController);
                     }
 
                     @Override
