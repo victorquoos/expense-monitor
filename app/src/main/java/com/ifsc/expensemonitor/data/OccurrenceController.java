@@ -24,9 +24,13 @@ public class OccurrenceController {
     private SimpleDate lastEditDate;
     private SimpleDate controllDate;
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
     private int lastEditIndex;
 =======
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
+=======
+    private int lastEditIndex;
+>>>>>>> ab68444 (criação do lastindex):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
     private int controllIndex;
     private String name;
     private Long value;
@@ -35,9 +39,13 @@ public class OccurrenceController {
     public OccurrenceController() {
         controllIndex = 0;
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
         lastEditIndex = 0;
 =======
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
+=======
+        lastEditIndex = 0;
+>>>>>>> ab68444 (criação do lastindex):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
     }
 
     public void generateOccurrences() {
@@ -66,10 +74,14 @@ public class OccurrenceController {
         if (maxOccurrences == -1 || controllIndex < maxOccurrences) {
             // checa se ja gerou pelo menos 3 ocorrencias
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
             if (controllIndex < lastEditIndex + 3) {
 =======
             if (controllIndex < 3) {
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
+=======
+            if (controllIndex < lastEditIndex + 3) {
+>>>>>>> ab68444 (criação do lastindex):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
                 return true;
             }
             // checa se ja gerou pelo menos 1 ano de ocorrencias após a ultima editada
@@ -149,6 +161,9 @@ public class OccurrenceController {
     }
 
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
+=======
+>>>>>>> ab68444 (criação do lastindex):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
     public int getLastEditIndex() {
         return lastEditIndex;
     }
@@ -157,8 +172,11 @@ public class OccurrenceController {
         this.lastEditIndex = lastEditIndex;
     }
 
+<<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/OccurrenceController.java
 =======
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
+=======
+>>>>>>> ab68444 (criação do lastindex):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
     public int getControllIndex() {
         return controllIndex;
     }

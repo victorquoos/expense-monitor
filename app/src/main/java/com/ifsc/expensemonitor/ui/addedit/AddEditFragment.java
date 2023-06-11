@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -60,7 +59,6 @@ import com.ifsc.expensemonitor.database.SimpleDate;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 >>>>>>> 9fbce0d (ajustes)
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddEditFragment extends Fragment {
@@ -370,6 +368,7 @@ public class AddEditFragment extends Fragment {
 
         if (addMode) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             OccurrenceController controller = new OccurrenceController();
             controller.setMaxOccurrences(maxOccurrences);
             controller.setIntervaInlMonths(intervalInMonths);
@@ -426,6 +425,9 @@ public class AddEditFragment extends Fragment {
         } else {
 =======
             createController(maxOccurrences, intervalInMonths, date, name, value, description, view);
+=======
+            createNew(maxOccurrences, intervalInMonths, date, name, value, description, view);
+>>>>>>> ab68444 (criação do lastindex)
         } else if (occurrence.getIndex()+1 == occurrenceController.getMaxOccurrences()) {
             editAllNext(maxOccurrences, intervalInMonths, date, name, value, description, view);
         } else {
@@ -548,7 +550,7 @@ public class AddEditFragment extends Fragment {
 
     }
 
-    private void createController(int maxOccurrences, int intervalInMonths, SimpleDate date, String name, Long value, String description, View view) {
+    private void createNew(int maxOccurrences, int intervalInMonths, SimpleDate date, String name, Long value, String description, View view) {
         OccurrenceController controller = new OccurrenceController();
         controller.setMaxOccurrences(maxOccurrences);
         controller.setIntervaInlMonths(intervalInMonths);
@@ -574,6 +576,7 @@ public class AddEditFragment extends Fragment {
         occurrenceController.setIntervaInlMonths(finalIntervalInMonths);
         occurrenceController.setLastEditDate(date);
         occurrenceController.setControllDate(date);
+        occurrenceController.setLastEditIndex(occurrence.getIndex());
         occurrenceController.setControllIndex(occurrence.getIndex());
         occurrenceController.setName(name);
         occurrenceController.setValue(finalValue);
@@ -626,6 +629,7 @@ public class AddEditFragment extends Fragment {
         OccurrenceService.update(occurrence);
 
         occurrenceController.setLastEditDate(date);
+        occurrenceController.setLastEditIndex(occurrence.getIndex());
         OccurrenceControllerService.update(occurrenceController);
 
         PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
