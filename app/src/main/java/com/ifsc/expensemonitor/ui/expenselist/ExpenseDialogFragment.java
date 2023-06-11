@@ -97,22 +97,54 @@ public class ExpenseDialogFragment extends DialogFragment {
         });
 
         deleteButton.setOnClickListener(v -> {
-            new MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Excluir despesa")
-                    .setMessage("Deseja excluir todas as despesas, apenas essa ou todas as seguintes?")
-                    .setPositiveButton("Todas as seguintes", (dialog, which) -> {
-                        deleteAllFollowingOccurrences(occurrence);
-                        dismiss();
-                    })
-                    .setNeutralButton("Apenas essa", (dialog, which) -> {
-                        deleteOnlyThis(occurrence);
-                        dismiss();
-                    })
-                    .setNegativeButton("Todas", (dialog, which) -> {
-                        deleteAllOccurrences(occurrence);
-                        dismiss();
-                    })
-                    .show();
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
+
+            DatabaseReference controllerRef = FirebaseSettings.getOccurrenceControllersReference().child(occurrence.getGroupId());
+            controllerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    OccurrenceController controller = snapshot.getValue(OccurrenceController.class);
+                    if (controller != null) {
+                        builder.setTitle("Excluir despesa");
+
+                        Runnable positiveAction = () -> {
+                            deleteOnlyThis(occurrence);
+                            dismiss();
+                        };
+
+                        if (controller.getMaxOccurrences() == 1) {
+                            builder.setMessage("Deseja excluir esta despesa?")
+                                    .setPositiveButton("Sim", (dialog, which) -> positiveAction.run())
+                                    .setNegativeButton("Não", (dialog, which) -> dismiss());
+                        } else if (occurrence.getIndex() == 0 || occurrence.getIndex() + 1 == controller.getMaxOccurrences()) {
+                            builder.setMessage("Deseja excluir todas as despesas ou apenas esta?")
+                                    .setPositiveButton("Apenas esta", (dialog, which) -> positiveAction.run())
+                                    .setNegativeButton("Todas", (dialog, which) -> {
+                                        deleteAllOccurrences(occurrence);
+                                        dismiss();
+                                    });
+                        } else {
+                            builder.setMessage("Deseja excluir todas as despesas, todas as seguintes ou apenas esta?")
+                                    .setPositiveButton("Apenas esta", (dialog, which) -> positiveAction.run())
+                                    .setNeutralButton("Todas as seguintes", (dialog, which) -> {
+                                        deleteAllFollowingOccurrences(occurrence);
+                                        dismiss();
+                                    })
+                                    .setNegativeButton("Todas", (dialog, which) -> {
+                                        deleteAllOccurrences(occurrence);
+                                        dismiss();
+                                    });
+                        }
+
+                        builder.show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         });
 
         return new MaterialAlertDialogBuilder(requireContext())
