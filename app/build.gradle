@@ -52,12 +52,16 @@ dependencies {
     implementation "androidx.core:core:1.10.1"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     implementation "androidx.work:work-runtime:2.8.1"
 =======
 >>>>>>> 1e28f89 (correção de erro)
 =======
     implementation 'androidx.work:work-runtime:2.8.1'
 >>>>>>> e5aed21 (notificação.)
+=======
+    implementation "androidx.work:work-runtime:2.8.1"
+>>>>>>> 4eaf118 (notificação.)
 }
 
 configurations {

@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
@@ -33,12 +34,22 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
 >>>>>>> e5aed21 (notificação.)
+=======
+import com.ifsc.expensemonitor.notifications.NotificationWorker;
+
+import java.security.cert.CertPathBuilder;
+import java.util.concurrent.TimeUnit;
+
+public class MainActivity extends AppCompatActivity {
+
+>>>>>>> 4eaf118 (notificação.)
     public static NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         createNotificationChannel();
@@ -85,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(notificationId, builder.build());
 >>>>>>> d4fbed1 (botao de editar despesa)
 =======
+=======
+>>>>>>> 4eaf118 (notificação.)
         createNotificationChannel();
 
         PeriodicWorkRequest notificacaoWork = new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES).build();
@@ -95,14 +108,25 @@ public class MainActivity extends AppCompatActivity {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+<<<<<<< HEAD
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("notifications_channel", "Notifications", importance);
             channel.setDescription("Notifications");
+=======
+            CharSequence name = "";
+            String description = "";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifications_channel", name, importance);
+            channel.setDescription(description);
+>>>>>>> 4eaf118 (notificação.)
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+<<<<<<< HEAD
 >>>>>>> e5aed21 (notificação.)
+=======
+>>>>>>> 4eaf118 (notificação.)
     }
 }

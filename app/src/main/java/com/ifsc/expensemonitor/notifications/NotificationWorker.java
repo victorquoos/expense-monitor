@@ -60,6 +60,7 @@ public class NotificationWorker extends Worker {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     String message = overdueOccurrences == 1 ? " despesa atrasada!" : " despesas atrasadas!";
 >>>>>>> 63753d0 (correção do texto da notificação)
@@ -77,11 +78,20 @@ public class NotificationWorker extends Worker {
                     if (overdueOccurrences == 1) {
                         builder.setContentText("Você tem " + overdueOccurrences + " despesa atrasada!");
                     }
+=======
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
+                            .setSmallIcon(R.drawable.ic_circle)
+                            .setContentTitle("Expense Monitor")
+                            .setContentText("Você tem " + overdueOccurrences + " despesas atrasadas!")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true);
+>>>>>>> 4eaf118 (notificação.)
 
                     MainActivity.notificationManager.notify(1, builder.build());
                 }
 
                 if (pendingOccurrences > 0) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -97,6 +107,12 @@ public class NotificationWorker extends Worker {
                             .setSmallIcon(R.drawable.ic_money)
                             .setContentTitle("Expense Monitor")
                             .setContentText("Você tem " + pendingOccurrences + message)
+=======
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
+                            .setSmallIcon(R.drawable.ic_circle)
+                            .setContentTitle("Expense Monitor")
+                            .setContentText("Você tem " + pendingOccurrences + " despesas próximas do vencimento!")
+>>>>>>> 4eaf118 (notificação.)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setAutoCancel(true);
 
