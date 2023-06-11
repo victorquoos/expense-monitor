@@ -221,6 +221,7 @@ public class AddEditFragment extends Fragment {
                                 expenseParcelEditText.setText(String.valueOf(occurrenceController.getMaxOccurrences()));
                             } else if (occurrenceController.getMaxOccurrences() == -1) {
                                 expenseTypeButtonToggleGroup.check(R.id.recurringTypeButton);
+                                expenseParcelEditText.setText(String.valueOf(occurrence.getIndex()+1));
                             }
                             expenseIntervalInMonthsEditText.setText(String.valueOf(occurrenceController.getIntervaInlMonths()));
                         }
