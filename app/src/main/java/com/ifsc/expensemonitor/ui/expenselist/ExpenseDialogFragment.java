@@ -293,10 +293,14 @@ public class ExpenseDialogFragment extends DialogFragment {
                         for (DataSnapshot occurrenceSnapshot : monthSnapshot.getChildren()) {
                             if (Objects.equals(occurrenceSnapshot.child("groupId").getValue(), groupId)) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) >= index) {
 =======
                                 if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) > index) {
 >>>>>>> a1379b2 (edição e exclusão)
+=======
+                                if (Integer.parseInt(Objects.requireNonNull(occurrenceSnapshot.child("index").getValue()).toString()) >= index) {
+>>>>>>> 710f9ef (excluir todas as seguintes)
                                     occurrenceSnapshot.getRef().removeValue();
                                 }
                             }
