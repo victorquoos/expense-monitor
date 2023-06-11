@@ -1,18 +1,18 @@
 package com.ifsc.expensemonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.TypedValue;
 
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
@@ -24,12 +24,22 @@ public class MainActivity extends AppCompatActivity {
 
     private PreferenceUtils preferenceUtils;
 
+=======
+import com.ifsc.expensemonitor.notifications.NotificationWorker;
+
+import java.security.cert.CertPathBuilder;
+import java.util.concurrent.TimeUnit;
+
+public class MainActivity extends AppCompatActivity {
+
+>>>>>>> e5aed21 (notificação.)
     public static NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 <<<<<<< HEAD
         createNotificationChannel();
 
@@ -74,5 +84,25 @@ public class MainActivity extends AppCompatActivity {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(notificationId, builder.build());
 >>>>>>> d4fbed1 (botao de editar despesa)
+=======
+        createNotificationChannel();
+
+        PeriodicWorkRequest notificacaoWork = new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES).build();
+        WorkManager.getInstance(this).enqueue(notificacaoWork);
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifications_channel", "Notifications", importance);
+            channel.setDescription("Notifications");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+>>>>>>> e5aed21 (notificação.)
     }
 }

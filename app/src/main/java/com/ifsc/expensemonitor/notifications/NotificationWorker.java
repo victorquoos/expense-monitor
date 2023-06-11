@@ -58,9 +58,12 @@ public class NotificationWorker extends Worker {
 
                 if (overdueOccurrences > 0) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     String message = overdueOccurrences == 1 ? " despesa atrasada!" : " despesas atrasadas!";
 >>>>>>> 63753d0 (correção do texto da notificação)
+=======
+>>>>>>> e5aed21 (notificação.)
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
                             .setSmallIcon(R.drawable.ic_circle)
                             .setContentTitle("Expense Monitor")
@@ -73,9 +76,12 @@ public class NotificationWorker extends Worker {
 
                 if (pendingOccurrences > 0) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     String message = pendingOccurrences == 1 ? " despesa próxima do vencimento!" : " despesas próximas do vencimento!";
 >>>>>>> 63753d0 (correção do texto da notificação)
+=======
+>>>>>>> e5aed21 (notificação.)
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
                             .setSmallIcon(R.drawable.ic_circle)
                             .setContentTitle("Expense Monitor")
