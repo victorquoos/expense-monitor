@@ -246,6 +246,7 @@ public class ExpenseDialogFragment extends DialogFragment {
                             occurrenceController.setMaxOccurrences(occurrenceController.getMaxOccurrences() - 1);
                         }
                         occurrenceController.setLastEditDate(occurrence.getDate());
+                        occurrenceController.setLastEditIndex(occurrence.getIndex());
 
                         OccurrenceControllerService.update(occurrenceController);
                     }

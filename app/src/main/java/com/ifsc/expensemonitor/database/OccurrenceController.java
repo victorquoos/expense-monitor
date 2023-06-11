@@ -17,6 +17,7 @@ public class OccurrenceController {
     private int intervaInlMonths;
     private SimpleDate lastEditDate;
     private SimpleDate controllDate;
+    private int lastEditIndex;
     private int controllIndex;
     private String name;
     private Long value;
@@ -24,6 +25,7 @@ public class OccurrenceController {
 
     public OccurrenceController() {
         controllIndex = 0;
+        lastEditIndex = 0;
     }
 
     public void generateOccurrences() {
@@ -51,7 +53,7 @@ public class OccurrenceController {
         // checa se ja chegou ao limite de ocorrencias
         if (maxOccurrences == -1 || controllIndex < maxOccurrences) {
             // checa se ja gerou pelo menos 3 ocorrencias
-            if (controllIndex < 3) {
+            if (controllIndex < lastEditIndex + 3) {
                 return true;
             }
             // checa se ja gerou pelo menos 1 ano de ocorrencias após a ultima editada
@@ -115,6 +117,14 @@ public class OccurrenceController {
 
     public void setControllDate(SimpleDate controllDate) {
         this.controllDate = controllDate;
+    }
+
+    public int getLastEditIndex() {
+        return lastEditIndex;
+    }
+
+    public void setLastEditIndex(int lastEditIndex) {
+        this.lastEditIndex = lastEditIndex;
     }
 
     public int getControllIndex() {
