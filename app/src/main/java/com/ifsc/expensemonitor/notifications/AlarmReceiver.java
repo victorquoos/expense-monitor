@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.MainActivity;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.SplashActivity;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
@@ -36,6 +37,11 @@ import com.ifsc.expensemonitor.database.FirebaseSettings;
 import com.ifsc.expensemonitor.database.Occurrence;
 import com.ifsc.expensemonitor.database.SimpleDate;
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+import com.ifsc.expensemonitor.data.FirebaseSettings;
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.SimpleDate;
+>>>>>>> a13e763 (ajustes do merge)
 
 import java.util.Calendar;
 

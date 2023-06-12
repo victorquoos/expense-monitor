@@ -3,6 +3,7 @@
 package com.ifsc.expensemonitor.data;
 
 import java.util.Calendar;
+<<<<<<< HEAD
 =======
 package com.ifsc.expensemonitor.database;
 >>>>>>> 5f814f6 (checkpoint):app/src/main/java/com/ifsc/expensemonitor/database/OccurrenceController.java
@@ -20,6 +21,8 @@ import java.util.Objects;
 =======
 package com.ifsc.expensemonitor.data;
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+>>>>>>> a13e763 (ajustes do merge)
 
 public class OccurrenceController {
     private String groupId;

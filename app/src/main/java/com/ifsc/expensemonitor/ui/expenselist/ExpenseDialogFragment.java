@@ -32,6 +32,9 @@ import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.MoneyValue;
 import com.ifsc.expensemonitor.data.OccurrenceController;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a13e763 (ajustes do merge)
 import com.ifsc.expensemonitor.data.OccurrenceControllerService;
 import com.ifsc.expensemonitor.data.OccurrenceService;
 

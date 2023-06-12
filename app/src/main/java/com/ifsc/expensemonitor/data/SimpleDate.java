@@ -90,6 +90,7 @@ public class SimpleDate {
     @Exclude
     Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
+<<<<<<< HEAD
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
@@ -97,10 +98,16 @@ public class SimpleDate {
 =======
         calendar.set(Calendar.MONTH, month);
 >>>>>>> 0cdd0dd (ajuste na exibição da data):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
+=======
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+>>>>>>> a13e763 (ajustes do merge)
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         if (day > maxDay) {
             day = maxDay;
         }
+<<<<<<< HEAD
 <<<<<<< HEAD:app/src/main/java/com/ifsc/expensemonitor/data/SimpleDate.java
         calendar.set(Calendar.DAY_OF_MONTH, day);
 =======
@@ -108,6 +115,9 @@ public class SimpleDate {
         int offset = TimeZone.getDefault().getOffset(calendar.getTimeInMillis());
         calendar.setTimeInMillis(calendar.getTimeInMillis() + offset);
 >>>>>>> 0cdd0dd (ajuste na exibição da data):app/src/main/java/com/ifsc/expensemonitor/database/SimpleDate.java
+=======
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+>>>>>>> a13e763 (ajustes do merge)
         return calendar;
     }
 
