@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
 
@@ -25,14 +27,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("notifications_channel", "Notifications", importance);
             channel.setDescription("Notifications");
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
