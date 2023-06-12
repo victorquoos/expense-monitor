@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -40,7 +39,6 @@ import com.ifsc.expensemonitor.database.OccurrenceService;
 import com.ifsc.expensemonitor.database.SimpleDate;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddEditFragment extends Fragment {
@@ -223,6 +221,7 @@ public class AddEditFragment extends Fragment {
                                 expenseParcelEditText.setText(String.valueOf(occurrenceController.getMaxOccurrences()));
                             } else if (occurrenceController.getMaxOccurrences() == -1) {
                                 expenseTypeButtonToggleGroup.check(R.id.recurringTypeButton);
+                                expenseParcelEditText.setText(String.valueOf(occurrence.getIndex()+1));
                             }
                             expenseIntervalInMonthsEditText.setText(String.valueOf(occurrenceController.getIntervaInlMonths()));
                         }
@@ -284,7 +283,7 @@ public class AddEditFragment extends Fragment {
         }
 
         if (addMode) {
-            createController(maxOccurrences, intervalInMonths, date, name, value, description, view);
+            createNew(maxOccurrences, intervalInMonths, date, name, value, description, view);
         } else if (occurrence.getIndex()+1 == occurrenceController.getMaxOccurrences()) {
             editAllNext(maxOccurrences, intervalInMonths, date, name, value, description, view);
         } else {
@@ -301,7 +300,7 @@ public class AddEditFragment extends Fragment {
 
     }
 
-    private void createController(int maxOccurrences, int intervalInMonths, SimpleDate date, String name, Long value, String description, View view) {
+    private void createNew(int maxOccurrences, int intervalInMonths, SimpleDate date, String name, Long value, String description, View view) {
         OccurrenceController controller = new OccurrenceController();
         controller.setMaxOccurrences(maxOccurrences);
         controller.setIntervaInlMonths(intervalInMonths);
@@ -327,6 +326,7 @@ public class AddEditFragment extends Fragment {
         occurrenceController.setIntervaInlMonths(finalIntervalInMonths);
         occurrenceController.setLastEditDate(date);
         occurrenceController.setControllDate(date);
+        occurrenceController.setLastEditIndex(occurrence.getIndex());
         occurrenceController.setControllIndex(occurrence.getIndex());
         occurrenceController.setName(name);
         occurrenceController.setValue(finalValue);
@@ -358,8 +358,6 @@ public class AddEditFragment extends Fragment {
                 }
                 // atualiza o controller
                 OccurrenceControllerService.update(occurrenceController);
-                // gera as novas despesas
-                occurrenceController.generateOccurrences();
                 // volta para a tela de despesas
                 PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
                 pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
@@ -374,13 +372,16 @@ public class AddEditFragment extends Fragment {
     }
 
     private void editOnlyThis(SimpleDate date, String name, Long value, String description, View view) {
-        SimpleDate oldDate = occurrence.getDate().clone();
         occurrence.setName(name);
         occurrence.setValue(value);
         occurrence.setDate(date);
         occurrence.setDescription(description);
-
         OccurrenceService.update(occurrence);
+
+        occurrenceController.setLastEditDate(date);
+        occurrenceController.setLastEditIndex(occurrence.getIndex());
+        OccurrenceControllerService.update(occurrenceController);
+
         PagerViewModel pagerViewModel = new ViewModelProvider(requireActivity()).get(PagerViewModel.class);
         pagerViewModel.getTargetMonthYear().setValue(new MonthYear(selectedDate.getMonth(), selectedDate.getYear()));
         Navigation.findNavController(view).navigateUp();
