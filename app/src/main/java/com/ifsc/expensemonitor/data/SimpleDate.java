@@ -77,14 +77,14 @@ public class SimpleDate {
     @Exclude
     Calendar getCalendar() {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         if (day > maxDay) {
             day = maxDay;
         }
-        calendar.set(year, month, day);
-        int offset = TimeZone.getDefault().getOffset(calendar.getTimeInMillis());
-        calendar.setTimeInMillis(calendar.getTimeInMillis() + offset);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
         return calendar;
     }
 

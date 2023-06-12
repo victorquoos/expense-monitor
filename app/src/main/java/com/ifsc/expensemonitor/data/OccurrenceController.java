@@ -1,5 +1,7 @@
 package com.ifsc.expensemonitor.data;
 
+import java.util.Calendar;
+
 public class OccurrenceController {
     private String groupId;
     private int maxOccurrences;
