@@ -36,6 +36,7 @@
     <color name="md_theme_dark_primary">#3B558C</color> <!-- Ajustado -->
     <color name="md_theme_dark_onPrimary">#FFFFFF</color>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <color name="md_theme_dark_primaryContainer">#7690C6</color> <!-- Ajustado -->
     <color name="md_theme_dark_onPrimaryContainer">#FFFFFF</color>
     <color name="md_theme_dark_secondary">#39728F</color> <!-- Ajustado -->
@@ -48,6 +49,13 @@
     <color name="md_theme_dark_onSecondary">#FFFFFF</color>
     <color name="md_theme_dark_secondaryContainer">#39728F</color> <!-- Ajustado -->
 >>>>>>> fb51114 (muita coisa)
+=======
+    <color name="md_theme_dark_primaryContainer">#7690C6</color> <!-- Ajustado -->
+    <color name="md_theme_dark_onPrimaryContainer">#FFFFFF</color>
+    <color name="md_theme_dark_secondary">#39728F</color> <!-- Ajustado -->
+    <color name="md_theme_dark_onSecondary">#FFFFFF</color>
+    <color name="md_theme_dark_secondaryContainer">#81B4CD</color> <!-- Ajustado -->
+>>>>>>> 4c2d8fa (scroll to current month button)
     <color name="md_theme_dark_onSecondaryContainer">#FFFFFF</color>
     <color name="md_theme_dark_tertiary">#2F4B7C</color> <!-- Ajustado -->
     <color name="md_theme_dark_onTertiary">#FFFFFF</color>

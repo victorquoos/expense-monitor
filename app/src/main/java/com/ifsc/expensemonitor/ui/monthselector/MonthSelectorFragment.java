@@ -54,10 +54,14 @@ public class MonthSelectorFragment extends Fragment {
         year = AddEditFragmentArgs.fromBundle(getArguments()).getYear();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Botão para de voltar
 =======
         // Botão para voltar para o mês atual
 >>>>>>> fb51114 (muita coisa)
+=======
+        // Botão para de voltar
+>>>>>>> 4c2d8fa (scroll to current month button)
         materialToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         materialToolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
 
