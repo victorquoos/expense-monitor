@@ -59,17 +59,24 @@ public class NotificationWorker extends Worker {
                 if (overdueOccurrences > 0) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     String message = overdueOccurrences == 1 ? " despesa atrasada!" : " despesas atrasadas!";
 >>>>>>> 63753d0 (correção do texto da notificação)
 =======
 >>>>>>> e5aed21 (notificação.)
+=======
+                    String message = overdueOccurrences == 1 ? "despesa atrasada!" : "despesas atrasadas!";
+>>>>>>> 69a07ae (personalização da notificação)
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
-                            .setSmallIcon(R.drawable.ic_circle)
+                            .setSmallIcon(R.drawable.ic_money)
                             .setContentTitle("Expense Monitor")
-                            .setContentText("Você tem " + overdueOccurrences + " despesas atrasadas!")
+                            .setContentText("Você tem " + overdueOccurrences + message)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setAutoCancel(true);
+                    if (overdueOccurrences == 1) {
+                        builder.setContentText("Você tem " + overdueOccurrences + " despesa atrasada!");
+                    }
 
                     MainActivity.notificationManager.notify(1, builder.build());
                 }
@@ -77,15 +84,19 @@ public class NotificationWorker extends Worker {
                 if (pendingOccurrences > 0) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     String message = pendingOccurrences == 1 ? " despesa próxima do vencimento!" : " despesas próximas do vencimento!";
 >>>>>>> 63753d0 (correção do texto da notificação)
 =======
 >>>>>>> e5aed21 (notificação.)
+=======
+                    String message = pendingOccurrences == 1 ? "despesa próxima do vencimento!" : "despesas próximas do vencimento!";
+>>>>>>> 69a07ae (personalização da notificação)
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
-                            .setSmallIcon(R.drawable.ic_circle)
+                            .setSmallIcon(R.drawable.ic_money)
                             .setContentTitle("Expense Monitor")
-                            .setContentText("Você tem " + pendingOccurrences + " despesas próximas do vencimento!")
+                            .setContentText("Você tem " + pendingOccurrences + message)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setAutoCancel(true);
 
