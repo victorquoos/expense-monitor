@@ -53,7 +53,7 @@ public class MonthSelectorFragment extends Fragment {
         month = AddEditFragmentArgs.fromBundle(getArguments()).getMonth();
         year = AddEditFragmentArgs.fromBundle(getArguments()).getYear();
 
-        // Botão para voltar para o mês atual
+        // Botão para de voltar
         materialToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         materialToolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
 
@@ -83,6 +83,11 @@ public class MonthSelectorFragment extends Fragment {
                     monthsRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
+        });
+
+        // Botão para voltar para o mês atual
+        goToCurrentMonthButton.setOnClickListener(v -> {
+            scrollToCurrentMonth();
         });
 
         return view;
