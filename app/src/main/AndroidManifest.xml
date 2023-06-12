@@ -5,12 +5,17 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 =======
 >>>>>>> e5aed21 (notificação.)
 =======
 >>>>>>> 4eaf118 (notificação.)
+=======
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+>>>>>>> 2801656 (notificação as 8 da manha)
 
     <application
         android:allowBackup="true"
@@ -31,9 +36,17 @@
         </receiver>
 
 
+<<<<<<< HEAD
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
+=======
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme">
+>>>>>>> 2801656 (notificação as 8 da manha)
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

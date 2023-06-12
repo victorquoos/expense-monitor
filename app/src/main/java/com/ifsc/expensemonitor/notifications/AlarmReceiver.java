@@ -1,14 +1,20 @@
 package com.ifsc.expensemonitor.notifications;
 
+<<<<<<< HEAD
 import static android.content.Context.MODE_PRIVATE;
 
+=======
+>>>>>>> 2801656 (notificação as 8 da manha)
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.SharedPreferences;
+=======
+>>>>>>> 2801656 (notificação as 8 da manha)
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -19,11 +25,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.MainActivity;
 import com.ifsc.expensemonitor.R;
+<<<<<<< HEAD
 import com.ifsc.expensemonitor.SplashActivity;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.data.SimpleDate;
+=======
+import com.ifsc.expensemonitor.database.FirebaseSettings;
+import com.ifsc.expensemonitor.database.Occurrence;
+import com.ifsc.expensemonitor.database.SimpleDate;
+>>>>>>> 2801656 (notificação as 8 da manha)
 
 import java.util.Calendar;
 
@@ -33,6 +45,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+<<<<<<< HEAD
+=======
+        sendNotification(context, notificationManager, "Teste de notificação do alarm receiver", 0);
+
+>>>>>>> 2801656 (notificação as 8 da manha)
         DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
         occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -80,7 +97,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void sendNotification(Context context, NotificationManager notificationManager, String message, int id) {
         // Cria uma intenção que abrirá a MainActivity
+<<<<<<< HEAD
         Intent intent = new Intent(context, SplashActivity.class);
+=======
+        Intent intent = new Intent(context, MainActivity.class);
+>>>>>>> 2801656 (notificação as 8 da manha)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
@@ -98,6 +119,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public static void setAlarm(Context context) {
+<<<<<<< HEAD
         if (!isAlarmSet(context)) {
             System.out.println("LOG::: Configurando alarme");
             // Cria uma intenção para o AlarmReceiver
@@ -127,4 +149,25 @@ public class AlarmReceiver extends BroadcastReceiver {
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE) != null;
     }
 
+=======
+        // Cria uma intenção para o AlarmReceiver
+        Intent intent = new Intent(context, AlarmReceiver.class);
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        // Configura o tempo para as 8 da manhã
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+
+        // Configura o alarme para disparar todos os dias às 8 da manhã
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+        }
+    }
+
+>>>>>>> 2801656 (notificação as 8 da manha)
 }

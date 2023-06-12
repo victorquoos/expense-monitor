@@ -20,4 +20,13 @@
     <string name="late">Atrasado</string>
     <string name="pending">Pendente</string>
     <string name="paid">Pago</string>
+<<<<<<< HEAD
+=======
+    <string name="title_activity_main">MainActivity</string>
+    <string name="notification_overdue_singular">Você tem %d despesa atrasada!</string>
+    <string name="notification_overdue_plural">Você tem %d despesas atrasadas!</string>
+    <string name="notification_pending_singular">Você tem %d despesa próxima do vencimento!</string>
+    <string name="notification_pending_plural">Você tem %d despesas próximas do vencimento!</string>
+
+>>>>>>> 2801656 (notificação as 8 da manha)
 </resources>
