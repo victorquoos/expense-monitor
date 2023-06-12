@@ -16,9 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.MainActivity;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
-import com.ifsc.expensemonitor.database.Occurrence;
-import com.ifsc.expensemonitor.database.SimpleDate;
+import com.ifsc.expensemonitor.data.FirebaseSettings;
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.SimpleDate;
 
 import java.util.Calendar;
 
