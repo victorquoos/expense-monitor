@@ -6,9 +6,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseSettings {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     private static DatabaseReference userReference;
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+>>>>>>> fb51114 (muita coisa)
 
     public static FirebaseDatabase getFirebaseDatabase() { //TODO: substituir por FirebaseDatabase.getInstance()
         return FirebaseDatabase.getInstance();
@@ -16,11 +19,15 @@ public class FirebaseSettings {
 
     public static DatabaseReference getUserReference() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fb51114 (muita coisa)
         DatabaseReference userReference = getFirebaseDatabase()
                 .getReference()
                 .child("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+<<<<<<< HEAD
 =======
         if (userReference == null) {
             userReference = getFirebaseDatabase()
@@ -29,6 +36,8 @@ public class FirebaseSettings {
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         }
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+>>>>>>> fb51114 (muita coisa)
         return userReference;
     }
 

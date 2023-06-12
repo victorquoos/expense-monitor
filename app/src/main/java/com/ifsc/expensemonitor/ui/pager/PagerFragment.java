@@ -155,11 +155,17 @@ public class PagerFragment extends Fragment {
         optionsButton.setOnClickListener(v -> showOptionsPopup());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Tela de configurações
         settingsButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_pagerFragment_to_settingsFragment));
 
 =======
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+        // Tela de configurações
+        settingsButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_pagerFragment_to_settingsFragment));
+
+>>>>>>> fb51114 (muita coisa)
         return view;
     }
 

@@ -17,10 +17,14 @@
             android:layout_marginBottom="16dp"
             android:text="Opções"
 <<<<<<< HEAD
+<<<<<<< HEAD
             android:textColor="?attr/colorControlNormal"
 =======
             android:textColor="?attr/colorPrimary"
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+            android:textColor="?attr/colorControlNormal"
+>>>>>>> fb51114 (muita coisa)
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -36,10 +40,14 @@
                 android:layout_height="wrap_content"
                 android:text="Ordenar por data"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:textColor="?attr/colorOnSurface" />
 =======
                 android:textColor="?attr/colorControlNormal" />
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+                android:textColor="?attr/colorOnSurface" />
+>>>>>>> fb51114 (muita coisa)
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/sortByValueAscRadioButton"
@@ -47,10 +55,14 @@
                 android:layout_height="wrap_content"
                 android:text="Ordenar por valor (crescente)"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:textColor="?attr/colorOnSurface" />
 =======
                 android:textColor="?attr/colorControlNormal" />
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+                android:textColor="?attr/colorOnSurface" />
+>>>>>>> fb51114 (muita coisa)
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/sortByValueDescRadioButton"
@@ -58,10 +70,14 @@
                 android:layout_height="wrap_content"
                 android:text="Ordenar por valor (decrescente)"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 android:textColor="?attr/colorOnSurface" />
 =======
                 android:textColor="?attr/colorControlNormal" />
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+                android:textColor="?attr/colorOnSurface" />
+>>>>>>> fb51114 (muita coisa)
 
         </RadioGroup>
 
@@ -71,10 +87,14 @@
             android:layout_height="wrap_content"
             android:text="Mover pagos para o final"
 <<<<<<< HEAD
+<<<<<<< HEAD
             android:textColor="?attr/colorOnSurface" />
 =======
             android:textColor="?attr/colorControlNormal" />
 >>>>>>> 8e57fcd (iniciando menu de opções)
+=======
+            android:textColor="?attr/colorOnSurface" />
+>>>>>>> fb51114 (muita coisa)
 
     </LinearLayout>
 

@@ -19,11 +19,14 @@
             android:paddingHorizontal="0dp">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             <!-- TODO: Substituir por um toolbar personalizada semelhante ao occurrence list.
             contendo um valor para os TOTAIS AINDA NÃO PAGOS
             e talvez um outro valor como MÉDIA DOS ÚLTIMOS 12 MESES -->
 >>>>>>> 5f814f6 (checkpoint)
+=======
+>>>>>>> fb51114 (muita coisa)
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar"
                 android:layout_width="match_parent"

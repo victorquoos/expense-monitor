@@ -36,6 +36,9 @@ import com.ifsc.expensemonitor.MainActivity;
 import com.ifsc.expensemonitor.R;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fb51114 (muita coisa)
 import com.ifsc.expensemonitor.SplashActivity;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
@@ -62,10 +65,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         sendNotification(context, notificationManager, "Teste de notificação do alarm receiver", 0);
 
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+>>>>>>> fb51114 (muita coisa)
         DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
         occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -114,10 +120,14 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void sendNotification(Context context, NotificationManager notificationManager, String message, int id) {
         // Cria uma intenção que abrirá a MainActivity
 <<<<<<< HEAD
+<<<<<<< HEAD
         Intent intent = new Intent(context, SplashActivity.class);
 =======
         Intent intent = new Intent(context, MainActivity.class);
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+        Intent intent = new Intent(context, SplashActivity.class);
+>>>>>>> fb51114 (muita coisa)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
@@ -135,6 +145,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public static void setAlarm(Context context) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         if (!isAlarmSet(context)) {
@@ -176,10 +187,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         boolean isAlarmSet = preferences.getBoolean(PreferenceUtils.ALARM_SET, false);
 
         if (!isAlarmSet) {
+=======
+        if (!isAlarmSet(context)) {
+            System.out.println("LOG::: Configurando alarme");
+>>>>>>> fb51114 (muita coisa)
             // Cria uma intenção para o AlarmReceiver
             Intent intent = new Intent(context, AlarmReceiver.class);
 
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
             // Configura o tempo para as 8 da manhã
             Calendar calendar = Calendar.getInstance();
@@ -191,17 +206,24 @@ public class AlarmReceiver extends BroadcastReceiver {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                        AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+                        AlarmManager.INTERVAL_DAY, alarmIntent);
             }
-
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(PreferenceUtils.ALARM_SET, true);
-            editor.apply();
+        } else {
+            System.out.println("LOG::: Alarme já configurado");
         }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 >>>>>>> 2801656 (notificação as 8 da manha)
 =======
 >>>>>>> d6b8565 (preferencias padrão)
+=======
+
+    public static boolean isAlarmSet(Context context) {
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE) != null;
+    }
+
+>>>>>>> fb51114 (muita coisa)
 }

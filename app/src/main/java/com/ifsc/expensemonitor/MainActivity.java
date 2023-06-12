@@ -1,6 +1,7 @@
 package com.ifsc.expensemonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 <<<<<<< HEAD
 import android.app.NotificationChannel;
@@ -39,6 +40,7 @@ import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
+<<<<<<< HEAD
 >>>>>>> e5aed21 (notificação.)
 =======
 import com.ifsc.expensemonitor.notifications.NotificationWorker;
@@ -49,6 +51,10 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
 >>>>>>> 4eaf118 (notificação.)
+=======
+    private PreferenceUtils preferenceUtils;
+
+>>>>>>> fb51114 (muita coisa)
     public static NotificationManager notificationManager;
 
     @Override
@@ -107,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         AlarmReceiver.setAlarm(this);
+
+        preferenceUtils = new PreferenceUtils(this);
+
+        // Verifica o estado salvo do modo escuro e aplica-o quando o aplicativo abre
+        if (preferenceUtils.getDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     private void createNotificationChannel() {
