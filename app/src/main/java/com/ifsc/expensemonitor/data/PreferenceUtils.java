@@ -7,7 +7,7 @@ public class PreferenceUtils {
     public static final String PREFERENCES_NAME = "my_preferences";
     public static final String ORDINATION = "ordination";
     public static final String MOVE_PAID_TO_END = "move_paid_to_end";
-    public static final String ALARM_SET = "alarm_set";
+    public static final String DARK_MODE = "dark_mode";
 
     public static final String DEFAULT_ORDINATION = "date_asc";
     public static final boolean DEFAULT_MOVE_PAID_TO_END = false;
@@ -35,6 +35,10 @@ public class PreferenceUtils {
         if (!sharedPreferences.contains(MOVE_PAID_TO_END)) {
             setMovePaidToEnd(DEFAULT_MOVE_PAID_TO_END);
         }
+
+        if (!sharedPreferences.contains(DARK_MODE)) {
+            setDarkMode(false);  // por padrão, o modo escuro está desligado
+        }
     }
 
     public void setPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
@@ -60,6 +64,14 @@ public class PreferenceUtils {
 
     public boolean getMovePaidToEnd() {
         return sharedPreferences.getBoolean(MOVE_PAID_TO_END, true);
+    }
+
+    public void setDarkMode(boolean isEnabled) {
+        editor.putBoolean(DARK_MODE, isEnabled).apply();
+    }
+
+    public boolean getDarkMode() {
+        return sharedPreferences.getBoolean(DARK_MODE, false);
     }
 }
 
