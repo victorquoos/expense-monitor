@@ -1,11 +1,14 @@
 package com.ifsc.expensemonitor.notifications;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -18,6 +21,7 @@ import com.ifsc.expensemonitor.MainActivity;
 import com.ifsc.expensemonitor.R;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.data.SimpleDate;
 
 import java.util.Calendar;
@@ -95,23 +99,32 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public static void setAlarm(Context context) {
-        // Cria uma intenção para o AlarmReceiver
-        Intent intent = new Intent(context, AlarmReceiver.class);
 
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        SharedPreferences preferences = context.getSharedPreferences(PreferenceUtils.PREFERENCES_NAME, MODE_PRIVATE);
+        boolean isAlarmSet = preferences.getBoolean(PreferenceUtils.ALARM_SET, false);
 
-        // Configura o tempo para as 8 da manhã
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
+        if (!isAlarmSet) {
+            // Cria uma intenção para o AlarmReceiver
+            Intent intent = new Intent(context, AlarmReceiver.class);
 
-        // Configura o alarme para disparar todos os dias às 8 da manhã
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+
+            // Configura o tempo para as 8 da manhã
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            calendar.set(Calendar.MINUTE, 0);
+
+            // Configura o alarme para disparar todos os dias às 8 da manhã
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+            }
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PreferenceUtils.ALARM_SET, true);
+            editor.apply();
         }
     }
-
 }

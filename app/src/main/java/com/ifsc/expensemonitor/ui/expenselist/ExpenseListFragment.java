@@ -65,7 +65,7 @@ public class ExpenseListFragment extends Fragment {
             });
 
             mPreferenceUtils.setPreferenceChangeListener((sharedPreferences, key) -> {
-                if (PreferenceUtils.KEY_ORDENACAO.equals(key) || PreferenceUtils.KEY_MOVE_PAID_TO_END.equals(key)) {
+                if (PreferenceUtils.ORDINATION.equals(key) || PreferenceUtils.MOVE_PAID_TO_END.equals(key)) {
                     List<Occurrence> occurrences = mViewModel.getCurrentMonthOccurrences().getValue();
                     if (occurrences != null) {
                         sortList(occurrences);
