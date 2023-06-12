@@ -1,6 +1,4 @@
-package com.ifsc.expensemonitor.database;
-
-import com.google.firebase.database.Exclude;
+package com.ifsc.expensemonitor.data;
 
 public class Occurrence {
     private String id;

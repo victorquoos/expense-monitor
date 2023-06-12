@@ -1,11 +1,17 @@
 package com.ifsc.expensemonitor.ui.pager;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +24,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.ui.expenselist.ExpenseListFragment;
-import com.ifsc.expensemonitor.database.MonthYear;
+import com.ifsc.expensemonitor.data.MonthYear;
 
 import java.text.DateFormatSymbols;
 import java.util.List;
@@ -28,7 +35,7 @@ import java.util.Objects;
 public class PagerFragment extends Fragment {
     private PagerViewModel pagerViewModel;
     private TextView monthTextView, yearTextView;
-    private Button filtersButton, optionsButton, previousMonthButton, nextMonthButton, selectMonthButton;
+    private Button optionsButton, settingsButton, previousMonthButton, nextMonthButton, selectMonthButton;
     private FloatingActionButton addExpenseButton;
     private ViewPager2 viewPager;
     private boolean isLoading;
@@ -50,8 +57,8 @@ public class PagerFragment extends Fragment {
         selectMonthButton = view.findViewById(R.id.selectMonthButton);
         previousMonthButton = view.findViewById(R.id.previousMonthButton);
         nextMonthButton = view.findViewById(R.id.nextMonthButton);
-        filtersButton = view.findViewById(R.id.filtersButton);
         optionsButton = view.findViewById(R.id.optionsButton);
+        settingsButton = view.findViewById(R.id.settingsButton);
         addExpenseButton = view.findViewById(R.id.addExpenseButton);
         viewPager = view.findViewById(R.id.viewPager);
 
@@ -127,6 +134,9 @@ public class PagerFragment extends Fragment {
                     PagerFragmentDirections.actionPagerFragmentToAddEditFragment(month, year, "");
             Navigation.findNavController(v).navigate(action);
         });
+
+        // Pop up de opções
+        optionsButton.setOnClickListener(v -> showOptionsPopup());
 
         return view;
     }
@@ -208,6 +218,78 @@ public class PagerFragment extends Fragment {
 
         return pagerViewModel.getCurrentMonthIndex();
     }
+
+    private void showOptionsPopup() {
+        // Get the root view of the fragment or activity
+        ViewGroup rootView = (ViewGroup) requireView().getRootView();
+
+        // Inflate the popup layout with the root view as the parent
+        View popupView = getLayoutInflater().inflate(R.layout.view_options, rootView, false);
+
+        // Find the UI elements inside the popup
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        // Get the optionsButton from your fragment
+        RadioGroup radioGroupSort = popupView.findViewById(R.id.sortRadioGroup);
+        RadioButton radioSortDate = popupView.findViewById(R.id.sortByDateRadioButton);
+        RadioButton radioSortValueAsc = popupView.findViewById(R.id.sortByValueAscRadioButton);
+        RadioButton radioSortValueDesc = popupView.findViewById(R.id.sortByValueDescRadioButton);
+        CheckBox checkMovePaidToBottom = popupView.findViewById(R.id.movePaidToBottomCheckBox);
+
+        // Get the optionsButton from your fragment
+        Button optionsButton = requireView().findViewById(R.id.optionsButton);
+
+        // Calculate the display coordinates for the popup
+        int offsetX = optionsButton.getLeft();
+        int offsetY = optionsButton.getTop();
+
+        // Display the popup at the desired coordinates
+        popupWindow.showAsDropDown(optionsButton, offsetX, offsetY);
+
+        // Set the popup to close when the user taps outside of it
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Use the PreferenceUtils class to get the current settings
+        PreferenceUtils preferenceUtils = new PreferenceUtils(requireContext());
+        String ordenacao = preferenceUtils.getOrdenacao();
+        boolean movePaidToEnd = preferenceUtils.getMovePaidToEnd();
+
+        // Set the selected options in the popup
+        switch (ordenacao) {
+            case PreferenceUtils.SORT_DATE:
+                radioSortDate.setChecked(true);
+                break;
+            case PreferenceUtils.SORT_VALUE_ASC:
+                radioSortValueAsc.setChecked(true);
+                break;
+            case PreferenceUtils.SORT_VALUE_DESC:
+                radioSortValueDesc.setChecked(true);
+                break;
+        }
+
+        checkMovePaidToBottom.setChecked(movePaidToEnd);
+
+        // Apply the settings automatically
+        radioGroupSort.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.sortByDateRadioButton) {
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_DATE);
+            } else if (checkedId == R.id.sortByValueAscRadioButton) {
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_ASC);
+            } else if (checkedId == R.id.sortByValueDescRadioButton) {
+                preferenceUtils.setOrdenacao(PreferenceUtils.SORT_VALUE_DESC);
+            }
+        });
+
+        checkMovePaidToBottom.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preferenceUtils.setMovePaidToEnd(isChecked);
+        });
+    }
+
 }
-
-

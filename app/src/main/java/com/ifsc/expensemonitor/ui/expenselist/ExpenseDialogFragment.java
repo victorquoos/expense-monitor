@@ -21,12 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
-import com.ifsc.expensemonitor.database.Occurrence;
-import com.ifsc.expensemonitor.database.MoneyValue;
-import com.ifsc.expensemonitor.database.OccurrenceController;
-import com.ifsc.expensemonitor.database.OccurrenceControllerService;
-import com.ifsc.expensemonitor.database.OccurrenceService;
+import com.ifsc.expensemonitor.data.FirebaseSettings;
+import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.MoneyValue;
+import com.ifsc.expensemonitor.data.OccurrenceController;
+import com.ifsc.expensemonitor.data.OccurrenceService;
 
 import java.util.ArrayList;
 import java.util.Objects;

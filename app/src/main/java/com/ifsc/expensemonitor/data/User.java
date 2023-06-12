@@ -1,4 +1,4 @@
-package com.ifsc.expensemonitor.database;
+package com.ifsc.expensemonitor.data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;

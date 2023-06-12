@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.FirebaseSettings;
 
 public class SigninFragment extends Fragment {
 

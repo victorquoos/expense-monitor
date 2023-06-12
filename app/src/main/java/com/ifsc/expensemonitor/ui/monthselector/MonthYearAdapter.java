@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.ifsc.expensemonitor.R;
-import com.ifsc.expensemonitor.database.MoneyValue;
-import com.ifsc.expensemonitor.database.MonthYear;
+import com.ifsc.expensemonitor.data.MoneyValue;
+import com.ifsc.expensemonitor.data.MonthYear;
 import com.ifsc.expensemonitor.ui.pager.PagerViewModel;
 
 import java.text.DateFormatSymbols;
