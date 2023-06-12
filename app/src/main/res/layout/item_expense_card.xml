@@ -20,11 +20,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingEnd="@dimen/margin2"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/expenseStatusImageView"
-                android:layout_width="@dimen/margin4"
+                android:layout_width="@dimen/margin3"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
                 android:id="@+id/expenseNameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin2"
+                android:layout_marginStart="@dimen/margin3"
                 android:layout_marginTop="@dimen/margin2"
                 android:layout_marginEnd="@dimen/margin2"
                 android:text="Nome da despesa"
@@ -78,14 +79,13 @@
                 android:id="@+id/expenseStatusTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin2"
                 android:layout_marginBottom="@dimen/margin2"
                 android:text="Pago"
                 android:textAppearance="@style/CardText.Small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/expenseNameTextView"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/expenseStatusImageView"
+                app:layout_constraintStart_toStartOf="@+id/expenseNameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/expenseNameTextView" />
 
 

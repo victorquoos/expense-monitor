@@ -15,16 +15,14 @@
             style="@style/ToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="0dp">
 
-            <!-- TODO: Substituir por um toolbar personalizada semelhante ao occurrence list.
-            contendo um valor para os TOTAIS AINDA NÃO PAGOS
-            e talvez um outro valor como MÉDIA DOS ÚLTIMOS 12 MESES -->
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/menu_calendar"
+                app:menu="@menu/menu"
                 app:title="Selecionar Mês" />
 
         </LinearLayout>

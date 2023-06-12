@@ -118,7 +118,14 @@
                 android:name="year"
                 app:argType="integer" />
         </action>
+        <action
+            android:id="@+id/action_pagerFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ifsc.expensemonitor.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 
 </navigation>

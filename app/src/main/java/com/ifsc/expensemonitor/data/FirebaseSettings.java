@@ -5,19 +5,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseSettings {
-    private static DatabaseReference userReference;
 
     public static FirebaseDatabase getFirebaseDatabase() { //TODO: substituir por FirebaseDatabase.getInstance()
         return FirebaseDatabase.getInstance();
     }
 
     public static DatabaseReference getUserReference() {
-        if (userReference == null) {
-            userReference = getFirebaseDatabase()
-                    .getReference()
-                    .child("users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        }
+        DatabaseReference userReference = getFirebaseDatabase()
+                .getReference()
+                .child("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         return userReference;
     }
 

@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.ifsc.expensemonitor.MainActivity;
 import com.ifsc.expensemonitor.R;
+import com.ifsc.expensemonitor.SplashActivity;
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
@@ -31,8 +32,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        sendNotification(context, notificationManager, "Teste de notificação do alarm receiver", 0);
 
         DatabaseReference occurrencesRef = FirebaseSettings.getOccurrencesReference();
         occurrencesRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,7 +80,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void sendNotification(Context context, NotificationManager notificationManager, String message, int id) {
         // Cria uma intenção que abrirá a MainActivity
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
@@ -99,15 +98,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public static void setAlarm(Context context) {
-
-        SharedPreferences preferences = context.getSharedPreferences(PreferenceUtils.PREFERENCES_NAME, MODE_PRIVATE);
-        boolean isAlarmSet = preferences.getBoolean(PreferenceUtils.ALARM_SET, false);
-
-        if (!isAlarmSet) {
+        if (!isAlarmSet(context)) {
+            System.out.println("LOG::: Configurando alarme");
             // Cria uma intenção para o AlarmReceiver
             Intent intent = new Intent(context, AlarmReceiver.class);
 
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
             // Configura o tempo para as 8 da manhã
             Calendar calendar = Calendar.getInstance();
@@ -119,12 +115,16 @@ public class AlarmReceiver extends BroadcastReceiver {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                        AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+                        AlarmManager.INTERVAL_DAY, alarmIntent);
             }
-
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(PreferenceUtils.ALARM_SET, true);
-            editor.apply();
+        } else {
+            System.out.println("LOG::: Alarme já configurado");
         }
     }
+
+    public static boolean isAlarmSet(Context context) {
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE) != null;
+    }
+
 }

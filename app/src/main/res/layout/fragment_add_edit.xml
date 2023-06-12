@@ -21,7 +21,7 @@
                 android:id="@+id/materialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/menu_expenselist"
+                app:menu="@menu/menu"
                 app:title="Nova despesa" />
 
         </LinearLayout>
@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2"
-                    android:inputType="textPersonName"
+                    android:inputType="textPersonName|textCapSentences"
                     android:textAlignment="center" />
 
                 <TextView
@@ -204,7 +204,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin2"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine|textCapSentences" />
 
             </LinearLayout>
 

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Opções"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -31,21 +31,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ordenar por data"
-                android:textColor="?attr/colorControlNormal" />
+                android:textColor="?attr/colorOnSurface" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/sortByValueAscRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ordenar por valor (crescente)"
-                android:textColor="?attr/colorControlNormal" />
+                android:textColor="?attr/colorOnSurface" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/sortByValueDescRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ordenar por valor (decrescente)"
-                android:textColor="?attr/colorControlNormal" />
+                android:textColor="?attr/colorOnSurface" />
 
         </RadioGroup>
 
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mover pagos para o final"
-            android:textColor="?attr/colorControlNormal" />
+            android:textColor="?attr/colorOnSurface" />
 
     </LinearLayout>
 
