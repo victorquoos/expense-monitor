@@ -1,10 +1,15 @@
 package com.ifsc.expensemonitor.notifications;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import static android.content.Context.MODE_PRIVATE;
 
 =======
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+import static android.content.Context.MODE_PRIVATE;
+
+>>>>>>> d6b8565 (preferencias padrão)
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,9 +17,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.content.SharedPreferences;
 =======
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+import android.content.SharedPreferences;
+>>>>>>> d6b8565 (preferencias padrão)
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -40,6 +49,7 @@ import com.ifsc.expensemonitor.database.SimpleDate;
 =======
 import com.ifsc.expensemonitor.data.FirebaseSettings;
 import com.ifsc.expensemonitor.data.Occurrence;
+import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.data.SimpleDate;
 >>>>>>> a13e763 (ajustes do merge)
 
@@ -126,6 +136,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     public static void setAlarm(Context context) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (!isAlarmSet(context)) {
             System.out.println("LOG::: Configurando alarme");
             // Cria uma intenção para o AlarmReceiver
@@ -158,22 +169,39 @@ public class AlarmReceiver extends BroadcastReceiver {
 =======
         // Cria uma intenção para o AlarmReceiver
         Intent intent = new Intent(context, AlarmReceiver.class);
+=======
+>>>>>>> d6b8565 (preferencias padrão)
 
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        SharedPreferences preferences = context.getSharedPreferences(PreferenceUtils.PREFERENCES_NAME, MODE_PRIVATE);
+        boolean isAlarmSet = preferences.getBoolean(PreferenceUtils.ALARM_SET, false);
 
-        // Configura o tempo para as 8 da manhã
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
+        if (!isAlarmSet) {
+            // Cria uma intenção para o AlarmReceiver
+            Intent intent = new Intent(context, AlarmReceiver.class);
 
-        // Configura o alarme para disparar todos os dias às 8 da manhã
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
+
+            // Configura o tempo para as 8 da manhã
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            calendar.set(Calendar.MINUTE, 0);
+
+            // Configura o alarme para disparar todos os dias às 8 da manhã
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_HALF_DAY, alarmIntent);
+            }
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PreferenceUtils.ALARM_SET, true);
+            editor.apply();
         }
     }
+<<<<<<< HEAD
 
 >>>>>>> 2801656 (notificação as 8 da manha)
+=======
+>>>>>>> d6b8565 (preferencias padrão)
 }
