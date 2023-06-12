@@ -1,21 +1,15 @@
 package com.ifsc.expensemonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.ifsc.expensemonitor.notifications.NotificationWorker;
+import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
-import java.security.cert.CertPathBuilder;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         createNotificationChannel();
 
-        PeriodicWorkRequest notificacaoWork = new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES).build();
-        WorkManager.getInstance(this).enqueue(notificacaoWork);
+        AlarmReceiver.setAlarm(this);
     }
 
     private void createNotificationChannel() {
