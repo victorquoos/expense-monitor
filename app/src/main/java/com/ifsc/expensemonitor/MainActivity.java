@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceUtils = new PreferenceUtils(this);
 
-        // Verifica o estado salvo do modo escuro e aplica-o quando o aplicativo abre
         if (preferenceUtils.getDarkMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
