@@ -57,26 +57,21 @@ public class NotificationWorker extends Worker {
                 }
 
                 if (overdueOccurrences > 0) {
-                    String message = overdueOccurrences == 1 ? "despesa atrasada!" : "despesas atrasadas!";
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
-                            .setSmallIcon(R.drawable.ic_money)
+                            .setSmallIcon(R.drawable.ic_circle)
                             .setContentTitle("Expense Monitor")
-                            .setContentText("Você tem " + overdueOccurrences + message)
+                            .setContentText("Você tem " + overdueOccurrences + " despesas atrasadas!")
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setAutoCancel(true);
-                    if (overdueOccurrences == 1) {
-                        builder.setContentText("Você tem " + overdueOccurrences + " despesa atrasada!");
-                    }
 
                     MainActivity.notificationManager.notify(1, builder.build());
                 }
 
                 if (pendingOccurrences > 0) {
-                    String message = pendingOccurrences == 1 ? "despesa próxima do vencimento!" : "despesas próximas do vencimento!";
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifications_channel")
-                            .setSmallIcon(R.drawable.ic_money)
+                            .setSmallIcon(R.drawable.ic_circle)
                             .setContentTitle("Expense Monitor")
-                            .setContentText("Você tem " + pendingOccurrences + message)
+                            .setContentText("Você tem " + pendingOccurrences + " despesas próximas do vencimento!")
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setAutoCancel(true);
 
