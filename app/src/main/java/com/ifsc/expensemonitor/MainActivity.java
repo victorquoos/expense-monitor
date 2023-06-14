@@ -3,7 +3,6 @@ package com.ifsc.expensemonitor;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-<<<<<<< HEAD
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
@@ -14,9 +13,6 @@ import android.os.Bundle;
 import com.ifsc.expensemonitor.data.PreferenceUtils;
 import com.ifsc.expensemonitor.notifications.AlarmReceiver;
 
-=======
-import android.os.Bundle;
->>>>>>> 8e57fcd (iniciando menu de opções)
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,18 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "";
-            String description = "";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-<<<<<<< HEAD
-            NotificationChannel channel = new NotificationChannel("notifications_channel", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-=======
             NotificationChannel channel = new NotificationChannel("notifications_channel", "Notifications", importance);
             channel.setDescription("Notifications");
->>>>>>> d6b8565 (preferencias padrão)
             notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
