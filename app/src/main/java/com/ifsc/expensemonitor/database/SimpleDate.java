@@ -128,6 +128,12 @@ public class SimpleDate {
         return new SimpleDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
+    public SimpleDate plusDays(int days) {
+        Calendar calendar = getCalendar();
+        calendar.add(Calendar.DAY_OF_MONTH, days);
+        return new SimpleDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
     @Exclude
     public int compareTo(SimpleDate date) {
         if (year < date.getYear()) {
