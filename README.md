@@ -60,27 +60,7 @@ Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/o
 # Calendário de Despesas
 ![Calendário de Despesas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Calendario.jpeg)
 
-# Formato da database
-
-foto do firebase aqui
-
 ## Linguagens, dependencias e libs utilizadas
 
 [Andoid SDK](https://developer.android.com/studio)
 
-## Desenvolvedores
-
-[<img src="./images/koos.jpeg" width=90 height=90><br><sub>Victor Quoos</sub>](https://github.com/Diana-ops)
-
-
-[<img src="./images/biel.jpeg" width=90 height=90><br><sub>Gabriel Dziecinny</sub>](https://github.com/Diana-ops) 
-
-
-[<img src="./images/sasa.jpeg" width=90 height=90><br><sub>Samuel Baron</sub>](https://github.com/Diana-ops)
-
-
-## Licença 
-
-The [MIT License]() (MIT)
-
-Copyright :copyright: 2023 - Expense Monitor
