@@ -11,14 +11,6 @@
 
 🏃 - [Como rodar a aplicação](#como-rodar-a-aplicação)
 
-📱 - [Telas](#telas)
-
-🖥️ - [Formato da database](#formato-da-database)
-
-📚 - [Linguagens, dependencias e libs utilizadas](#Linguagens,-dependencias-e-libs-utilizadas)
-
-🧍 - [Desenvolvedores](#Desenvolvedores)
-
 ## Descrição do projeto 
 
  Este projeto visa auxiliar as pessoas que precisam controlar suas despesas. Para que essas pessoas não atrasem ou esqueçam dos pagamentos que precisam fazer. Auxiliando o usuário a planejar de forma mais eficiente seus gastos futuros.
@@ -40,25 +32,6 @@
 ## Como rodar a aplicação
 
 Baixe o release mais recente dísponivel [aqui](https://github.com/victorquoos/occurrence-monitor/releases) e instale no seu dispositivo android
-
-## Telas:
-
-# Tela de Boas Vindas
-![Tela de Boas Vindas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Bem-Vindo.jpeg)
-
-# Tela de Cadastro e Login
-![Tela de Cadastro](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Cadastre-se.jpeg)
-
-![Tela de Login](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Login.jpeg)
-
-# Menu de Despesas
-![Menu de Despesas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Menu.jpeg)
-
-# Criação de Despesa
-![Criação de Despesa](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Despesa.jpeg)
-
-# Calendário de Despesas
-![Calendário de Despesas](https://github.com/victorquoos/occurrence-monitor/blob/main/images/Calendario.jpeg)
 
 ## Linguagens, dependencias e libs utilizadas
 
